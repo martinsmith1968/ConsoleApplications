@@ -1,7 +1,8 @@
+using System.Security.AccessControl;
 using Ookii.CommandLine;
-using PauseN.Configuration;
+using DisplaySettings.Configuration;
 
-namespace PauseN;
+namespace DisplaySettings;
 
 internal class Program
 {
@@ -11,7 +12,6 @@ internal class Program
         {
             var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
                             ?? throw new Exception("Unable to Parse Command Line");
-            arguments.Validate();
 
             await Process(arguments);
         }
@@ -26,21 +26,19 @@ internal class Program
 
     private static async Task Process(Arguments arguments)
     {
-        await Console.Out.WriteAsync(arguments.DisplayText);
-
-        var timeoutDate = DateTime.UtcNow.AddSeconds(arguments.TimeoutSeconds);
-
-        while (DateTime.UtcNow < timeoutDate)
+        switch (arguments.Command)
         {
-            if (Console.KeyAvailable)
-            {
-                Console.ReadKey(true);
-                break;
-            }
+            case CommandType.View:
+                await ViewDisplaySettings(arguments);
+                return;
 
-            Thread.Sleep(TimeSpan.FromMilliseconds(100));
+            default:
+                throw new ArgumentOutOfRangeException(nameof(arguments.Command));
         }
+    }
 
-        await Console.Out.WriteLineAsync();
+    private static async Task ViewDisplaySettings(Arguments arguments)
+    {
+
     }
 }

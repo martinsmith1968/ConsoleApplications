@@ -27,11 +27,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{BCAB3518
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PauseN", "apps\PauseN\PauseN.csproj", "{B9857D06-7F57-4333-A321-36C31B5C29A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PauseN", "apps\PauseN\PauseN.csproj", "{B9857D06-7F57-4333-A321-36C31B5C29A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTimer", "apps\BackgroundTimer\BackgroundTimer.csproj", "{3E1BF7DE-F257-4261-9B20-11440E0F4418}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundTimer", "apps\BackgroundTimer\BackgroundTimer.csproj", "{3E1BF7DE-F257-4261-9B20-11440E0F4418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplications.Common", "libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj", "{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApplications.Common", "libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj", "{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IniFileHandler", "apps\IniFileHandler\IniFileHandler.csproj", "{408B44EC-3AD3-409A-933F-AAECCD0DDD1B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomlFileHandler", "apps\TomlFileHandler\TomlFileHandler.csproj", "{CA9BDA99-CC35-424E-97BB-8E724B5ACCD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisplaySettings", "apps\DisplaySettings\DisplaySettings.csproj", "{7897EF18-99B1-477D-AB41-C2F6B238F795}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +61,18 @@ Global
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408B44EC-3AD3-409A-933F-AAECCD0DDD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408B44EC-3AD3-409A-933F-AAECCD0DDD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408B44EC-3AD3-409A-933F-AAECCD0DDD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408B44EC-3AD3-409A-933F-AAECCD0DDD1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA9BDA99-CC35-424E-97BB-8E724B5ACCD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9BDA99-CC35-424E-97BB-8E724B5ACCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9BDA99-CC35-424E-97BB-8E724B5ACCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9BDA99-CC35-424E-97BB-8E724B5ACCD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7897EF18-99B1-477D-AB41-C2F6B238F795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7897EF18-99B1-477D-AB41-C2F6B238F795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7897EF18-99B1-477D-AB41-C2F6B238F795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7897EF18-99B1-477D-AB41-C2F6B238F795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +82,9 @@ Global
 		{B9857D06-7F57-4333-A321-36C31B5C29A6} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{3E1BF7DE-F257-4261-9B20-11440E0F4418} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC} = {F5821EE5-3F0A-4D69-B506-7DD68CC652DF}
+		{408B44EC-3AD3-409A-933F-AAECCD0DDD1B} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
+		{CA9BDA99-CC35-424E-97BB-8E724B5ACCD8} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
+		{7897EF18-99B1-477D-AB41-C2F6B238F795} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C85506CE-422F-4F69-AB29-BA611E771379}
