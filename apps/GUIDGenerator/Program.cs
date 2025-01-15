@@ -1,7 +1,15 @@
-using ConsoleApplications.Common.Configuration;
-using ConsoleApplications.Common.Services;
+using System.Text;
+using ConsoleApplications.Common.Application;
+using DNX.Helpers.Linq;
+using DNX.Helpers.Strings;
 using GUIDGenerator.Configuration;
-using Ookii.CommandLine;
+using GUIDGenerator.Services;
+using GUIDGenerator.Services.Converters;
+using GUIDGenerator.Services.Converters.Interfaces;
+using GUIDGenerator.Services.Generators;
+using GUIDGenerator.Services.Generators.Interfaces;
+using GUIDGenerator.Services.Types;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GUIDGenerator;
 
@@ -9,42 +17,109 @@ public class Program
 {
     public static async Task<int> Main(string[] args)
     {
-        try
-        {
-            var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
-                ?? throw new Exception("Unable to Parse Command Line");
-
-            arguments.Validate();
-
-            Enumerable.Range(1, arguments.Count)
-                .ToList()
-                .ForEach(async x => await GenerateAsync(arguments));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"ERROR: {e.Message}");
-            return 1;
-        }
-
-        return 0;
+        return await ApplicationBootstrapper.ExecuteAsync<Arguments>(
+            args,
+            ProcessAsync,
+            serviceProviderBuilder: ServiceProviderBuilder,
+            parserOptions: Arguments.Options
+        );
     }
 
-    private static async Task GenerateAsync(Arguments arguments)
+    private static IServiceProvider ServiceProviderBuilder()
     {
-        var value = GUIDCreator.Create();
+        var container = new ServiceCollection();
 
-        var formatOptions = new TextGUIDFormatOptions()
+        container.AddTransient<IGUIDGenerator, StandardGUIDGenerator>();
+        container.AddTransient<IGUIDGenerator, SequentialGUIDGenerator>();
+        container.AddTransient<IGUIDGenerator, EntityFrameworkGUIDGenerator>();
+        container.AddTransient<IGUIDGenerator, NHibernateGUIDCombGenerator>();
+
+        container.AddTransient<IGUIDConverter, TextGUIDConverter>();
+
+        container.AddTransient<IGUIDGeneratorFactory, GUIDGeneratorFactory>();
+
+        return container.BuildServiceProvider();
+    }
+
+    private static async Task ProcessAsync(Arguments arguments, IServiceProvider serviceProvider)
+    {
+        var generatorFactory = serviceProvider.GetRequiredService<IGUIDGeneratorFactory>();
+
+        var generator = generatorFactory.Create(arguments.Mode);
+        generator.Reset();
+
+        var converter = serviceProvider.GetRequiredService<IGUIDConverter>();
+
+        var iterator = arguments.Text.HasAny()
+            ? arguments.Text.Select(t => converter.GenerateFrom(t))
+            : Enumerable.Range(1, arguments.Count).Select(i => generator.Generate());
+
+        // TODO: Allow output to file ?
+        TextWriter outputWriter = Console.Out;
+
+        var clipboardValue = new StringBuilder((40 + arguments.Delimiter.Length) * iterator.Count());
+
+        var index = 0;
+        foreach (var guid in iterator)
         {
-            GUIDFormat = arguments.GUIDFormat,
-            Prefix = arguments.Prefix,
-            Suffix = arguments.Suffix,
-            CaseConversionType = arguments.CaseConversionType,
+            ++index;
+
+            var formattedValue = BuildDisplay(guid, index, arguments.DisplayText, arguments.Format, arguments.CaseConversionType);
+
+            if (arguments.CopyToClipboard)
+            {
+                if (index > 1)
+                    clipboardValue.Append(arguments.Delimiter);
+                clipboardValue.Append(formattedValue);
+            }
+
+            if (index > 1)
+                await outputWriter.WriteAsync(arguments.Delimiter);
+            await outputWriter.WriteAsync(formattedValue);
+        }
+
+        await outputWriter.WriteLineAsync();
+    }
+
+    private static string BuildDisplay(Guid guid, int index, string displayText, string format, GUIDCaseConversionType caseConversionType)
+    {
+        var guidValue = FormatGuid(guid, format);
+
+        guidValue = ConvertCase(guidValue, caseConversionType);
+
+        var textValue = ReplaceTextValues(displayText, index, guidValue);
+
+        return textValue;
+    }
+
+    private static string ReplaceTextValues(string displayText, int index, string guidValue)
+    {
+        if (!displayText.Contains(Arguments.FORMAT_PLACEHOLDER_GUID_PREFIX))
+            displayText += Arguments.FORMAT_PLACEHOLDER_GUID;
+
+        var stringFormat = displayText
+                .Replace(Arguments.FORMAT_PLACEHOLDER_INDEX_PREFIX, "{0")
+                .Replace(Arguments.FORMAT_PLACEHOLDER_GUID_PREFIX, "{1")
+            ;
+
+        var textValue = string.Format(stringFormat, index, guidValue);
+        return textValue;
+    }
+
+    private static string FormatGuid(Guid guid, string format)
+    {
+        return format.IsNullOrEmpty()
+            ? guid.ToString()
+            : guid.ToString(format);
+    }
+
+    private static string ConvertCase(string value, GUIDCaseConversionType postProcessing)
+    {
+        return postProcessing switch
+        {
+            GUIDCaseConversionType.Lower => value.ToLower(),
+            GUIDCaseConversionType.Upper => value.ToUpper(),
+            _ => value
         };
-
-        var displayValue = TextGUIDFormatter.FormatGUID(value, formatOptions);
-
-        var writer = Console.Out;
-
-        await writer.WriteAsync(displayValue);
     }
 }

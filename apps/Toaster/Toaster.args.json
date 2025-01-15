@@ -1,0 +1,14 @@
+{
+  "FileVersion": 2,
+  "Id": "1d97c724-e78c-4fd8-b8f0-2680521a116e",
+  "Items": [
+    {
+      "Id": "b7dac975-40a7-4d13-968c-f067a90a4b7b",
+      "Command": "\"Hello World\""
+    },
+    {
+      "Id": "d494ac78-4448-49cd-920c-2a314ff538fb",
+      "Command": "-i \"My App\""
+    }
+  ]
+}

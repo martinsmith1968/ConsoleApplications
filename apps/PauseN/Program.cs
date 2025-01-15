@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using Ookii.CommandLine;
 using PauseN.Configuration;
 
 namespace PauseN;
@@ -10,11 +8,11 @@ internal class Program
     {
         try
         {
-            var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
+            var arguments = Arguments.Parse(args, Arguments.Options)
                             ?? throw new Exception("Unable to Parse Command Line");
             arguments.Validate();
 
-            await Process(arguments);
+            await ProcessAsync(arguments);
         }
         catch (Exception e)
         {
@@ -25,9 +23,9 @@ internal class Program
         return 0;
     }
 
-    private static async Task Process(Arguments arguments)
+    private static async Task ProcessAsync(Arguments arguments)
     {
-        Console.Write(arguments.DisplayText);
+        await Console.Out.WriteAsync(arguments.DisplayText);
 
         var timeoutDate = DateTime.UtcNow.AddSeconds(arguments.TimeoutSeconds);
 
@@ -39,9 +37,9 @@ internal class Program
                 break;
             }
 
-            Thread.Sleep(TimeSpan.FromMilliseconds(100));
+            Thread.Sleep(TimeSpan.FromMilliseconds(arguments.SleepMilliseconds));
         }
 
-        Console.WriteLine();
+        await Console.Out.WriteLineAsync();
     }
 }

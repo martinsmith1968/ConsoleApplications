@@ -1,22 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="GUIDGenerator.csproj.DotSettings" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Ookii.CommandLine" Version="3.1.1" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Update="Ookii.CommandLine" Version="4.2.0" />
+  </ItemGroup>
 </Project>

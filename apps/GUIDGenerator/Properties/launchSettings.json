@@ -2,7 +2,7 @@
   "profiles": {
     "GUIDGenerator": {
       "commandName": "Project",
-      "commandLineArgs": "-c 20"
+      "commandLineArgs": "-c 5 -t \"Martin\" -t \"Smith\" -d \"{INDEX:00}: {GUID}\""
     }
   }
 }

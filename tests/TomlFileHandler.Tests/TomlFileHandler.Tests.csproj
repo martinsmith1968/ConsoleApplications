@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\TestData1.toml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\apps\TomlFileHandler\TomlFileHandler.csproj" />
+  </ItemGroup>
+
+</Project>

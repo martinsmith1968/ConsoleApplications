@@ -1,24 +1,27 @@
 using System.ComponentModel;
 using Ookii.CommandLine;
+using Ookii.CommandLine.Terminal;
 
 // ReSharper disable InconsistentNaming
 
 namespace PauseN.Configuration;
 
-public class Arguments
+[GeneratedParser]
+public partial class Arguments
 {
     public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
 
     [Description("How long to wait (in seconds) before continuing")]
+    [Alias("w")]
     [CommandLineArgument(IsRequired = false, Position = 1, DefaultValue = 10)]
     public int TimeoutSeconds { get; set; }
 
     [Description("The text to display")]
     [Alias("t")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = $"Press any key to continue (or wait {PlaceHolder_TimeoutSeconds} seconds)")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = $"Press any key to continue (or wait {PlaceHolder_TimeoutSeconds} seconds) . . . ")]
     public string Text { get; set; } = "";
 
-    [Description("How long to wait (in seconds) before continuing")]
+    [Description("How long to wait (in milliseconds) between checking for keypress (NOTE: Only use in the event of issues)")]
     [Alias("s")]
     [CommandLineArgument(IsRequired = false, DefaultValue = 100)]
     public int SleepMilliseconds { get; set; }
@@ -33,19 +36,20 @@ public class Arguments
         .Replace(PlaceHolder_TimeoutSeconds, TimeoutSeconds.ToString())
         ;
 
-
-
     public static ParseOptions Options => new()
     {
-        AutoHelpArgument = true,
-        AutoVersionArgument = true,
-        //DuplicateArguments     = ErrorMode.Error,
+        AutoHelpArgument         = true,
+        AutoVersionArgument      = true,
+        DuplicateArguments       = ErrorMode.Error,
         //Mode                   = ParsingMode.LongShort,
         //LongArgumentNamePrefix = "--",
         //ArgumentNamePrefixes   = new[] { "/", "-" },
-        ShowUsageOnError = UsageHelpRequest.Full,
+        ShowUsageOnError         = UsageHelpRequest.Full,
         //NameValueSeparator     = ':',
-        //Error                  = Console.Error,
-        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
+        Error                    = Console.Error,
+        UsageWriter              = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
+        UseErrorColor            = true,
+        ErrorColor               = TextFormat.BrightForegroundRed,
+        WarningColor             = TextFormat.BrightForegroundYellow,
     };
 }

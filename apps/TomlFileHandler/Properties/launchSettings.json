@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TomlFileHandler": {
+      "commandName": "Project",
+      "commandLineArgs": "SET -f shit.toml -s database -n server -v somehost"
+    }
+  }
+}
