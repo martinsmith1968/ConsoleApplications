@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTimer", "apps\Bac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplications.Common", "libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj", "{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialFolders", "apps\SpecialFolders\SpecialFolders.csproj", "{27B2693A-0CEC-FF9A-CDAB-A958CC5E452C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27B2693A-0CEC-FF9A-CDAB-A958CC5E452C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27B2693A-0CEC-FF9A-CDAB-A958CC5E452C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27B2693A-0CEC-FF9A-CDAB-A958CC5E452C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27B2693A-0CEC-FF9A-CDAB-A958CC5E452C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{B9857D06-7F57-4333-A321-36C31B5C29A6} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{3E1BF7DE-F257-4261-9B20-11440E0F4418} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC} = {F5821EE5-3F0A-4D69-B506-7DD68CC652DF}
+		{27B2693A-0CEC-FF9A-CDAB-A958CC5E452C} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C85506CE-422F-4F69-AB29-BA611E771379}
