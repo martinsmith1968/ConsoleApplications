@@ -1,7 +1,7 @@
 using Ookii.CommandLine;
-using PauseN.Configuration;
+using PrintFormat.Configuration;
 
-namespace PauseN;
+namespace PrintFormat;
 
 internal class Program
 {
@@ -26,21 +26,11 @@ internal class Program
 
     private static async Task Process(Arguments arguments)
     {
-        await Console.Out.WriteAsync(arguments.DisplayText);
+        var args = arguments.FormatArguments
+            .Cast<object>()
+            .ToArray();
+        var text = string.Format(arguments.Format ?? string.Empty, args);
 
-        var timeoutDate = DateTime.UtcNow.AddSeconds(arguments.TimeoutSeconds);
-
-        while (DateTime.UtcNow < timeoutDate)
-        {
-            if (Console.KeyAvailable)
-            {
-                Console.ReadKey(true);
-                break;
-            }
-
-            Thread.Sleep(TimeSpan.FromMilliseconds(100));
-        }
-
-        await Console.Out.WriteLineAsync();
+        await Console.Out.WriteLineAsync(text);
     }
 }
