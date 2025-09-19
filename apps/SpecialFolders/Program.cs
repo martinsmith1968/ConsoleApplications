@@ -49,12 +49,11 @@ internal class Program
                 locationsText += Environment.NewLine;
             locationsText += Environment.GetFolderPath(sf.Key);
 
-            Console.Out.WriteLine("{0} : {1}",
-                arguments.AlignNames
-                    ? sf.ToString().PadRight(maxNameWith)
-                    : sf,
-                sf.Value
-            );
+            var sfName = arguments.AlignNames
+                ? sf.Key.ToString().PadRight(maxNameWith)
+                : sf.Key.ToString();
+
+            await Console.Out.WriteLineAsync($"{sfName} : {sf.Value}");
         }
     }
 }

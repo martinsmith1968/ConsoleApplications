@@ -22,7 +22,7 @@ public class Program
         }
         catch (Exception e)
         {
-            Console.WriteLine($"ERROR: {e.Message}");
+            await Console.Error.WriteLineAsync($"ERROR: {e.Message}");
             return 1;
         }
 

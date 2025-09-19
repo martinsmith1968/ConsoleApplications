@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Ookii.CommandLine;
 using PauseN.Configuration;
 
@@ -27,7 +26,7 @@ internal class Program
 
     private static async Task Process(Arguments arguments)
     {
-        Console.Write(arguments.DisplayText);
+        await Console.Out.WriteAsync(arguments.DisplayText);
 
         var timeoutDate = DateTime.UtcNow.AddSeconds(arguments.TimeoutSeconds);
 
@@ -42,6 +41,6 @@ internal class Program
             Thread.Sleep(TimeSpan.FromMilliseconds(100));
         }
 
-        Console.WriteLine();
+        await Console.Out.WriteLineAsync();
     }
 }
