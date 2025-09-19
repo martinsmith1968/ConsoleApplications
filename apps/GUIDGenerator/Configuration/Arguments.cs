@@ -5,7 +5,7 @@ namespace GUIDGenerator.Configuration;
 
 public class Arguments
 {
-    [Alias("c")]
+    [Alias("n")]
     [CommandLineArgument(IsRequired = false, DefaultValue = 1)]
     public int Count { get; set; }
 
@@ -14,16 +14,20 @@ public class Arguments
     public string Prefix { get; set; } = "";
 
     [Alias("s")]
-    [CommandLineArgument(IsRequired = false)]
-    public string Suffix { get; set; } = Environment.NewLine;
+    [CommandLineArgument(IsRequired = false, DefaultValue = "\r\n")]
+    public string Suffix { get; set; } = "";
 
     [Alias("fmt")]
     [CommandLineArgument(IsRequired = false, DefaultValue = "")]
     public string GUIDFormat { get; set; } = "";
 
-    [Alias("case")]
-    [CommandLineArgument(IsRequired = false)]
-    public GUIDCaseConversionType CaseConversionType { get; set; } = GUIDCaseConversionType.None;
+    [Alias("conv")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = GUIDCaseConversionType.None)]
+    public GUIDCaseConversionType CaseConversionType { get; set; }
+
+    [Alias("c")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+    public bool CopyToClipboard { get; set; }
 
     public void Validate()
     {
@@ -37,14 +41,6 @@ public class Arguments
         }
     }
 
-
-
-
-
-
-
-
-
     public static ParseOptions Options => new()
     {
         AutoHelpArgument       = true,
@@ -56,6 +52,6 @@ public class Arguments
         ShowUsageOnError       = UsageHelpRequest.Full,
         //NameValueSeparator     = ':',
         //Error                  = Console.Error,
-        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
+        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError()),
     };
 }

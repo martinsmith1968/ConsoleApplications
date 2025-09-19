@@ -31,7 +31,7 @@ public class Program
 
     private static async Task GenerateAsync(Arguments arguments)
     {
-        var value = GUIDCreator.Create();
+        var value = Guid.NewGuid();
 
         var formatOptions = new TextGUIDFormatOptions()
         {
