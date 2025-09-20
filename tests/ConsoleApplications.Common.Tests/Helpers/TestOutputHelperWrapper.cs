@@ -16,19 +16,18 @@ public class TestOutputHelperWrapper(ITestOutputHelper output) : TextWriter
         catch { }
     }
 
-    public override void WriteLine(string format, params object[] args)
+    public override void WriteLine(string format, params object?[] args)
     {
         output?.WriteLine("DEBUG:" + format, args);
     }
 
-    public override Encoding Encoding { get; }
+    public override Encoding Encoding { get; } = Encoding.UTF8;
 }
 
 public static class TestOutputHelperWrapperExtensions
 {
     public static void AttachTraceListeners(this ITestOutputHelper outputHelper)
     {
-        System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(new TestOutputHelperWrapper(outputHelper)));
-
+        Trace.Listeners.Add(new TextWriterTraceListener(new TestOutputHelperWrapper(outputHelper)));
     }
 }

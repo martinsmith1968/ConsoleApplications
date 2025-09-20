@@ -3,9 +3,24 @@
   "Id": "27b2693a-0cec-ff9a-cdab-a958cc5e452c",
   "Items": [
     {
-      "Id": "1b2188b3-dc7f-4988-9950-db5991b4fc70",
-      "Command": "List All",
-      "Items": []
+      "Id": "8f3b993d-c838-4fc5-98a1-b2ac1ceb07f0",
+      "Command": "-s Name"
+    },
+    {
+      "Id": "5db0f741-9cb5-4cbd-b2c9-e8528cfc8a51",
+      "Command": "CommonProgramFiles"
+    },
+    {
+      "Id": "411130b4-a9cc-4e10-b833-eca03c1f6f15",
+      "Command": "-s Location"
+    },
+    {
+      "Id": "37d32581-5bc5-4a65-8ddb-1001652f631d",
+      "Command": "-h"
+    },
+    {
+      "Id": "912af8c4-558a-4b91-a79e-b186f945991a",
+      "Command": "-c"
     }
   ]
 }

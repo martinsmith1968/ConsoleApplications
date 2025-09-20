@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Ookii.CommandLine;
+using SpecialFolders.Configuration.Types;
 
 // ReSharper disable InconsistentNaming
 
@@ -11,22 +12,22 @@ public class Arguments
 
     [Description("The Special Folder to show")]
     [CommandLineArgument(IsRequired = false, Position = 1, DefaultValue = null)]
-    public Environment.SpecialFolder? FolderName { get; set; }
+    public Environment.SpecialFolder? Name { get; set; }
 
-    [Description("Copy the Folder Location(s) to the clipboard")]
+    [Description("Collapse the Folder Names (Do not align)")]
     [Alias("c")]
     [CommandLineArgument(IsRequired = false, DefaultValue = false)]
-    public bool CopyToClipboard { get; set; }
-
-    [Description("Align the Folder Names")]
-    [Alias("a")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = true)]
-    public bool AlignNames { get; set; }
+    public bool CollapseNames { get; set; }
 
     [Description("Hide the Item with an empty folder location")]
     [Alias("h")]
     [CommandLineArgument(IsRequired = false, DefaultValue = false)]
     public bool HideEmptyLocation { get; set; }
+
+    [Description("Sort the results")]
+    [Alias("s")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = SortKey.None)]
+    public SortKey SortBy { get; set; }
 
     public void Validate()
     {
@@ -43,6 +44,6 @@ public class Arguments
         ShowUsageOnError = UsageHelpRequest.Full,
         //NameValueSeparator     = ':',
         //Error                  = Console.Error,
-        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
+        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError()),
     };
 }

@@ -1,15 +1,11 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUIDGenerator", "apps\GUIDGenerator\GUIDGenerator.csproj", "{0AF48C8D-6943-48B0-897E-6899FE25EC04}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{AE9ECE9E-2084-4E33-8064-5C9A880CF226}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{F5821EE5-3F0A-4D69-B506-7DD68CC652DF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{9B9261C5-BF7D-4876-8151-7353A70EA632}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci-build.yml = .github\workflows\ci-build.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".code", ".code", "{073DA081-D9E8-4019-9A0C-6A9B58D334F8}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,15 +13,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".code", ".code", "{073DA081
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{9B9261C5-BF7D-4876-8151-7353A70EA632}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".release", ".release", "{A2231B83-6EEE-4A89-8393-7061EE3550B8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{BCAB3518-2E75-4C20-A6B7-01655B5544B5}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".release", ".release", "{A2231B83-6EEE-4A89-8393-7061EE3550B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{AE9ECE9E-2084-4E33-8064-5C9A880CF226}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{F5821EE5-3F0A-4D69-B506-7DD68CC652DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUIDGenerator", "apps\GUIDGenerator\GUIDGenerator.csproj", "{0AF48C8D-6943-48B0-897E-6899FE25EC04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PauseN", "apps\PauseN\PauseN.csproj", "{B9857D06-7F57-4333-A321-36C31B5C29A6}"
 EndProject
@@ -40,6 +42,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIDGenerator.Tests", "tests\GUIDGenerator.Tests\GUIDGenerator.Tests.csproj", "{82F9E378-DBA7-4FE4-9D1C-667730C6E0EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplications.Common.Tests", "tests\ConsoleApplications.Common.Tests\ConsoleApplications.Common.Tests.csproj", "{F360168D-D361-4525-92D8-C29B66FDC168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintFormat.Tests", "tests\PrintFormat.Tests\PrintFormat.Tests.csproj", "{94041E72-0E08-2226-365E-F2CA23FDA459}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +83,10 @@ Global
 		{F360168D-D361-4525-92D8-C29B66FDC168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F360168D-D361-4525-92D8-C29B66FDC168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F360168D-D361-4525-92D8-C29B66FDC168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94041E72-0E08-2226-365E-F2CA23FDA459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94041E72-0E08-2226-365E-F2CA23FDA459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94041E72-0E08-2226-365E-F2CA23FDA459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94041E72-0E08-2226-365E-F2CA23FDA459}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +100,7 @@ Global
 		{7953FB3A-3D82-6B0F-AB7D-A4D0C6AB9F0B} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{82F9E378-DBA7-4FE4-9D1C-667730C6E0EC} = {267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}
 		{F360168D-D361-4525-92D8-C29B66FDC168} = {267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}
+		{94041E72-0E08-2226-365E-F2CA23FDA459} = {267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C85506CE-422F-4F69-AB29-BA611E771379}

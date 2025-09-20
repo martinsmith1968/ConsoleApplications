@@ -3,7 +3,7 @@ using PrintFormat.Configuration;
 
 namespace PrintFormat;
 
-internal class Program
+public class Program
 {
     public static async Task<int> Main(string[] args)
     {
@@ -27,10 +27,27 @@ internal class Program
     private static async Task Process(Arguments arguments)
     {
         var args = arguments.FormatArguments
-            .Cast<object>()
+            .Select(GetBestType)
             .ToArray();
         var text = string.Format(arguments.Format ?? string.Empty, args);
 
         await Console.Out.WriteLineAsync(text);
+    }
+
+    private static object GetBestType(string value)
+    {
+        if (decimal.TryParse(value, out var decimalResult))
+            return decimalResult;
+
+        if (int.TryParse(value, out var intResult))
+            return intResult;
+
+        if (DateOnly.TryParse(value, out var dateOnlyValue))
+            return dateOnlyValue;
+
+        if (DateTime.TryParse(value, out var dateTimeValue))
+            return dateTimeValue;
+
+        return value;
     }
 }
