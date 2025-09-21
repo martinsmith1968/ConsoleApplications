@@ -169,6 +169,7 @@ jobs:
 
     - name: Debug Working Folder
       run:
+        Get-Location
         Get-ChildItem -recurse -File | select-object { $_.FullName }
 
     #---------------------------------------------------------
