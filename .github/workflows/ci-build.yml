@@ -167,6 +167,10 @@ jobs:
     - name: Test
       run: dotnet test ${{ env.PROJECT_NAME }}.sln --no-restore -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}"
 
+    - name: Debug Working Folder
+      run:
+        Get-ChildItem -recurse -File | select-object { $_.FullName }
+
     #---------------------------------------------------------
     - name: Publish Apps
       run: |
