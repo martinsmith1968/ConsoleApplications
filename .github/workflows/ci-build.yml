@@ -180,6 +180,8 @@ jobs:
           dotnet publish "${project_filename}" -o "$($output_folder.FullName)" -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.executable_version }}" -p:DebugType=None -p:DebugSymbols=false  --self-contained -p:PublishSingleFile=true
         }
 
+        Get-ChildItem "$($output_folder.FullName)" -Recurse | Select-Object { $_.FullName }
+
     - name: Add files to output folder
       run: |
         Copy-Item "README.md" "${{ env.BUILD_OUTPUTFOLDER }}"
