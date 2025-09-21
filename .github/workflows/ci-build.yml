@@ -167,17 +167,14 @@ jobs:
     - name: Test
       run: dotnet test ${{ env.PROJECT_NAME }}.sln --no-restore -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}"
 
-    - name: Debug Working Folder
-      run: |
-        Get-Location
-        Get-ChildItem -recurse -File | select-object { $_.FullName }
-
     #---------------------------------------------------------
     - name: Publish Apps
       run: |
         $output_folder = New-Item -Name "${{ env.BUILD_OUTPUTFOLDER }}" -ItemType Directory -Force
 
-        $project_files = Get-ChildItem "apps" -Recurse -Filter *.csproj
+        $project_files = Get-ChildItem "apps" -Recurse -Filter *.csproj | select-object { $_.FullName }
+        Write-Host "Found: $($project_files.count) projects"
+
         foreach ($project_filename in $project_filenames) {
           Write-Host "----------------------------------------------------------------------------------------------------"
           Write-Host "Publishing: ${project_filename}"
