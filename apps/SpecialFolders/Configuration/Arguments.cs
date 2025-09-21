@@ -6,7 +6,8 @@ using SpecialFolders.Configuration.Types;
 
 namespace SpecialFolders.Configuration;
 
-public class Arguments
+[GeneratedParser]
+public partial class Arguments
 {
     public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
 

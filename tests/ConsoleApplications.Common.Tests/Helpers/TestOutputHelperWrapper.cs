@@ -6,7 +6,7 @@ namespace ConsoleApplications.Common.Tests.Helpers;
 
 public class TestOutputHelperWrapper(ITestOutputHelper output) : TextWriter
 {
-    public override void WriteLine(string message)
+    public override void WriteLine(string? message)
     {
         try
         {
