@@ -172,14 +172,14 @@ jobs:
       run: |
         $output_folder = New-Item -Name "${{ env.BUILD_OUTPUTFOLDER }}" -ItemType Directory -Force
 
-        $project_filenames = Get-ChildItem "apps" -Recurse -Filter *.csproj | select-object { $_.FullName }
+        $project_filenames = Get-ChildItem "apps" -Recurse -Filter *.csproj
         Write-Host "Found: $($project_files.count) projects"
 
         foreach ($project_filename in $project_filenames) {
           Write-Host "----------------------------------------------------------------------------------------------------"
-          Write-Host "Publishing: $($project_filename)"
+          Write-Host "Publishing: $($project_filename.FullName)"
 
-          dotnet publish "$($project_filename)" -o "$($output_folder.FullName)" -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.executable_version }}" -p:DebugType=None -p:DebugSymbols=false  --self-contained -p:PublishSingleFile=true
+          dotnet publish "$($project_filename.FullName)" -o "$($output_folder.FullName)" -c "${{ env.BUILD_CONFIG }}" -r "${{ env.BUILD_RUNTIME }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.executable_version }}" -p:DebugType=None -p:DebugSymbols=false --self-contained -p:PublishSingleFile=true
         }
 
     - name: Add files to output folder
