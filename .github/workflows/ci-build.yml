@@ -172,7 +172,7 @@ jobs:
       run: |
         $output_folder = New-Item -Name "${{ env.BUILD_OUTPUTFOLDER }}" -ItemType Directory -Force
 
-        $project_files = Get-ChildItem "apps" -Recurse -Filter *.csproj | select-object { $_.FullName }
+        $project_filenames = Get-ChildItem "apps" -Recurse -Filter *.csproj | select-object { $_.FullName }
         Write-Host "Found: $($project_files.count) projects"
 
         foreach ($project_filename in $project_filenames) {
