@@ -1,11 +1,13 @@
 using System.ComponentModel;
+using ConsoleApplications.Common.CommandLine;
 using Ookii.CommandLine;
 
 // ReSharper disable InconsistentNaming
 
 namespace PauseN.Configuration;
 
-public class Arguments
+[GeneratedParser]
+public partial class Arguments : CustomParseOptionsOverride
 {
     public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
 
@@ -35,7 +37,7 @@ public class Arguments
 
 
 
-    public static ParseOptions Options => new()
+    public static CustomParseOptions Options => new()
     {
         AutoHelpArgument = true,
         AutoVersionArgument = true,
@@ -46,6 +48,6 @@ public class Arguments
         ShowUsageOnError = UsageHelpRequest.Full,
         //NameValueSeparator     = ':',
         //Error                  = Console.Error,
-        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
+        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError()),
     };
 }

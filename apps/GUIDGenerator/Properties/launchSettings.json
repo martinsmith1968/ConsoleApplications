@@ -1,8 +1,7 @@
 {
   "profiles": {
     "GUIDGenerator": {
-      "commandName": "Project",
-      "commandLineArgs": "-c 20"
+      "commandName": "Project"
     }
   }
 }
