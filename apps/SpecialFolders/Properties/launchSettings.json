@@ -1,8 +1,7 @@
 {
   "profiles": {
     "PauseN": {
-      "commandName": "Project",
-      "commandLineArgs": "-s Name CommonProgramFiles"
+      "commandName": "Project"
     }
   }
 }

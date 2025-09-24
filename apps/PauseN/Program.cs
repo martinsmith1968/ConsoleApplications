@@ -1,4 +1,6 @@
-using Ookii.CommandLine;
+using System.CommandLine.Help;
+using ConsoleApplications.Common.CommandLine;
+using DotMake.CommandLine;
 using PauseN.Configuration;
 
 namespace PauseN;
@@ -9,11 +11,12 @@ internal class Program
     {
         try
         {
-            var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
-                            ?? throw new Exception("Unable to Parse Command Line");
-            arguments.Validate();
+            var parser = Cli.GetParser<Arguments>();
+            var result = await parser.RunAsync(args);
 
-            await Process(arguments);
+            //await Cli.RunAsync<Arguments>();
+
+            return result;
         }
         catch (Exception e)
         {
@@ -22,25 +25,5 @@ internal class Program
         }
 
         return 0;
-    }
-
-    private static async Task Process(Arguments arguments)
-    {
-        await Console.Out.WriteAsync(arguments.DisplayText);
-
-        var timeoutDate = DateTime.UtcNow.AddSeconds(arguments.TimeoutSeconds);
-
-        while (DateTime.UtcNow < timeoutDate)
-        {
-            if (Console.KeyAvailable)
-            {
-                Console.ReadKey(true);
-                break;
-            }
-
-            Thread.Sleep(TimeSpan.FromMilliseconds(100));
-        }
-
-        await Console.Out.WriteLineAsync();
     }
 }

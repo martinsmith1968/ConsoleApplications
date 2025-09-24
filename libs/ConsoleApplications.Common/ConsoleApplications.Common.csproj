@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
+    <PackageReference Include="DotMake.CommandLine" Version="2.8.0" />
   </ItemGroup>
 
 </Project>

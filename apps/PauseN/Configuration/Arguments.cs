@@ -1,28 +1,21 @@
-using System.ComponentModel;
-using ConsoleApplications.Common.CommandLine;
-using Ookii.CommandLine;
+using DotMake.CommandLine;
 
 // ReSharper disable InconsistentNaming
 
 namespace PauseN.Configuration;
 
-[GeneratedParser]
-public partial class Arguments : CustomParseOptionsOverride
+[CliCommand(Description = "Pause execution, optionally displaying a message")]
+public class Arguments
 {
-    public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
+    public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSecondsParameter#]";
 
-    [Description("How long to wait (in seconds) before continuing")]
-    [CommandLineArgument(IsRequired = false, Position = 1, DefaultValue = 10)]
-    public int TimeoutSeconds { get; set; }
+    [CliArgument(Description = "How long to wait (in seconds) before continuing", Order = 1, Arity = CliArgumentArity.ZeroOrOne, Required = false)]
+    public int TimeoutSeconds { get; set; } = 10;
 
-    [Description("The text to display")]
-    [Alias("t")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = $"Press any key to continue (or wait {PlaceHolder_TimeoutSeconds} seconds)")]
-    public string Text { get; set; } = "";
+    [CliOption(Description = "How long to wait (in seconds) before continuing", Alias = "-t", Arity = CliArgumentArity.ZeroOrOne, Required = false)]
+    public string Text { get; set; } = $"Press any key to continue (or wait {PlaceHolder_TimeoutSeconds} seconds)";
 
-    [Description("How long to wait (in seconds) before continuing")]
-    [Alias("s")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = 100)]
+    [CliOption(Description = "The time to wait between checking for keypresses", Alias = "-s", Arity = CliArgumentArity.ZeroOrOne, Required = false)]
     public int SleepMilliseconds { get; set; }
 
     public void Validate()
@@ -35,19 +28,23 @@ public partial class Arguments : CustomParseOptionsOverride
         .Replace(PlaceHolder_TimeoutSeconds, TimeoutSeconds.ToString())
         ;
 
-
-
-    public static CustomParseOptions Options => new()
+    private static async Task Run(Arguments arguments)
     {
-        AutoHelpArgument = true,
-        AutoVersionArgument = true,
-        //DuplicateArguments     = ErrorMode.Error,
-        //Mode                   = ParsingMode.LongShort,
-        //LongArgumentNamePrefix = "--",
-        //ArgumentNamePrefixes   = new[] { "/", "-" },
-        ShowUsageOnError = UsageHelpRequest.Full,
-        //NameValueSeparator     = ':',
-        //Error                  = Console.Error,
-        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError()),
-    };
+        await Console.Out.WriteAsync(arguments.DisplayText);
+
+        var timeoutDate = DateTime.UtcNow.AddSeconds(arguments.TimeoutSeconds);
+
+        while (DateTime.UtcNow < timeoutDate)
+        {
+            if (Console.KeyAvailable)
+            {
+                Console.ReadKey(true);
+                break;
+            }
+
+            Thread.Sleep(TimeSpan.FromMilliseconds(100));
+        }
+
+        await Console.Out.WriteLineAsync();
+    }
 }
