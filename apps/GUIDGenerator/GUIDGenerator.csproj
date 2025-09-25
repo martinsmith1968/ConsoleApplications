@@ -1,8 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="Ookii.CommandLine" Version="4.2.0" />
+    <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
-    <PackageReference Update="Ookii.CommandLine" Version="4.2.0" />
+    <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
   </ItemGroup>
+
 </Project>

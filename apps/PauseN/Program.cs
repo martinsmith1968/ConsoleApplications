@@ -1,3 +1,4 @@
+using Ookii.CommandLine;
 using PauseN.Configuration;
 
 namespace PauseN;

@@ -17,6 +17,7 @@ public partial class Arguments : IValidatableArguments
 
     [Alias("c")]
     [CommandLineArgument(IsRequired = false, DefaultValue = 1)]
+    [Description("How many GUID values to generate")]
     public int Count { get; set; }
 
     [Alias("t")]
@@ -70,6 +71,6 @@ public partial class Arguments : IValidatableArguments
         ShowUsageOnError       = UsageHelpRequest.Full,
         //NameValueSeparator     = ':',
         //Error                  = Console.Error,
-        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
+        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError()),
     };
 }

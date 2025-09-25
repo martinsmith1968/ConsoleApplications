@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using ConsoleApplications.Common.CommandLine;
 using Ookii.CommandLine;
 using Ookii.CommandLine.Terminal;
 
@@ -7,7 +8,7 @@ using Ookii.CommandLine.Terminal;
 namespace PauseN.Configuration;
 
 [GeneratedParser]
-public partial class Arguments
+public partial class Arguments : CustomParseOptionsOverride
 {
     public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
 
@@ -36,7 +37,9 @@ public partial class Arguments
         .Replace(PlaceHolder_TimeoutSeconds, TimeoutSeconds.ToString())
         ;
 
-    public static ParseOptions Options => new()
+
+
+    public static CustomParseOptions Options => new()
     {
         AutoHelpArgument         = true,
         AutoVersionArgument      = true,
@@ -46,10 +49,7 @@ public partial class Arguments
         //ArgumentNamePrefixes   = new[] { "/", "-" },
         ShowUsageOnError         = UsageHelpRequest.Full,
         //NameValueSeparator     = ':',
-        Error                    = Console.Error,
-        UsageWriter              = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
-        UseErrorColor            = true,
-        ErrorColor               = TextFormat.BrightForegroundRed,
-        WarningColor             = TextFormat.BrightForegroundYellow,
+        //Error                  = Console.Error,
+        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError()),
     };
 }
