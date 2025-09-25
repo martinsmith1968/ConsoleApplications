@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ookii.CommandLine" Version="4.1.0" />
+    <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
     <PackageReference Include="Tommy" Version="3.1.2" />
   </ItemGroup>
 

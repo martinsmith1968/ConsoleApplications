@@ -69,6 +69,6 @@ public class Arguments
         ShowUsageOnError = UsageHelpRequest.Full,
         //NameValueSeparator     = ':',
         //Error                  = Console.Error,
-        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true),
+        UsageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError()),
     };
 }

@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="ini-parser" Version="2.5.2" />
-    <PackageReference Include="Ookii.CommandLine" Version="4.1.0" />
+    <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
