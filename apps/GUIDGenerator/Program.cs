@@ -22,7 +22,7 @@ public class Program
         }
         catch (Exception e)
         {
-            Console.WriteLine($"ERROR: {e.Message}");
+            await Console.Error.WriteLineAsync($"ERROR: {e.Message}");
             return 1;
         }
 
@@ -31,7 +31,7 @@ public class Program
 
     private static async Task GenerateAsync(Arguments arguments)
     {
-        var value = GUIDCreator.Create();
+        var value = Guid.NewGuid();
 
         var formatOptions = new TextGUIDFormatOptions()
         {

@@ -1,4 +1,4 @@
-﻿namespace ConsoleApplications.Common.Services;
+namespace ConsoleApplications.Common.Services;
 
 public static class GUIDCreator
 {
