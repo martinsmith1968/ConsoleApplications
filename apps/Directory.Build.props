@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="DNX.Helpers" Version="2.1.0" />
-    <PackageReference Include="Ookii.CommandLine" Version="4.2.0" />
+    <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

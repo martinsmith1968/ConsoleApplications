@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using ConsoleApplications.Common.Application;
 using GUIDGenerator.Services.Types;
 using Ookii.CommandLine;
