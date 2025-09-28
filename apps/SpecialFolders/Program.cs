@@ -44,6 +44,7 @@ internal class Program
 
         specialFoldersList = arguments.SortBy switch
         {
+            SortKey.Id => specialFoldersList.OrderBy(sf => (int)sf.Key).ToList(),
             SortKey.Name => specialFoldersList.OrderBy(sf => sf.Key.ToString()).ToList(),
             SortKey.Location => specialFoldersList.OrderBy(sf => sf.Value).ToList(),
             _ => specialFoldersList

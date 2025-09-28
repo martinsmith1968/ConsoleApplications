@@ -15,17 +15,39 @@ internal class TableWriter : IWriter
 {
     public Task WriteOutputAsync(List<KeyValuePair<Environment.SpecialFolder, string>> items, Arguments arguments)
     {
-        var grid = new Table();
+        var table = new Table();
 
-        grid.AddColumn("Name");
-        grid.AddColumn("Location");
+        if (arguments.ShowLineNumbers)
+        {
+            table.AddColumn("#", x => x.Alignment = Justify.Right);
+        }
+        if (arguments.ShowFolderId)
+        {
+            table.AddColumn("Id");
+        }
+        table.AddColumn("Name");
+        table.AddColumn("Location");
 
         foreach (var sf in items)
         {
-            grid.AddRow(sf.Key.ToString(), sf.Value);
+            var data = new List<string>();
+
+            if (arguments.ShowLineNumbers)
+            {
+                data.Add((table.Rows.Count + 1).ToString());
+            }
+
+            if (arguments.ShowFolderId)
+            {
+                data.Add(((int)sf.Key).ToString());
+            }
+            data.Add(sf.Key.ToString());
+            data.Add(sf.Value);
+
+            table.AddRow(data.ToArray());
         }
 
-        AnsiConsole.Write(grid);
+        AnsiConsole.Write(table);
 
         return Task.CompletedTask;
     }

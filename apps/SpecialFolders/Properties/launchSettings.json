@@ -2,7 +2,7 @@
   "profiles": {
     "PauseN": {
       "commandName": "Project",
-      "commandLineArgs": "-s Name -w Table"
+      "commandLineArgs": "-s Name -l -i -w Grid"
     }
   }
 }

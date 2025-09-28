@@ -9,8 +9,6 @@ namespace SpecialFolders.Configuration;
 [GeneratedParser]
 public partial class Arguments
 {
-    public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
-
     [Description("The Special Folder to show")]
     [CommandLineArgument(IsRequired = false, Position = 1, DefaultValue = null)]
     public Environment.SpecialFolder? Name { get; set; }
@@ -27,13 +25,23 @@ public partial class Arguments
 
     [Description("Sort the results")]
     [Alias("s")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = SortKey.None)]
+    [CommandLineArgument(IsRequired = false, DefaultValue = SortKey.Id)]
     public SortKey SortBy { get; set; }
 
     [Description("The output writer to use")]
     [Alias("w")]
     [CommandLineArgument(IsRequired = false, DefaultValue = OutputWriterType.Standard)]
     public OutputWriterType Writer { get; set; }
+
+    [Description("Show line numbers in the output ?")]
+    [Alias("l")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+    public bool ShowLineNumbers { get; set; }
+
+    [Description("Show the internal Special Folder Id in the output ?")]
+    [Alias("i")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+    public bool ShowFolderId { get; set; }
 
     public void Validate()
     {

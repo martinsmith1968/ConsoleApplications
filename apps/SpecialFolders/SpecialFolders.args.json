@@ -15,12 +15,24 @@
       "Command": "CommonProgramFiles"
     },
     {
+      "Id": "96811ba0-2088-4ce1-ae50-40f2167c471c",
+      "Command": "-l"
+    },
+    {
       "Id": "411130b4-a9cc-4e10-b833-eca03c1f6f15",
       "Command": "-s Location"
     },
     {
+      "Id": "c2021436-4170-420f-a1b8-7ec6a2687ab5",
+      "Command": "-i"
+    },
+    {
       "Id": "37d32581-5bc5-4a65-8ddb-1001652f631d",
       "Command": "-h"
+    },
+    {
+      "Id": "f6670c1f-455b-466d-b7b0-ac818e070b50",
+      "Command": "-w Grid"
     },
     {
       "Id": "912af8c4-558a-4b91-a79e-b186f945991a",
