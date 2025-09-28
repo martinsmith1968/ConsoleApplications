@@ -10,7 +10,12 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>assets\text-format.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="assets\text-format.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />

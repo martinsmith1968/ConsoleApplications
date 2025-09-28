@@ -9,7 +9,12 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>assets\special-folders.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="assets\special-folders.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DNX.Extensions" Version="1.4.25131.2031" />
