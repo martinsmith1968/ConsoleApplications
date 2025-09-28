@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using ConsoleApplications.Common.CommandLine;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -6,10 +7,9 @@ using Spectre.Console.Cli;
 
 namespace PauseN.Configuration;
 
-
 public sealed class PauseNCommand : Command<PauseNCommand.Settings>
 {
-    public sealed class Settings : CommandSettings
+    public sealed class Settings : CustomCommandSettings
     {
         public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
 
@@ -23,7 +23,7 @@ public sealed class PauseNCommand : Command<PauseNCommand.Settings>
         [DefaultValue($"Press any key to continue (or wait {PlaceHolder_TimeoutSeconds} seconds)")]
         public string Text { get; set; } = "";
 
-        [Description("How long to wait (in seconds) before continuing")]
+        [Description("How long to wait (in milliseconds) between keypress checks")]
         [CommandOption("-s|--sleep", isRequired: false)]
         [DefaultValue(100)]
         public int SleepMilliseconds { get; set; }

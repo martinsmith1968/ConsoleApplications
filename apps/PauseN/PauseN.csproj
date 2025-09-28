@@ -10,6 +10,14 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>assets\pause-button-red-icon.ico</ApplicationIcon>
+    <Title>Pause batch execution with a timeout</Title>
+    <Copyright>Copyright © 2004-{Now:yyyy} Martin Smith</Copyright>
+    <Authors>MartinSmith1968</Authors>
+    <Company>Martin Smith</Company>
+    <Description>A simple app to pause batch execution with a timeout</Description>
+    <AssemblyVersion>2.1.0.*</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
