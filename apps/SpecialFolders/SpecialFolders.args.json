@@ -7,6 +7,10 @@
       "Command": "-s Name"
     },
     {
+      "Id": "0bc7f67b-f77b-4bde-82e2-7507d8375508",
+      "Command": "-w Table"
+    },
+    {
       "Id": "5db0f741-9cb5-4cbd-b2c9-e8528cfc8a51",
       "Command": "CommonProgramFiles"
     },

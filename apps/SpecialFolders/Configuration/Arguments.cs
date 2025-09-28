@@ -30,6 +30,11 @@ public partial class Arguments
     [CommandLineArgument(IsRequired = false, DefaultValue = SortKey.None)]
     public SortKey SortBy { get; set; }
 
+    [Description("The output writer to use")]
+    [Alias("w")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = OutputWriterType.Standard)]
+    public OutputWriterType Writer { get; set; }
+
     public void Validate()
     {
     }
