@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniFileHandler", "apps\IniF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomlFileHandler", "apps\TomlFileHandler\TomlFileHandler.csproj", "{93098BD2-29C4-FFE2-CCC3-39F194A5C621}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "apps\Calendar\Calendar.csproj", "{0282A983-71D0-BF65-F645-7B5657AD7D50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +147,14 @@ Global
 		{93098BD2-29C4-FFE2-CCC3-39F194A5C621}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93098BD2-29C4-FFE2-CCC3-39F194A5C621}.Release|x64.ActiveCfg = Release|Any CPU
 		{93098BD2-29C4-FFE2-CCC3-39F194A5C621}.Release|x64.Build.0 = Release|Any CPU
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Debug|x64.ActiveCfg = Debug|x64
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Debug|x64.Build.0 = Debug|x64
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Release|x64.ActiveCfg = Release|x64
+		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +171,7 @@ Global
 		{94041E72-0E08-2226-365E-F2CA23FDA459} = {267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}
 		{566893C0-0D67-9210-4672-857FC7A90818} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{93098BD2-29C4-FFE2-CCC3-39F194A5C621} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
+		{0282A983-71D0-BF65-F645-7B5657AD7D50} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C85506CE-422F-4F69-AB29-BA611E771379}
