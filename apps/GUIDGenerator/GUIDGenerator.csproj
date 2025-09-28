@@ -9,6 +9,7 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>assets\map_2164565.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -18,6 +19,10 @@
 
   <ItemGroup>
     <None Remove="GUIDGenerator.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\map_2164565.ico" />
   </ItemGroup>
 
   <ItemGroup>
