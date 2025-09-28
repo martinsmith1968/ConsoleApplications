@@ -9,14 +9,15 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>AnyCPU;x64</Platforms>
-    <ApplicationIcon>assets\chronometer_1207429.ico</ApplicationIcon>
+    <ApplicationIcon>assets\ini-file.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="assets\chronometer_1207429.ico" />
+    <Content Include="assets\ini-file.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ini-parser" Version="2.5.2" />
     <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,15 +9,16 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>AnyCPU;x64</Platforms>
-    <ApplicationIcon>assets\chronometer_1207429.ico</ApplicationIcon>
+    <ApplicationIcon>assets\toml-400.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="assets\chronometer_1207429.ico" />
+    <Content Include="assets\toml-400.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
+    <PackageReference Include="Tommy" Version="3.1.2" />
   </ItemGroup>
 
 </Project>
