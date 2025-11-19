@@ -8,8 +8,6 @@ namespace PrintFormat.Configuration;
 [GeneratedParser]
 public partial class Arguments
 {
-    public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
-
     [Description("The Format string to use")]
     [CommandLineArgument(IsRequired = true, Position = 1)]
     public string? Format { get; set; }
@@ -22,7 +20,7 @@ public partial class Arguments
     {
         if (string.IsNullOrWhiteSpace(Format))
             throw new ArgumentNullException(nameof(Format));
-        if (!FormatArguments.Any())
+        if (FormatArguments == null || !FormatArguments.Any())
             throw new ArgumentNullException(nameof(FormatArguments));
     }
 
