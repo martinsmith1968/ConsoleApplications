@@ -2,7 +2,7 @@
 
 ## General
 
-### Library Analysis and Selection
+### Library Evaluation and Selection
 
 - [ ] Determine which Argument parsing library to use
   - SpectreConsole doesn't quite seem to fit the bill
@@ -13,6 +13,36 @@
     - https://github.com/bilal-fazlani/commanddotnet
     - https://github.com/commandlineparser/commandline
     - Discussion: https://www.reddit.com/r/csharp/comments/shifxh/whats_your_favorite_command_line_arg_parser/
+  - Requirements
+    - Simple mechanism for structuring single command arguments
+      - Prefer Attributes, Fluent builder API aligns with CPP project
+    - Supports multiple commands easily in structure separated way
+    - Argument parsing from `main` is straightforward, simple and easy to read
+      - Supports exception handling with output control and optional usage output
+    - Help output aligns with CPP, or is configurable to be output that way
+      - Can be invoked via `-?` or `--help`
+    - Supports (or can be made to support) argument / option files
+      - Supports `-@` and/or `-$` for options file overriding (as per CPP)
+    - Supports version output via argument
+      - CPP uses `-!`
+    - Boolean options can be negated (when default is `True`)
+      - E.g. `-u Uppercase` with a default `True` can be specified as `-u-` to force Lowercase
+
+#### Evaluation
+
+##### Ookii.Commandline
+
+##### SpectreConsole.cli
+
+##### CommandlineParser
+
+##### CommandLineUtils (NateMcMaster)
+
+##### CliFx
+
+##### CommandDotNet (BilalFazlani)
+
+##### System.Commandline
 
 ### Fixes
 
@@ -25,3 +55,6 @@
 
 ### Enhancements
 
+- [ ] Add legacy apps
+  - [ ] TaskbarAlert
+  - [ ] PEInfo
