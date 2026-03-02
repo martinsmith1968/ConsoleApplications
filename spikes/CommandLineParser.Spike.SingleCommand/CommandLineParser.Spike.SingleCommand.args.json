@@ -1,0 +1,38 @@
+{
+  "FileVersion": 2,
+  "Id": "785ceb8d-bec2-411a-89a5-469a3fbdc50a",
+  "Items": [
+    {
+      "Id": "9b7b87cf-7998-4e9f-a200-dddfdd5b706e",
+      "Command": "--help"
+    },
+    {
+      "Id": "af714992-67d0-48f8-9086-2429ff113aa8",
+      "Command": "--version"
+    },
+    {
+      "Id": "a6387da1-90d0-4227-8940-02c84210082c",
+      "Command": "-n Dave"
+    },
+    {
+      "Id": "d95a06a5-6eb6-483b-81bc-795c38da3a8d",
+      "Command": "-n Bob"
+    },
+    {
+      "Id": "7a5cf76a-7cfe-4e6a-b46b-d23fd3d11290",
+      "Command": "-n Harry"
+    },
+    {
+      "Id": "9830da7a-5c3e-44f5-b923-4874476d33ff",
+      "Command": "-d 1968-08-11"
+    },
+    {
+      "Id": "0a864eb6-95b0-4e59-9f31-28ee331f4c19",
+      "Command": "-o"
+    },
+    {
+      "Id": "bef580bb-045b-4878-ad53-68b07c45b3ea",
+      "Command": "-f"
+    }
+  ]
+}

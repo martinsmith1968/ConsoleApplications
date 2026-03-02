@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CommandLineParser.Spike.SingleCommand": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    }
+  }
+}

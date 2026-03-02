@@ -30,11 +30,23 @@
 
 #### Evaluation
 
+- Single Command structure
+  - Accept:
+    - string[]
+    - Enum
+    -
+
 ##### Ookii.Commandline
+
+- Rating: **40%**
+- [Notes](spikes/Ookii.CommandLine.Spike.SingleCommand/notes.md)
 
 ##### SpectreConsole.cli
 
 ##### CommandlineParser
+
+- Rating: **10%**
+- [Notes](spikes/CommandLineParser.Spike.SingleCommand/notes.md)
 
 ##### CommandLineUtils (NateMcMaster)
 
