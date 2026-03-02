@@ -2,7 +2,7 @@
   "profiles": {
     "PauseN": {
       "commandName": "Project",
-      "commandLineArgs": "-?"
+      "commandLineArgs": "--version"
     }
   }
 }

@@ -27,12 +27,39 @@ public class CustomHelpProvider(ICommandAppSettings settings)
         return
         [
             new Markup($"[Yellow]{assemblyInfo.Name}[/] v[dodgerblue1]{assemblyInfo.SimplifiedVersion}[/] - {assemblyInfo.Description}"), Text.NewLine,
-            new Markup($"[grey]Copyright © {FixupText(assemblyInfo.Copyright)}[/]"), Text.NewLine,
+            new Markup($"[grey]Copyright © {ReplaceDynamicTextValues(assemblyInfo.Copyright)}[/]"), Text.NewLine,
             Text.NewLine
         ];
     }
 
-    private static string? FixupText(string? text)
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    /// <remarks>
+    /// Cloned from SpectreConsole and reordered
+    /// </remarks>
+    public override IEnumerable<IRenderable> Write(ICommandModel model, ICommandInfo? command)
+    {
+        // return base.Write(model, command);
+
+        var result = new List<IRenderable>();
+
+        result.AddRange(GetHeader(model, command));
+        result.AddRange(GetDescription(model, command));
+        result.AddRange(GetUsage(model, command));
+        result.AddRange(GetCommands(model, command));
+        result.AddRange(GetArguments(model, command));
+        result.AddRange(GetOptions(model, command));
+        result.AddRange(GetFooter(model, command));
+        result.AddRange(GetExamples(model, command));
+
+        return result;
+    }
+
+    private static string? ReplaceDynamicTextValues(string? text)
     {
         if (text == null)
             return text;
