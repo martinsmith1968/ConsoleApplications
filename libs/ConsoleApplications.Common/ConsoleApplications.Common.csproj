@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="DNX.Extensions" Version="1.4.25131.2031" />
     <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
-    <PackageReference Include="Spectre.Console.Cli" Version="0.51.1" />
+    <PackageReference Include="Spectre.Console.Cli" Version="0.53.1" />
   </ItemGroup>
 
 </Project>

@@ -40,7 +40,7 @@ public sealed class PauseNCommand : Command<PauseNCommand.Settings>
             .Replace(PlaceHolder_TimeoutSeconds, TimeoutSeconds.ToString());
     }
 
-    public override int Execute(CommandContext context, Settings settings)
+    public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
         Console.Out.Write(settings.DisplayText);
 
