@@ -1,0 +1,62 @@
+{
+  "FileVersion": 2,
+  "Id": "0282a983-71d0-bf65-f645-7b5657ad7d50",
+  "Items": [
+    {
+      "Id": "6f59a8cd-737c-4f5f-b714-770164bbacc1",
+      "Command": "month",
+      "Items": [
+        {
+          "Id": "3056b951-b489-4085-b513-158c9de15557",
+          "Command": "month"
+        },
+        {
+          "Id": "8f3b993d-c838-4fc5-98a1-b2ac1ceb07f0",
+          "Command": "-s Name"
+        },
+        {
+          "Id": "294b88f1-c997-44d9-81c4-c97d05547030",
+          "Command": "-e"
+        },
+        {
+          "Id": "ba36a62f-0456-43be-8f98-c9f5dbe5cf8e",
+          "Command": "-y 1968"
+        },
+        {
+          "Id": "9d7c93a8-accb-4f96-9121-4bb9d70b39bd",
+          "Command": "-m 8"
+        }
+      ]
+    },
+    {
+      "Id": "3444a2ac-3e40-4301-9f53-45246d377be0",
+      "Command": "-?"
+    },
+    {
+      "Id": "f3863e99-3385-4579-8614-1130e715316a",
+      "Command": "month -?"
+    },
+    {
+      "Id": "4fc0de74-0800-46ee-ac20-d71e8a4b25fa",
+      "Command": "year -?"
+    },
+    {
+      "Id": "ebad890f-d0c0-4c49-9788-17b2fd7f2ff2",
+      "Command": "year",
+      "Items": [
+        {
+          "Id": "0cc3551d-f4ed-442f-aa0f-2ff151d9c75c",
+          "Command": "year"
+        },
+        {
+          "Id": "59444828-8d86-4061-aad1-3d4eb04d0986",
+          "Command": "-y 2025"
+        },
+        {
+          "Id": "e88c3228-b2a8-4055-a240-cb9617d0d340",
+          "Command": "-w 3"
+        }
+      ]
+    }
+  ]
+}
