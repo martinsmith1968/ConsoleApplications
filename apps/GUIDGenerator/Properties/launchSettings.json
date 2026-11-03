@@ -1,7 +1,8 @@
 {
   "profiles": {
     "GUIDGenerator": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "-c 5 -t \"Martin\" -t \"Smith\" -d \"{INDEX:00}: {GUID}\""
     }
   }
 }

@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Update="Ookii.CommandLine" Version="4.2.0" />
+  </ItemGroup>
+</Project>

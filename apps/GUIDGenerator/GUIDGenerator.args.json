@@ -3,8 +3,34 @@
   "Id": "0af48c8d-6943-48b0-897e-6899fe25ec04",
   "Items": [
     {
-      "Id": "4b7b28c8-394b-4111-8ae4-9df116d700af",
-      "Command": "-c 20"
+      "Id": "e9476857-a5a2-41a0-b27f-e9a017e25bd1",
+      "Command": "Format",
+      "Items": [
+        {
+          "Id": "948bf82f-9abc-4084-8225-293cbaf90906",
+          "Command": "-c 5"
+        },
+        {
+          "Id": "b7df8adf-bfdc-4ddb-b1f5-b420c2dac4ce",
+          "Command": "-f N"
+        },
+        {
+          "Id": "faf2999b-17be-46f1-bf11-55ef2ba41b7a",
+          "Command": "-a Upper"
+        },
+        {
+          "Id": "9b16c74b-27e6-41ef-ad2e-d71937f87046",
+          "Command": "-t \"Martin\""
+        },
+        {
+          "Id": "edf783f6-1281-4990-801f-28674b6fcc56",
+          "Command": "-t \"Smith\""
+        },
+        {
+          "Id": "cec16350-2280-46a7-bea0-b6ccb43dd6b7",
+          "Command": "-d \"{INDEX:00}: {GUID}\""
+        }
+      ]
     }
   ]
 }

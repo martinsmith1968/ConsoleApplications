@@ -18,9 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="GUIDGenerator.csproj.DotSettings" />
+    <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="assets\map_2164565.ico" />
   </ItemGroup>
@@ -28,9 +27,4 @@
   <ItemGroup>
     <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />
-  </ItemGroup>
-
 </Project>

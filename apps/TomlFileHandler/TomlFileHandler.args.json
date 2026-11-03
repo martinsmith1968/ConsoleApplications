@@ -1,0 +1,26 @@
+{
+  "FileVersion": 2,
+  "Id": "ef193727-7d4d-4748-a5cd-cf9f8dee4784",
+  "Items": [
+    {
+      "Id": "67ea7327-becd-4826-a08f-0dfc9bc0a174",
+      "Command": "SET"
+    },
+    {
+      "Id": "bca81ea6-6deb-43c4-8e62-d8433f0555e2",
+      "Command": "-f shit.toml"
+    },
+    {
+      "Id": "e23f18bf-5d60-48e2-9c5f-0bcae5d39ec3",
+      "Command": "-s database"
+    },
+    {
+      "Id": "778c4475-98d4-4301-b7a9-3b884878a08e",
+      "Command": "-n server"
+    },
+    {
+      "Id": "433e66d0-3eb9-461c-bebc-f612222c5c40",
+      "Command": "-v somehost"
+    }
+  ]
+}

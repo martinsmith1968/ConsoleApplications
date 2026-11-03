@@ -2,8 +2,10 @@ namespace BackgroundTimer;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    public static async Task<int> Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        await Console.Out.WriteLineAsync("Hello, World!");
+
+        return 0;
     }
 }

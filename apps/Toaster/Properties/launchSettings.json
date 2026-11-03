@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Toaster": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Hello World\" -i \"My App\""
+    }
+  }
+}

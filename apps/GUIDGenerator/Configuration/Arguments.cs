@@ -1,52 +1,64 @@
 using System.ComponentModel;
-using ConsoleApplications.Common.Configuration;
+using ConsoleApplications.Common.Application;
+using GUIDGenerator.Services.Types;
 using Ookii.CommandLine;
+
+// ReSharper disable InconsistentNaming
 
 namespace GUIDGenerator.Configuration;
 
 [GeneratedParser]
-public partial class Arguments
+public partial class Arguments : IValidatableArguments
 {
-    [Alias("n")]
+    public const string FORMAT_PLACEHOLDER_GUID_PREFIX = "{GUID";
+    public const string FORMAT_PLACEHOLDER_INDEX_PREFIX = "{INDEX";
+
+    public const string FORMAT_PLACEHOLDER_GUID  = FORMAT_PLACEHOLDER_GUID_PREFIX + "}";
+    public const string FORMAT_PLACEHOLDER_INDEX = FORMAT_PLACEHOLDER_INDEX_PREFIX + "}";
+
+    [Alias("c")]
     [CommandLineArgument(IsRequired = false, DefaultValue = 1)]
     [Description("How many GUID values to generate")]
     public int Count { get; set; }
 
-    [Alias("p")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = "")]
-    [Description("The text prefix to use after GUID values")]
-    public string Prefix { get; set; } = "";
+    [Alias("t")]
+    [CommandLineArgument(IsRequired = false)]
+    public string[] Text { get; set; }
 
-    [Alias("s")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = "\r\n")]
-    [Description("The text suffix to use after GUID values")]
-    public string Suffix { get; set; } = "";
+    [Alias("m")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = GUIDGenerationModeType.Standard)]
+    public GUIDGenerationModeType Mode { get; set; }
 
-    [Alias("fmt")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = "")]
-    [Description("The format to use when generating GUID values")]
-    public string GUIDFormat { get; set; } = "";
-
-    [Alias("conv")]
+    [Alias("a")]
     [CommandLineArgument(IsRequired = false, DefaultValue = GUIDCaseConversionType.None)]
-    [Description("What Text case conversion should be applied to GUID values")]
-    public GUIDCaseConversionType CaseConversionType { get; set; } = GUIDCaseConversionType.None;
+    public GUIDCaseConversionType CaseConversionType { get; set; }
 
-    [Alias("c")]
+    [Alias("f")]
+    [Alias("fmt")]
+    [CommandLineArgument(IsRequired = false)]
+    public string Format { get; set; }
+
+    [Alias("d")]
+    [Alias("display")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = FORMAT_PLACEHOLDER_GUID)]
+    public string DisplayText { get; set; }
+
+    [Alias("e")]
+    [CommandLineArgument(IsRequired = false)]
+    public string Delimiter { get; set; } = Environment.NewLine;
+
+    [Alias("h")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = true)]
+    public bool ShowHeader { get; set; }
+
+    [Alias("b")]
+    [Alias("copy")]
     [CommandLineArgument(IsRequired = false, DefaultValue = false)]
-    [Description("Copy the genearated values to the Clipboard ?")]
     public bool CopyToClipboard { get; set; }
 
     public void Validate()
     {
-        try
-        {
-            _ = Guid.NewGuid().ToString(GUIDFormat);
-        }
-        catch
-        {
-            throw new Exception($"{nameof(GUIDFormat)} is an unknown or invalid Format : {GUIDFormat}");
-        }
+
     }
 
     public static ParseOptions Options => new()

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\TestData1.toml" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VarList": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    }
+  }
+}
