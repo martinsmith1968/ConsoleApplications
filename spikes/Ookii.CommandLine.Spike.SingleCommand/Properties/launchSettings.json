@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ookii.CommandLine.Spike.SingleCommand": {
+      "commandName": "Project",
+      "commandLineArgs": "Dave Bob Harry -d \"1968-08-11\" -o true -f-"
+    }
+  }
+}

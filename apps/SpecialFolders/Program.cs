@@ -1,6 +1,7 @@
 using Ookii.CommandLine;
 using SpecialFolders.Configuration;
 using SpecialFolders.Configuration.Types;
+using SpecialFolders.Writers;
 
 namespace SpecialFolders;
 
@@ -43,28 +44,14 @@ internal class Program
 
         specialFoldersList = arguments.SortBy switch
         {
+            SortKey.Id => specialFoldersList.OrderBy(sf => (int)sf.Key).ToList(),
             SortKey.Name => specialFoldersList.OrderBy(sf => sf.Key.ToString()).ToList(),
             SortKey.Location => specialFoldersList.OrderBy(sf => sf.Value).ToList(),
             _ => specialFoldersList
         };
 
-        var maxNameWith = !arguments.CollapseNames
-            ? specialFoldersList.Max(sf => sf.Key.ToString().Length)
-            : 0;
+        var writer = WriterFactory.CreateWriter(arguments.Writer);
 
-        var locationsText = string.Empty;
-
-        foreach (var sf in specialFoldersList)
-        {
-            if (!string.IsNullOrWhiteSpace(locationsText))
-                locationsText += Environment.NewLine;
-            locationsText += Environment.GetFolderPath(sf.Key);
-
-            var sfName = !arguments.CollapseNames
-                ? sf.Key.ToString().PadRight(maxNameWith)
-                : sf.Key.ToString();
-
-            await Console.Out.WriteLineAsync($"{sfName} : {sf.Value}");
-        }
+        await writer.WriteOutputAsync(specialFoldersList, arguments);
     }
 }

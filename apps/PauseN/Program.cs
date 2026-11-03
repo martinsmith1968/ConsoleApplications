@@ -1,5 +1,6 @@
-using Ookii.CommandLine;
+using ConsoleApplications.Common.CommandLine;
 using PauseN.Configuration;
+using Spectre.Console.Cli;
 
 namespace PauseN;
 
@@ -9,38 +10,22 @@ internal class Program
     {
         try
         {
-            var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
-                            ?? throw new Exception("Unable to Parse Command Line");
-            arguments.Validate();
+            var app = new CommandApp<PauseNCommand>();
+            app.Configure(config =>
+            {
+                CustomCommandAppConfiguration.Configure(config);
 
-            await Process(arguments);
+                config.AddExample("");
+                config.AddExample("5");
+                config.AddExample("10", "-t", $"\"Pausing for {PauseNCommand.Settings.PlaceHolder_TimeoutSeconds} seconds...\"");
+            });
+
+            return await app.RunAsync(args);
         }
         catch (Exception e)
         {
             Console.WriteLine($"ERROR: {e.Message}");
             return 1;
         }
-
-        return 0;
-    }
-
-    private static async Task Process(Arguments arguments)
-    {
-        await Console.Out.WriteAsync(arguments.DisplayText);
-
-        var timeoutDate = DateTime.UtcNow.AddSeconds(arguments.TimeoutSeconds);
-
-        while (DateTime.UtcNow < timeoutDate)
-        {
-            if (Console.KeyAvailable)
-            {
-                Console.ReadKey(true);
-                break;
-            }
-
-            Thread.Sleep(TimeSpan.FromMilliseconds(100));
-        }
-
-        await Console.Out.WriteLineAsync();
     }
 }

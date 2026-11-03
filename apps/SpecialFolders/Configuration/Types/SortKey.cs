@@ -2,7 +2,7 @@ namespace SpecialFolders.Configuration.Types;
 
 public enum SortKey
 {
-    None,
+    Id,
     Name,
     Location
 }
