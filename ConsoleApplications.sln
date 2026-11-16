@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineParser.Spike.Sin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "apps\Calendar\Calendar.csproj", "{0282A983-71D0-BF65-F645-7B5657AD7D50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toaster", "apps\Toaster\Toaster.csproj", "{C1D77C5B-BB71-62F5-2AD5-5704E661A743}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,14 @@ Global
 		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Release|x64.ActiveCfg = Release|x64
 		{0282A983-71D0-BF65-F645-7B5657AD7D50}.Release|x64.Build.0 = Release|x64
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Debug|x64.Build.0 = Debug|Any CPU
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Release|x64.ActiveCfg = Release|Any CPU
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +207,7 @@ Global
 		{EA760BDF-659E-4CAE-AE30-B74A53A8EA35} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{785CEB8D-BEC2-411A-89A5-469A3FBDC50A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0282A983-71D0-BF65-F645-7B5657AD7D50} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
+		{C1D77C5B-BB71-62F5-2AD5-5704E661A743} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C85506CE-422F-4F69-AB29-BA611E771379}

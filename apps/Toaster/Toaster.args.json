@@ -1,14 +1,26 @@
 {
   "FileVersion": 2,
-  "Id": "1d97c724-e78c-4fd8-b8f0-2680521a116e",
+  "Id": "c1d77c5b-bb71-62f5-2ad5-5704e661a743",
   "Items": [
     {
       "Id": "b7dac975-40a7-4d13-968c-f067a90a4b7b",
-      "Command": "\"Hello World\""
+      "Command": "-m \"Hello World\""
     },
     {
       "Id": "d494ac78-4448-49cd-920c-2a314ff538fb",
       "Command": "-i \"My App\""
+    },
+    {
+      "Id": "041ec3f7-f82f-4f05-a62f-6481c0b2616d",
+      "Command": "-l All"
+    },
+    {
+      "Id": "9fda4321-4cce-4238-be43-0f10a12c6f27",
+      "Command": "-o All"
+    },
+    {
+      "Id": "09a842cd-9e40-4615-8f83-ad06818d18a5",
+      "Command": "-b Green"
     }
   ]
 }
