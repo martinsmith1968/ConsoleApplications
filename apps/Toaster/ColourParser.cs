@@ -42,6 +42,10 @@ internal static class ColourParser
         return true;
     }
 
+    /// <summary>True if no explicit colour was requested (empty or "Auto") and it should be derived from the background.</summary>
+    public static bool IsAuto(string? text) =>
+        string.IsNullOrWhiteSpace(text) || text.Trim().Equals("Auto", StringComparison.OrdinalIgnoreCase);
+
     /// <summary>True if dark text reads better than light text on this background.</summary>
     public static bool IsLight(MediaColor colour) =>
         (0.299 * colour.R + 0.587 * colour.G + 0.114 * colour.B) > 160;

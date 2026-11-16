@@ -9,4 +9,7 @@ public record ToastRequest(
     int TimeoutSeconds,
     ToastLocationType Location = ToastLocationType.BottomRight,
     ToastMonitorType Monitor = ToastMonitorType.Primary,
-    string? BackgroundColour = null);
+    string? BackgroundColour = null,
+    string? ForegroundColour = null,
+    TextAlignmentType TextAlignment = TextAlignmentType.Left,
+    TextAlignmentType TitleAlignment = TextAlignmentType.Left);

@@ -6,6 +6,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using Toaster.Configuration;
 
 namespace Toaster;
 
@@ -34,8 +35,12 @@ internal sealed class ToastWindow : Window
             ? parsed
             : Color.FromRgb(0x2B, 0x2B, 0x2B);
         var light = ColourParser.IsLight(background);
-        var titleBrush = light ? Brushes.Black : Brushes.White;
-        var textBrush = new SolidColorBrush(light ? Color.FromRgb(0x22, 0x22, 0x22) : Color.FromRgb(0xDD, 0xDD, 0xDD));
+
+        // Auto: pick for contrast against the background. Otherwise use the requested colour for title and message.
+        Brush titleBrush = light ? Brushes.Black : Brushes.White;
+        Brush textBrush = new SolidColorBrush(light ? Color.FromRgb(0x22, 0x22, 0x22) : Color.FromRgb(0xDD, 0xDD, 0xDD));
+        if (!ColourParser.IsAuto(request.ForegroundColour) && ColourParser.TryParse(request.ForegroundColour, out var foreground))
+            titleBrush = textBrush = new SolidColorBrush(foreground);
 
         var stack = new StackPanel();
 
@@ -44,6 +49,7 @@ internal sealed class ToastWindow : Window
             stack.Children.Add(new TextBlock
             {
                 Text = request.Title,
+                TextAlignment = ToWpf(request.TitleAlignment),
                 FontWeight = FontWeights.SemiBold,
                 FontSize = 14,
                 Foreground = titleBrush,
@@ -55,6 +61,7 @@ internal sealed class ToastWindow : Window
         stack.Children.Add(new TextBlock
         {
             Text = request.Text,
+            TextAlignment = ToWpf(request.TextAlignment),
             FontSize = 13,
             Foreground = textBrush,
             TextWrapping = TextWrapping.Wrap,
@@ -78,6 +85,13 @@ internal sealed class ToastWindow : Window
         card.MouseLeftButtonUp += (_, _) => Clicked?.Invoke(this);
         SourceInitialized += (_, _) => HideFromAltTab();
     }
+
+    private static TextAlignment ToWpf(TextAlignmentType alignment) => alignment switch
+    {
+        TextAlignmentType.Right => TextAlignment.Right,
+        TextAlignmentType.Centre => TextAlignment.Center,
+        _ => TextAlignment.Left,
+    };
 
     public void FadeIn() =>
         BeginAnimation(OpacityProperty, new DoubleAnimation(1, AnimationTime));
