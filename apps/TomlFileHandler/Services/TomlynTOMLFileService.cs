@@ -2,6 +2,7 @@ using Tomlyn;
 using Tomlyn.Model;
 
 namespace TomlFileHandler.Services;
+
 public class TomlynTOMLFileService
 {
     public static TomlTable ReadFile(string fileName)
@@ -11,9 +12,9 @@ public class TomlynTOMLFileService
         return ReadText(text);
     }
 
-    public static TomlTable ReadText(string text)
+    public static TomlTable? ReadText(string text)
     {
-        return Toml.ToModel(text);
+        return TomlSerializer.Deserialize<TomlTable>(text);
     }
 
 
@@ -34,7 +35,7 @@ public class TomlynTOMLFileService
                 ? valueIndex.Value
                 : valueArray.Count + valueIndex.Value;
 
-            return valueArray[arrayIndex];
+            return valueArray[arrayIndex] as TomlObject;
         }
 
         return node;
@@ -44,7 +45,7 @@ public class TomlynTOMLFileService
     {
         var node = GetTomlNode(table, sectionName, keyName, valueIndex);
 
-        return (string)node;
+        return node?.ToString();
     }
 
     public static int GetTomlValueAsInt(TomlTable table, string sectionName, string keyName, int? valueIndex = null)

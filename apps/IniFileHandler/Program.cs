@@ -42,14 +42,14 @@ internal class Program
 
     private static string ReadValue(Arguments arguments)
     {
-        var iniFile = new FileIniDataParser().ReadFile(arguments.FileInfo.FullName);
+        var iniFile = new FileIniDataParser().ReadFile(arguments.FileInfo?.FullName);
 
         return iniFile[arguments.SectionName][arguments.KeyName];
     }
 
     private static string WriteValue(Arguments arguments)
     {
-        var iniFile = new FileIniDataParser().ReadFile(arguments.FileInfo.FullName);
+        var iniFile = new FileIniDataParser().ReadFile(arguments.FileInfo?.FullName);
 
         iniFile[arguments.SectionName][arguments.KeyName] = arguments.Value;
 

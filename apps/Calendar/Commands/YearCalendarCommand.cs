@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using ConsoleApplications.Common.CommandLine;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -16,13 +17,24 @@ public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>
         [CommandOption("-y|--year", isRequired: false)]
         public int? Year { get; set; }
 
-        [Description("How many widths width to draw")]
+        [Description("How many months width to draw")]
         [CommandOption("-w|--width", isRequired: false)]
         [DefaultValue(3)]
         public int Width { get; set; }
+
+        [Description("The first month to show")]
+        [CommandOption("-f|--first-month", isRequired: false)]
+        [DefaultValue(1)]
+        public int FirstMonth { get; set; }
+
+        [Description("The total number of months to show")]
+        [CommandOption("-t|--total-months", isRequired: false)]
+        [DefaultValue(12)]
+        [Range(1, 12)]
+        public int TotalMonths { get; set; }
     }
 
-    public override int Execute(CommandContext context, Settings settings)
+    public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
         var utcNow = DateTime.UtcNow.Date;
         var now = DateTime.Now.Date;
@@ -43,7 +55,7 @@ public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>
         }
 
 
-        for (var month = 1; month <= 12; month += settings.Width)
+        for (var month = settings.FirstMonth; month <= settings.TotalMonths; month += settings.Width)
         {
             var row = new List<IRenderable>();
             for (var x = 0; x < settings.Width; x++)

@@ -1,6 +1,5 @@
 using ConsoleApplications.Common.Services.GUIDGeneration;
 using ConsoleApplications.Common.Tests.Helpers;
-using Newtonsoft.Json.Linq;
 using Shouldly;
 using Xunit.Abstractions;
 

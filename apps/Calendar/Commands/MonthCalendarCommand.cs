@@ -36,7 +36,7 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
         public bool ShowEventsTable { get; set; }
     }
 
-    public override int Execute(CommandContext context, Settings settings)
+    public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
         var utcNow = DateTime.UtcNow.Date;
         var now = DateTime.Now.Date;

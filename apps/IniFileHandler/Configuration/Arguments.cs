@@ -9,7 +9,8 @@ public enum CommandType
     Write
 }
 
-public class Arguments
+[GeneratedParser]
+public partial class Arguments
 {
     [Description("The Command to execute")]
     [CommandLineArgument(Position = 1, IsRequired = true)]

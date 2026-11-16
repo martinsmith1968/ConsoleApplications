@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33530.505
+# Visual Studio Version 18
+VisualStudioVersion = 18.11.12328.437
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{9B9261C5-BF7D-4876-8151-7353A70EA632}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,19 +23,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".release", ".release", "{A2231B83-6EEE-4A89-8393-7061EE3550B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{AE9ECE9E-2084-4E33-8064-5C9A880CF226}"
-	ProjectSection(SolutionItems) = preProject
-		apps\Directory.Build.props = apps\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{F5821EE5-3F0A-4D69-B506-7DD68CC652DF}"
-	ProjectSection(SolutionItems) = preProject
-		libs\Directory.Build.props = libs\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}"
-	ProjectSection(SolutionItems) = preProject
-		tests\Directory.Build.props = tests\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUIDGenerator", "apps\GUIDGenerator\GUIDGenerator.csproj", "{0AF48C8D-6943-48B0-897E-6899FE25EC04}"
 EndProject
@@ -194,6 +185,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0AF48C8D-6943-48B0-897E-6899FE25EC04} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{B9857D06-7F57-4333-A321-36C31B5C29A6} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
+		{3E1BF7DE-F257-4261-9B20-11440E0F4418} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
+		{C7FC4FA4-9944-4C31-9969-FFF0A2F38BCC} = {F5821EE5-3F0A-4D69-B506-7DD68CC652DF}
 		{27B2693A-0CEC-FF9A-CDAB-A958CC5E452C} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{7953FB3A-3D82-6B0F-AB7D-A4D0C6AB9F0B} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{82F9E378-DBA7-4FE4-9D1C-667730C6E0EC} = {267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}

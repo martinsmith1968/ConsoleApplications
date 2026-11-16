@@ -26,8 +26,8 @@ public class ApplicationBootstrapper
     public static async Task<int> ExecuteAsync<T>(
         string[] args,
         Func<T, IServiceProvider, Task> handlerAsync,
-        ParseOptions parserOptions = null,
-        Func<IServiceProvider> serviceProviderBuilder = null,
+        ParseOptions? parserOptions = null,
+        Func<IServiceProvider>? serviceProviderBuilder = null,
         int defaultArgumentFailureExitCode = 1,
         int defaultErrorExitCode = 2
     )

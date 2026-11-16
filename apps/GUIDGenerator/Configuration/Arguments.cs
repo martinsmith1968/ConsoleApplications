@@ -23,37 +23,45 @@ public partial class Arguments : IValidatableArguments
 
     [Alias("t")]
     [CommandLineArgument(IsRequired = false)]
-    public string[] Text { get; set; }
+    [Description("The text lines to use")]
+    public string[] Text { get; set; } = [ ];
 
     [Alias("m")]
     [CommandLineArgument(IsRequired = false, DefaultValue = GUIDGenerationModeType.Standard)]
+    [Description("TODO")]
     public GUIDGenerationModeType Mode { get; set; }
 
     [Alias("a")]
     [CommandLineArgument(IsRequired = false, DefaultValue = GUIDCaseConversionType.None)]
+    [Description("TODO")]
     public GUIDCaseConversionType CaseConversionType { get; set; }
 
     [Alias("f")]
     [Alias("fmt")]
     [CommandLineArgument(IsRequired = false)]
-    public string Format { get; set; }
+    [Description("TODO")]
+    public string? Format { get; set; }
 
     [Alias("d")]
     [Alias("display")]
     [CommandLineArgument(IsRequired = false, DefaultValue = FORMAT_PLACEHOLDER_GUID)]
-    public string DisplayText { get; set; }
+    [Description("TODO")]
+    public string? DisplayText { get; set; }
 
     [Alias("e")]
     [CommandLineArgument(IsRequired = false)]
+    [Description("TODO")]
     public string Delimiter { get; set; } = Environment.NewLine;
 
     [Alias("h")]
     [CommandLineArgument(IsRequired = false, DefaultValue = true)]
+    [Description("TODO")]
     public bool ShowHeader { get; set; }
 
     [Alias("b")]
     [Alias("copy")]
     [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+    [Description("TODO")]
     public bool CopyToClipboard { get; set; }
 
     public void Validate()

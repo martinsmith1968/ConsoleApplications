@@ -2,7 +2,7 @@
   "profiles": {
     "PauseN": {
       "commandName": "Project",
-      "commandLineArgs": "year -?"
+      "commandLineArgs": "year -w 4"
     }
   }
 }

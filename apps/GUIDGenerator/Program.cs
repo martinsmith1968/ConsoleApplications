@@ -81,7 +81,7 @@ public class Program
         await outputWriter.WriteLineAsync();
     }
 
-    private static string BuildDisplay(Guid guid, int index, string displayText, string format, GUIDCaseConversionType caseConversionType)
+    private static string BuildDisplay(Guid guid, int index, string? displayText, string? format, GUIDCaseConversionType caseConversionType)
     {
         var guidValue = FormatGuid(guid, format);
 
@@ -92,8 +92,10 @@ public class Program
         return textValue;
     }
 
-    private static string ReplaceTextValues(string displayText, int index, string guidValue)
+    private static string ReplaceTextValues(string? displayText, int index, string guidValue)
     {
+        displayText ??= string.Empty;
+
         if (!displayText.Contains(Arguments.FORMAT_PLACEHOLDER_GUID_PREFIX))
             displayText += Arguments.FORMAT_PLACEHOLDER_GUID;
 
@@ -106,7 +108,7 @@ public class Program
         return textValue;
     }
 
-    private static string FormatGuid(Guid guid, string format)
+    private static string FormatGuid(Guid guid, string? format)
     {
         return format.IsNullOrEmpty()
             ? guid.ToString()

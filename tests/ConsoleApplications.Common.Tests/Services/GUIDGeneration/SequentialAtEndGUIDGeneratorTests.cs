@@ -1,5 +1,4 @@
 using ConsoleApplications.Common.Services.GUIDGeneration;
-using Newtonsoft.Json.Linq;
 using Shouldly;
 using Xunit.Abstractions;
 

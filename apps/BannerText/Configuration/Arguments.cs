@@ -44,12 +44,12 @@ public class Arguments
 
     private static UsageWriter CustomUsageWriter()
     {
-        var usageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), true);
+        var usageWriter = new UsageWriter(LineWrappingTextWriter.ForConsoleError(), Ookii.CommandLine.TriState.True);
 
         usageWriter.IncludeAliasInDescription = true;
         usageWriter.IncludeApplicationDescription = true;
         usageWriter.IncludeApplicationDescriptionBeforeCommandList = true;
-        usageWriter.IncludeCommandHelpInstruction = true;
+        usageWriter.IncludeCommandHelpInstruction = Ookii.CommandLine.TriState.True;
         usageWriter.IncludeCommandAliasInCommandList = true;
         usageWriter.IncludeDefaultValueInDescription = true;
         usageWriter.IncludeValidatorsInDescription = true;

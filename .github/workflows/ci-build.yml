@@ -141,7 +141,7 @@ jobs:
   build-windows:
     strategy:
       matrix:
-        dotnet-version: [ '8.x' ]
+        dotnet-version: [ '10.x' ]
         os: [ 'windows-latest' ]
 
     name: Build - ${{ matrix.application }} ${{ matrix.dotnet-version }} ${{ matrix.os }}
