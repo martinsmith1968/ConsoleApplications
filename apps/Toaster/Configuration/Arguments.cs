@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Drawing;
 using ConsoleApplications.Common.Application;
 using Ookii.CommandLine;
 
@@ -52,6 +51,16 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = "Auto")]
     public string ForegroundColour { get; set; } = string.Empty;
 
+    [Alias("m")]
+    [Description("The transition time for the Window animation, in Milliseconds")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = 1000)]
+    public int TransitionTimeMilliseconds { get; set; }
+
+    [Alias("n")]
+    [Description("A Horizontal Indent to use when positioning the popup")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = 0)]
+    public double HorizontalIndent { get; set; }
+
     public void Validate()
     {
         if (string.IsNullOrEmpty(Text))
@@ -60,10 +69,33 @@ public class Arguments : IValidatableArguments
         if (TimeoutSeconds < 0)
             throw new ArgumentOutOfRangeException(nameof(TimeoutSeconds), "Value must be zero or greater");
 
+        if (TransitionTimeMilliseconds < 0)
+            throw new ArgumentOutOfRangeException(nameof(TransitionTimeMilliseconds), "Value must be zero or greater");
+
+        if (HorizontalIndent < 0)
+            throw new ArgumentOutOfRangeException(nameof(HorizontalIndent), "Value must be zero or greater");
+
         if (!string.IsNullOrWhiteSpace(BackgroundColour) && !ColourParser.TryParse(BackgroundColour, out _))
             throw new ArgumentException($"'{BackgroundColour}' is not a known colour name or a # value (#RGB, #RRGGBB, #AARRGGBB)", nameof(BackgroundColour));
 
         if (!ColourParser.IsAuto(ForegroundColour) && !ColourParser.TryParse(ForegroundColour, out _))
             throw new ArgumentException($"'{ForegroundColour}' is not Auto, a known colour name or a # value (#RGB, #RRGGBB, #AARRGGBB)", nameof(ForegroundColour));
+    }
+
+    public ToastRequest ToToastRequest()
+    {
+        return new ToastRequest(
+            Text,
+            Title,
+            TimeoutSeconds,
+            Location,
+            Monitor,
+            BackgroundColour,
+            ForegroundColour,
+            TextAlignment,
+            TitleAlignment,
+            TransitionTimeMilliseconds,
+            HorizontalIndent
+        );
     }
 }

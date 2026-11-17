@@ -12,4 +12,7 @@ public record ToastRequest(
     string? BackgroundColour = null,
     string? ForegroundColour = null,
     TextAlignmentType TextAlignment = TextAlignmentType.Left,
-    TextAlignmentType TitleAlignment = TextAlignmentType.Left);
+    TextAlignmentType TitleAlignment = TextAlignmentType.Left,
+    int TransitionTimeMilliseconds = 500,
+    double HorizontalIndent = 0
+);

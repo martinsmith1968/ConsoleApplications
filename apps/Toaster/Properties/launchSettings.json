@@ -2,7 +2,7 @@
   "profiles": {
     "Toaster": {
       "commandName": "Project",
-      "commandLineArgs": "-m \"Hello World\" -i \"My App\" -l All -o All -b Green"
+      "commandLineArgs": "-t \"Hello World\" -i \"My App\" -b Green -n 1"
     }
   }
 }

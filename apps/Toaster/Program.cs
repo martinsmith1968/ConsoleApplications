@@ -21,7 +21,7 @@ internal class Program
                 return 1;
 
             arguments.Validate();
-            request = new ToastRequest(arguments.Text, arguments.Title, arguments.TimeoutSeconds, arguments.Location, arguments.Monitor, arguments.BackgroundColour, arguments.ForegroundColour, arguments.TextAlignment, arguments.TitleAlignment);
+            request = arguments.ToToastRequest();
         }
         catch (Exception ex)
         {

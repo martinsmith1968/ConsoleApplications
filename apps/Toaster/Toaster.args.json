@@ -4,7 +4,7 @@
   "Items": [
     {
       "Id": "b7dac975-40a7-4d13-968c-f067a90a4b7b",
-      "Command": "-m \"Hello World\""
+      "Command": "-t \"Hello World\""
     },
     {
       "Id": "d494ac78-4448-49cd-920c-2a314ff538fb",
@@ -21,6 +21,14 @@
     {
       "Id": "09a842cd-9e40-4615-8f83-ad06818d18a5",
       "Command": "-b Green"
+    },
+    {
+      "Id": "88e1cdba-1a51-4e4b-9ee4-675849eab172",
+      "Command": "-m 1500"
+    },
+    {
+      "Id": "6bbb3daf-53b6-4756-b996-10c22cab5ffd",
+      "Command": "-n 1"
     }
   ]
 }

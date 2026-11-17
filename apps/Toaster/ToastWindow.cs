@@ -14,13 +14,55 @@ namespace Toaster;
 internal sealed class ToastWindow : Window
 {
     public const double ToastWidth = 360;
-    private static readonly TimeSpan AnimationTime = TimeSpan.FromMilliseconds(300);
+    private readonly TimeSpan AnimationTime;
+
+    private readonly Border _card;
+    private Rect _workArea = Rect.Empty;
 
     public DispatcherTimer? ExpiryTimer { get; set; }
+
+    /// <summary>
+    /// The screen area (monitor minus taskbar) the toast may draw in. Toasts slide in from / out to just beyond
+    /// this area, so anything outside it is clipped rather than drawn over the taskbar.
+    /// </summary>
+    public Rect WorkArea
+    {
+        get => _workArea;
+        set
+        {
+            _workArea = value;
+            UpdateClip();
+        }
+    }
+
+    private double _clippedForTop = double.NaN;
+
+    private void OnRendering(object? sender, EventArgs e)
+    {
+        if (Top != _clippedForTop)
+            UpdateClip();
+    }
+
+    private void UpdateClip()
+    {
+        if (_workArea.IsEmpty)
+            return;
+
+        _clippedForTop = Top;
+
+        var visible = Rect.Intersect(new Rect(Left, Top, Width, Height), _workArea);
+
+        // Local (window) coordinates; nothing visible = empty clip
+        _card.Clip = new RectangleGeometry(visible.IsEmpty
+            ? Rect.Empty
+            : new Rect(visible.X - Left, visible.Y - Top, visible.Width, visible.Height));
+    }
     public event Action<ToastWindow>? Clicked;
 
     public ToastWindow(ToastRequest request)
     {
+        AnimationTime = TimeSpan.FromMilliseconds(Math.Max(0, request.TransitionTimeMilliseconds));
+
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
         AllowsTransparency = true;
@@ -78,6 +120,11 @@ internal sealed class ToastWindow : Window
             Child = stack,
         };
         Content = card;
+        _card = card;
+        // LocationChanged isn't reliably raised while Top is being animated, so refresh the clip every frame
+        LocationChanged += (_, _) => UpdateClip();
+        CompositionTarget.Rendering += OnRendering;
+        Closed += (_, _) => CompositionTarget.Rendering -= OnRendering;
 
         card.Measure(new Size(ToastWidth, double.PositiveInfinity));
         Height = Math.Ceiling(card.DesiredSize.Height);

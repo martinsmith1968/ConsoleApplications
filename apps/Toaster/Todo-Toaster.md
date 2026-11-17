@@ -38,7 +38,7 @@ file are not yet committed (last commit: `f491501`).
 - [ ] **No maximum toast height.** Very long messages make a very tall card (text wraps, never truncates).
 - [ ] **`-s 0` toasts never expire** and keep the host process alive until clicked. There is no "dismiss all"
       or "close existing" command.
-- [ ] **Sliding toasts overlap the taskbar.** Windows start/finish just outside the work area, so while moving
+- [x] **Sliding toasts overlap the taskbar.** Windows start/finish just outside the work area, so while moving
       they briefly draw over the taskbar. The fade mostly hides it; clipping would fix it properly.
 - [ ] **Stack work area is captured once.** A stack remembers the work area from when it was created. If
       monitors/taskbar change while the host is alive (it normally lives only seconds), placement goes stale.
@@ -59,7 +59,7 @@ file are not yet committed (last commit: `f491501`).
       where the Toast popup show"; the foreground description says "Message Text" but it also colours the
       title. Ookii warns OCL0040 (use `[GeneratedParser]`).
 - [ ] **`Centre` only.** `TextAlignmentType` has `Centre`; `Center` is rejected. Consider accepting both.
-- [ ] **Unused `using System.Drawing;`** in `Arguments.cs` (harmless).
+- [x] **Unused `using System.Drawing;`** in `Arguments.cs` (harmless).
 - [ ] **Colour names.** `KnownColor` also contains *system* colours (e.g. `Control`, `Window`) which resolve to
       the current theme's colour, and `Transparent` gives a fully transparent card. Decide whether to restrict
       to non-system colours.
