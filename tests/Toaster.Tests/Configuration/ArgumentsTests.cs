@@ -106,6 +106,32 @@ public class ArgumentsTests
         Should.NotThrow(() => arguments.Validate());
     }
 
+    [Theory]
+    [InlineData("notanumber")]
+    [InlineData("0")]
+    [InlineData("-1")]
+    public void Validate_throws_when_window_width_is_invalid(string windowWidth)
+    {
+        var arguments = Valid();
+        arguments.WindowWidth = windowWidth;
+
+        Should.Throw<ArgumentException>(() => arguments.Validate());
+    }
+
+    [Theory]
+    [InlineData(Constants.Auto)]
+    [InlineData("")]
+    [InlineData("auto")]
+    [InlineData("360")]
+    [InlineData("500.5")]
+    public void Validate_accepts_valid_window_width(string windowWidth)
+    {
+        var arguments = Valid();
+        arguments.WindowWidth = windowWidth;
+
+        Should.NotThrow(() => arguments.Validate());
+    }
+
     [Fact]
     public void Validate_throws_when_foreground_colour_is_invalid()
     {
@@ -145,6 +171,7 @@ public class ArgumentsTests
             TransitionTimeMilliseconds = 1234,
             HorizontalIndent = 0.5,
             BackgroundFillStyle = GradientFillStyleType.DiagonalFromTopLeft,
+            WindowWidth = "500",
         };
 
         var request = arguments.ToToastRequest();
@@ -161,5 +188,6 @@ public class ArgumentsTests
         request.TransitionTimeMilliseconds.ShouldBe(1234);
         request.HorizontalIndent.ShouldBe(0.5);
         request.BackgroundFillStyle.ShouldBe(GradientFillStyleType.DiagonalFromTopLeft);
+        request.WindowWidth.ShouldBe("500");
     }
 }

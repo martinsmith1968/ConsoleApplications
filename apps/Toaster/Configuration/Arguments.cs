@@ -66,6 +66,11 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = 0)]
     public double HorizontalIndent { get; set; }
 
+    [Alias("w")]
+    [Description($"The width of the popup window, in pixels. Or {Constants.Auto}")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = ToastWindow.DefaultWidth)]
+    public string WindowWidth { get; set; } = string.Empty;
+
     public void Validate()
     {
         if (string.IsNullOrEmpty(Text))
@@ -88,6 +93,9 @@ public class Arguments : IValidatableArguments
 
         if (!ColourParser.IsAuto(ForegroundColour) && !ColourParser.TryParse(ForegroundColour, out _))
             throw new ArgumentException($"'{ForegroundColour}' is not Auto, a known colour name or a # value (#RGB, #RRGGBB, #AARRGGBB)", nameof(ForegroundColour));
+
+        if (!Constants.IsAuto(WindowWidth) && (!double.TryParse(WindowWidth, out var windowWidth) || windowWidth <= 0))
+            throw new ArgumentException($"'{WindowWidth}' is not '{Constants.Auto}' or a positive number", nameof(WindowWidth));
     }
 
     public ToastRequest ToToastRequest()
@@ -104,7 +112,8 @@ public class Arguments : IValidatableArguments
             TitleAlignment,
             TransitionTimeMilliseconds,
             HorizontalIndent,
-            BackgroundFillStyle
+            BackgroundFillStyle,
+            WindowWidth
         );
     }
 }

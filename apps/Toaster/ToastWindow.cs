@@ -13,7 +13,7 @@ namespace Toaster;
 /// <summary>A single borderless toast card.</summary>
 internal sealed class ToastWindow : Window
 {
-    public const double ToastWidth = 360;
+    internal const double DefaultWidth = 360;
     private readonly TimeSpan AnimationTime;
 
     private readonly Border _card;
@@ -70,7 +70,6 @@ internal sealed class ToastWindow : Window
         ShowInTaskbar = false;
         ShowActivated = false;
         Topmost = true;
-        Width = ToastWidth;
         Opacity = 0;
 
         var backgroundBrush = CreateBackgroundBrush(request.BackgroundColour, request.BackgroundFillStyle, out var background);
@@ -124,7 +123,18 @@ internal sealed class ToastWindow : Window
         CompositionTarget.Rendering += OnRendering;
         Closed += (_, _) => CompositionTarget.Rendering -= OnRendering;
 
-        card.Measure(new Size(ToastWidth, double.PositiveInfinity));
+        if (Constants.IsAuto(request.WindowWidth))
+        {
+            // Unconstrained measure: the card sizes to its content (title/text) plus its own Padding/BorderThickness.
+            card.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            Width = Math.Ceiling(card.DesiredSize.Width);
+        }
+        else
+        {
+            Width = double.TryParse(request.WindowWidth, out var fixedWidth) && fixedWidth > 0 ? fixedWidth : DefaultWidth;
+            card.Measure(new Size(Width, double.PositiveInfinity));
+        }
+
         Height = Math.Ceiling(card.DesiredSize.Height);
 
         card.MouseLeftButtonUp += (_, _) => Clicked?.Invoke(this);

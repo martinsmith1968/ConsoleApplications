@@ -84,9 +84,9 @@ internal sealed class ToastHost
                 var toast = new ToastWindow(request);
                 toast.Clicked += _ => Dismiss(group);
                 // Horizontal indent shifts the toast inward from its edge, in units of the toast's own width
-                var indent = ToastWindow.ToastWidth * request.HorizontalIndent;
+                var indent = toast.Width * request.HorizontalIndent;
                 toast.Left = stack.AtRight
-                    ? stack.WorkArea.Right - Margin - ToastWindow.ToastWidth - indent
+                    ? stack.WorkArea.Right - Margin - toast.Width - indent
                     : stack.WorkArea.Left + Margin + indent;
                 // Start just off the screen edge it will slide in from
                 toast.Top = stack.AtBottom ? stack.WorkArea.Bottom : stack.WorkArea.Top - toast.Height;
