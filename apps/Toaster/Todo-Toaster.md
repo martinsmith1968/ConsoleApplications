@@ -60,7 +60,10 @@ file are not yet committed (last commit: `f491501`).
 - [ ] **`Arguments.cs` tidy-ups.** `Description` typos: "Monitor for
       where the Toast popup show"; the foreground description says "Message Text" but it also colours the
       title. Ookii warns OCL0040 (use `[GeneratedParser]`).
-- [ ] **`Centre` only.** `TextAlignmentType` has `Centre`; `Center` is rejected. Consider accepting both.
+- [x] **`Centre` only.** Fixed: `AlternateSpellingEnumConverter` + `AlternateSpellings` accept `Center` (and any
+      case variant) for every enum argument, mapping it to the canonical `Centre` before normal enum parsing;
+      a truly invalid value still gets Ookii's usual "must be one of the following values" error. Add more
+      entries to `AlternateSpellings.Map` if other spelling variants come up.
 - [x] **Unused `using System.Drawing;`** in `Arguments.cs` (harmless).
 - [ ] **Colour names.** `KnownColor` also contains *system* colours (e.g. `Control`, `Window`) which resolve to
       the current theme's colour, and `Transparent` gives a fully transparent card. Decide whether to restrict

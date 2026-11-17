@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using ConsoleApplications.Common.Application;
 using Ookii.CommandLine;
+using Ookii.CommandLine.Conversion;
 
 namespace Toaster.Configuration;
 
@@ -24,21 +25,25 @@ public class Arguments : IValidatableArguments
     [Alias("ta")]
     [Description("The alignment of the Text")]
     [CommandLineArgument(IsRequired = false, DefaultValue = TextAlignmentType.Left)]
+    [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
     public TextAlignmentType TextAlignment { get; set; }
 
     [Alias("tia")]
     [Description("The alignment of the Title")]
     [CommandLineArgument(IsRequired = false, DefaultValue = TextAlignmentType.Left)]
+    [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
     public TextAlignmentType TitleAlignment { get; set; }
 
     [Alias("l")]
     [Description("Location for where the Toast popup shows")]
     [CommandLineArgument(IsRequired = false, DefaultValue = ToastLocationType.BottomRight)]
+    [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
     public ToastLocationType Location { get; set; }
 
     [Alias("m")]
     [Description("Monitor for where the Toast popup show")]
     [CommandLineArgument(IsRequired = false, DefaultValue = ToastMonitorType.Primary)]
+    [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
     public ToastMonitorType Monitor { get; set; }
 
     [Alias("bg")]
@@ -49,6 +54,7 @@ public class Arguments : IValidatableArguments
     [Alias("bgf")]
     [Description("Background Fill style for the toast popup")]
     [CommandLineArgument(IsRequired = false, DefaultValue = GradientFillStyleType.Solid)]
+    [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
     public GradientFillStyleType BackgroundFillStyle { get; set; }
 
     [Alias("fg")]
