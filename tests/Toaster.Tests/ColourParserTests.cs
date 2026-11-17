@@ -48,7 +48,7 @@ public class ColourParserTests
     [InlineData(null, true)]
     [InlineData("", true)]
     [InlineData("   ", true)]
-    [InlineData("auto", true)]
+    [InlineData( "auto", true)]
     [InlineData("AUTO", true)]
     [InlineData("Red", false)]
     public void IsAuto_detects_auto_or_empty(string? text, bool expected)

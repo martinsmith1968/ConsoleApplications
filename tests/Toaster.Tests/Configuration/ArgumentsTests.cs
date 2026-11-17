@@ -72,7 +72,7 @@ public class ArgumentsTests
     }
 
     [Theory]
-    [InlineData("Auto")]
+    [InlineData(Constants.Auto)]
     [InlineData("")]
     [InlineData("Red")]
     [InlineData("#FF0000")]

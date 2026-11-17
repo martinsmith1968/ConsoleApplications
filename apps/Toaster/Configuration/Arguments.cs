@@ -48,7 +48,7 @@ public class Arguments : IValidatableArguments
 
     [Alias("f")]
     [Description("Foreground color for the Message Text")]
-    [CommandLineArgument(IsRequired = false, DefaultValue = "Auto")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = Constants.Auto)]
     public string ForegroundColour { get; set; } = string.Empty;
 
     [Alias("m")]
@@ -85,8 +85,8 @@ public class Arguments : IValidatableArguments
     public ToastRequest ToToastRequest()
     {
         return new ToastRequest(
-            Text,
-            Title,
+            DynamicText.Resolve(Text),
+            Title is null ? null : DynamicText.Resolve(Title),
             TimeoutSeconds,
             Location,
             Monitor,

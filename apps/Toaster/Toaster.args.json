@@ -3,32 +3,61 @@
   "Id": "c1d77c5b-bb71-62f5-2ad5-5704e661a743",
   "Items": [
     {
-      "Id": "b7dac975-40a7-4d13-968c-f067a90a4b7b",
-      "Command": "-t \"Hello World\""
+      "Id": "954e47bb-9cb5-4b6c-91f5-214c242a37ac",
+      "Command": "DynamicText",
+      "Items": [
+        {
+          "Id": "197cf3b5-14d1-417e-8964-ceb72fbe770d",
+          "Command": "-t \"Is is now {now:hh:mm}\""
+        },
+        {
+          "Id": "da19e511-4865-47a3-97f3-daca373a42da",
+          "Command": "-i \"%COMPUTERNAME% Time Of Day\""
+        },
+        {
+          "Id": "bfe73a5e-b6aa-49bb-936c-15e4f3174abb",
+          "Command": "-g Centre"
+        }
+      ]
     },
     {
-      "Id": "d494ac78-4448-49cd-920c-2a314ff538fb",
-      "Command": "-i \"My App\""
+      "Id": "69bde005-ce1d-4033-8ec1-d6debed24cae",
+      "Command": "Default",
+      "Items": [
+        {
+          "Id": "b7dac975-40a7-4d13-968c-f067a90a4b7b",
+          "Command": "-t \"Hello World\""
+        },
+        {
+          "Id": "d494ac78-4448-49cd-920c-2a314ff538fb",
+          "Command": "-i \"My App\""
+        },
+        {
+          "Id": "041ec3f7-f82f-4f05-a62f-6481c0b2616d",
+          "Command": "-l All"
+        },
+        {
+          "Id": "9fda4321-4cce-4238-be43-0f10a12c6f27",
+          "Command": "-o All"
+        },
+        {
+          "Id": "09a842cd-9e40-4615-8f83-ad06818d18a5",
+          "Command": "-b Green"
+        },
+        {
+          "Id": "88e1cdba-1a51-4e4b-9ee4-675849eab172",
+          "Command": "-m 1500"
+        },
+        {
+          "Id": "6bbb3daf-53b6-4756-b996-10c22cab5ffd",
+          "Command": "-n 1"
+        }
+      ]
     },
     {
-      "Id": "041ec3f7-f82f-4f05-a62f-6481c0b2616d",
-      "Command": "-l All"
-    },
-    {
-      "Id": "9fda4321-4cce-4238-be43-0f10a12c6f27",
-      "Command": "-o All"
-    },
-    {
-      "Id": "09a842cd-9e40-4615-8f83-ad06818d18a5",
-      "Command": "-b Green"
-    },
-    {
-      "Id": "88e1cdba-1a51-4e4b-9ee4-675849eab172",
-      "Command": "-m 1500"
-    },
-    {
-      "Id": "6bbb3daf-53b6-4756-b996-10c22cab5ffd",
-      "Command": "-n 1"
+      "Id": "bd0d22da-7366-4211-806d-45dc0f867de6",
+      "Command": "Gradient Text",
+      "Items": []
     }
   ]
 }

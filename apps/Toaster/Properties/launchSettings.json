@@ -2,7 +2,7 @@
   "profiles": {
     "Toaster": {
       "commandName": "Project",
-      "commandLineArgs": "-t \"Hello World\" -i \"My App\" -b Green -n 1"
+      "commandLineArgs": "-t \"Is is now {now:hh:mm}\" -i \"%COMPUTERNAME% Time Of Day\" -g Centre"
     }
   }
 }
