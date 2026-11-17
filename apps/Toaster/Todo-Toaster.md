@@ -80,9 +80,11 @@ file are not yet committed (last commit: `f491501`).
 
 ## Tests
 
-- [ ] There are no Toaster tests. Cheap, worthwhile candidates: `ColourParser` (names, `#RGB`, `#ARGB`,
-      `#RRGGBB`, `#AARRGGBB`, garbage), `Arguments.Validate`, and the stack layout maths (`ToastHost.Reflow`
-      would need pulling out of the WPF types to be unit-testable).
+- [x] `Toaster.Tests` covers `ColourParser` (names, `#RGB`, `#ARGB`, `#RRGGBB`, `#AARRGGBB`, garbage) and
+      `Arguments.Validate` / `ToToastRequest` (40 tests). Needed `InternalsVisibleTo` since both types are
+      `internal`.
+- [ ] The stack layout maths (`ToastHost.Reflow`) is still untested; it would need pulling out of the WPF
+      types (`ToastWindow` is a real `Window`, needs a UI thread) to be unit-testable.
 
 ## Housekeeping noticed elsewhere in the repo
 

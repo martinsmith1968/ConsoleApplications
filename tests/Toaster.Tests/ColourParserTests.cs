@@ -1,0 +1,70 @@
+using System.Windows.Media;
+
+namespace Toaster.Tests;
+
+public class ColourParserTests
+{
+    [Theory]
+    [InlineData("Red")]
+    [InlineData("red")]
+    [InlineData("CornflowerBlue")]
+    [InlineData("  Red  ")]
+    public void TryParse_known_colour_name_succeeds(string name)
+    {
+        ColourParser.TryParse(name, out _).ShouldBeTrue();
+    }
+
+    [Theory]
+    [InlineData("#F00", (byte)0xFF, (byte)0xFF, (byte)0x00, (byte)0x00)] // RGB shorthand
+    [InlineData("#8F00", (byte)0x88, (byte)0xFF, (byte)0x00, (byte)0x00)] // ARGB shorthand
+    [InlineData("#FF0000", (byte)0xFF, (byte)0xFF, (byte)0x00, (byte)0x00)] // RRGGBB
+    [InlineData("#ff0000", (byte)0xFF, (byte)0xFF, (byte)0x00, (byte)0x00)] // lower-case RRGGBB
+    [InlineData("#80FF0000", (byte)0x80, (byte)0xFF, (byte)0x00, (byte)0x00)] // AARRGGBB
+    public void TryParse_hex_value_succeeds(string text, byte a, byte r, byte g, byte b)
+    {
+        ColourParser.TryParse(text, out var colour).ShouldBeTrue();
+
+        colour.A.ShouldBe(a);
+        colour.R.ShouldBe(r);
+        colour.G.ShouldBe(g);
+        colour.B.ShouldBe(b);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("NotAColour")]
+    [InlineData("#12")]
+    [InlineData("#12345")]
+    [InlineData("#GGGGGG")]
+    [InlineData("NotAColour#FF0000")]
+    public void TryParse_garbage_fails(string? text)
+    {
+        ColourParser.TryParse(text, out _).ShouldBeFalse();
+    }
+
+    [Theory]
+    [InlineData(null, true)]
+    [InlineData("", true)]
+    [InlineData("   ", true)]
+    [InlineData("auto", true)]
+    [InlineData("AUTO", true)]
+    [InlineData("Red", false)]
+    public void IsAuto_detects_auto_or_empty(string? text, bool expected)
+    {
+        ColourParser.IsAuto(text).ShouldBe(expected);
+    }
+
+    [Fact]
+    public void IsLight_true_for_white()
+    {
+        ColourParser.IsLight(Colors.White).ShouldBeTrue();
+    }
+
+    [Fact]
+    public void IsLight_false_for_black()
+    {
+        ColourParser.IsLight(Colors.Black).ShouldBeFalse();
+    }
+}

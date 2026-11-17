@@ -60,6 +60,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "apps\Calendar\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toaster", "apps\Toaster\Toaster.csproj", "{C1D77C5B-BB71-62F5-2AD5-5704E661A743}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toaster.Tests", "tests\Toaster.Tests\Toaster.Tests.csproj", "{0219F232-A334-4F2B-B5D5-4530414EBDDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -188,6 +190,14 @@ Global
 		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Release|x64.ActiveCfg = Release|Any CPU
 		{C1D77C5B-BB71-62F5-2AD5-5704E661A743}.Release|x64.Build.0 = Release|Any CPU
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Debug|x64.ActiveCfg = Debug|x64
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Debug|x64.Build.0 = Debug|x64
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Release|x64.ActiveCfg = Release|x64
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,6 +218,7 @@ Global
 		{785CEB8D-BEC2-411A-89A5-469A3FBDC50A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0282A983-71D0-BF65-F645-7B5657AD7D50} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
 		{C1D77C5B-BB71-62F5-2AD5-5704E661A743} = {AE9ECE9E-2084-4E33-8064-5C9A880CF226}
+		{0219F232-A334-4F2B-B5D5-4530414EBDDD} = {267121B5-D4AA-4A11-9BC2-B29E43D4A0C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C85506CE-422F-4F69-AB29-BA611E771379}
