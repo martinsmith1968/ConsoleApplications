@@ -5,7 +5,8 @@ using Ookii.CommandLine.Conversion;
 
 namespace Toaster.Configuration;
 
-public class Arguments : IValidatableArguments
+[GeneratedParser]
+public partial class Arguments : IValidatableArguments
 {
     [Alias("t")]
     [Description("The text to display")]
@@ -41,7 +42,7 @@ public class Arguments : IValidatableArguments
     public ToastLocationType Location { get; set; }
 
     [Alias("m")]
-    [Description("Monitor for where the Toast popup show")]
+    [Description("Monitor for where the Toast popup shows")]
     [CommandLineArgument(IsRequired = false, DefaultValue = ToastMonitorType.Primary)]
     [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
     public ToastMonitorType Monitor { get; set; }
@@ -58,7 +59,7 @@ public class Arguments : IValidatableArguments
     public GradientFillStyleType BackgroundFillStyle { get; set; }
 
     [Alias("fg")]
-    [Description("Foreground color for the Message Text")]
+    [Description("Foreground color for the Text")]
     [CommandLineArgument(IsRequired = false, DefaultValue = Constants.Auto)]
     public string ForegroundColour { get; set; } = string.Empty;
 
@@ -82,15 +83,25 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false)]
     public string Sound { get; set; } = string.Empty;
 
-    [Alias("fn")]
-    [Description("Font family name for the Title and Text. Must be an installed font")]
+    [Alias("tfn")]
+    [Description("Font family name for the Text. Must be an installed font")]
     [CommandLineArgument(IsRequired = false)]
-    public string FontName { get; set; } = string.Empty;
+    public string TextFontName { get; set; } = string.Empty;
 
-    [Alias("fs")]
-    [Description("Base font size for the Text, in points. The Title is shown 1pt larger")]
+    [Alias("tfs")]
+    [Description("Base font size for the Text, in points")]
     [CommandLineArgument(IsRequired = false, DefaultValue = 13.0)]
-    public double FontSize { get; set; } = 13;
+    public double TextFontSize { get; set; } = 13;
+
+    [Alias("tifn")]
+    [Description("Font family name for the Title. Must be an installed font")]
+    [CommandLineArgument(IsRequired = false)]
+    public string TitleFontName { get; set; } = string.Empty;
+
+    [Alias("tifs")]
+    [Description("Base font size for the Title, in points")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = 14.0)]
+    public double TitleFontSize { get; set; } = 14;
 
     public void Validate()
     {
@@ -121,11 +132,17 @@ public class Arguments : IValidatableArguments
         if (!SoundParser.IsValid(Sound))
             throw new ArgumentException($"'{Sound}' is not a known system sound name (Asterisk, Beep, Exclamation, Hand, Question) or an existing .wav file path", nameof(Sound));
 
-        if (!FontParser.IsValid(FontName))
-            throw new ArgumentException($"'{FontName}' is not an installed font", nameof(FontName));
+        if (!FontParser.IsValid(TextFontName))
+            throw new ArgumentException($"'{TextFontName}' is not an installed font", nameof(TextFontName));
 
-        if (FontSize <= 0)
-            throw new ArgumentOutOfRangeException(nameof(FontSize), "Value must be greater than zero");
+        if (TextFontSize <= 0)
+            throw new ArgumentOutOfRangeException(nameof(TextFontSize), "Value must be greater than zero");
+
+        if (!FontParser.IsValid(TitleFontName))
+            throw new ArgumentException($"'{TitleFontName}' is not an installed font", nameof(TitleFontName));
+
+        if (TitleFontSize <= 0)
+            throw new ArgumentOutOfRangeException(nameof(TitleFontSize), "Value must be greater than zero");
     }
 
     public ToastRequest ToToastRequest()
@@ -145,8 +162,10 @@ public class Arguments : IValidatableArguments
             BackgroundFillStyle,
             WindowWidth,
             Sound,
-            FontName,
-            FontSize
+            TextFontName,
+            TextFontSize,
+            TitleFontName,
+            TitleFontSize
         );
     }
 }

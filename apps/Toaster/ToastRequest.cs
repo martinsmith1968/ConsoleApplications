@@ -18,6 +18,8 @@ public record ToastRequest(
     GradientFillStyleType BackgroundFillStyle = GradientFillStyleType.Solid,
     string WindowWidth = "360",
     string? Sound = null,
-    string? FontName = null,
-    double FontSize = 13
+    string? TextFontName = null,
+    double TextFontSize = 13,
+    string? TitleFontName = null,
+    double TitleFontSize = 14
 );

@@ -82,7 +82,6 @@ internal sealed class ToastWindow : Window
             titleBrush = textBrush = new SolidColorBrush(foreground);
 
         var stack = new StackPanel();
-        var fontFamily = string.IsNullOrWhiteSpace(request.FontName) ? null : new FontFamily(request.FontName);
 
         if (!string.IsNullOrWhiteSpace(request.Title))
         {
@@ -91,13 +90,13 @@ internal sealed class ToastWindow : Window
                 Text = request.Title,
                 TextAlignment = ToWpf(request.TitleAlignment),
                 FontWeight = FontWeights.SemiBold,
-                FontSize = request.FontSize + 1,
+                FontSize = request.TitleFontSize,
                 Foreground = titleBrush,
                 TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(0, 0, 0, 4),
             };
-            if (fontFamily is not null)
-                titleBlock.FontFamily = fontFamily;
+            if (!string.IsNullOrWhiteSpace(request.TitleFontName))
+                titleBlock.FontFamily = new FontFamily(request.TitleFontName);
 
             stack.Children.Add(titleBlock);
         }
@@ -106,12 +105,12 @@ internal sealed class ToastWindow : Window
         {
             Text = request.Text,
             TextAlignment = ToWpf(request.TextAlignment),
-            FontSize = request.FontSize,
+            FontSize = request.TextFontSize,
             Foreground = textBrush,
             TextWrapping = TextWrapping.Wrap,
         };
-        if (fontFamily is not null)
-            textBlock.FontFamily = fontFamily;
+        if (!string.IsNullOrWhiteSpace(request.TextFontName))
+            textBlock.FontFamily = new FontFamily(request.TextFontName);
 
         stack.Children.Add(textBlock);
 

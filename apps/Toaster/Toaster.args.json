@@ -62,11 +62,19 @@
         },
         {
           "Id": "ca74276c-e824-40ca-aa09-3faba4cf3ea8",
-          "Command": "-fn Consolas"
+          "Command": "-tfn Consolas"
         },
         {
           "Id": "33817cea-183f-4961-9317-3ea6401d4790",
-          "Command": "-fs 16"
+          "Command": "-tfs 16"
+        },
+        {
+          "Id": "ee7554a5-ea31-4859-b837-91edd14afbd4",
+          "Command": "-tifn \"Segoe UI\""
+        },
+        {
+          "Id": "bf8c0edd-da4e-4d98-9154-c61981ce57ae",
+          "Command": "-tifs 20"
         }
       ]
     },
@@ -76,7 +84,7 @@
       "Items": [
         {
           "Id": "86632521-8c77-497f-9d59-c878ccd9ee44",
-          "Command": "-t \"It is now {now:hh:mm}\""
+          "Command": "-t \"It is now {now:h:mm tt}\""
         },
         {
           "Id": "b621488a-94cc-475f-a7b2-325b669015b7",
@@ -101,6 +109,10 @@
         {
           "Id": "7f18a86a-61e8-4680-b821-f332d7453fe5",
           "Command": "-hi 1"
+        },
+        {
+          "Id": "77cce582-32d2-419e-a92f-9e827206a3bf",
+          "Command": "-tfs 15"
         },
         {
           "Id": "a1b72a78-dd0d-4e8f-aef3-3b51b7909ac5",

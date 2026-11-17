@@ -179,10 +179,10 @@ public class ArgumentsTests
     }
 
     [Fact]
-    public void Validate_throws_when_font_name_is_invalid()
+    public void Validate_throws_when_text_font_name_is_invalid()
     {
         var arguments = Valid();
-        arguments.FontName = "NotARealFontXYZ";
+        arguments.TextFontName = "NotARealFontXYZ";
 
         Should.Throw<ArgumentException>(() => arguments.Validate());
     }
@@ -191,10 +191,10 @@ public class ArgumentsTests
     [InlineData("")]
     [InlineData("Arial")]
     [InlineData("Segoe UI")]
-    public void Validate_accepts_valid_font_name(string fontName)
+    public void Validate_accepts_valid_text_font_name(string fontName)
     {
         var arguments = Valid();
-        arguments.FontName = fontName;
+        arguments.TextFontName = fontName;
 
         Should.NotThrow(() => arguments.Validate());
     }
@@ -202,10 +202,42 @@ public class ArgumentsTests
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public void Validate_throws_when_font_size_is_not_positive(double fontSize)
+    public void Validate_throws_when_text_font_size_is_not_positive(double fontSize)
     {
         var arguments = Valid();
-        arguments.FontSize = fontSize;
+        arguments.TextFontSize = fontSize;
+
+        Should.Throw<ArgumentOutOfRangeException>(() => arguments.Validate());
+    }
+
+    [Fact]
+    public void Validate_throws_when_title_font_name_is_invalid()
+    {
+        var arguments = Valid();
+        arguments.TitleFontName = "NotARealFontXYZ";
+
+        Should.Throw<ArgumentException>(() => arguments.Validate());
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("Arial")]
+    [InlineData("Segoe UI")]
+    public void Validate_accepts_valid_title_font_name(string fontName)
+    {
+        var arguments = Valid();
+        arguments.TitleFontName = fontName;
+
+        Should.NotThrow(() => arguments.Validate());
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void Validate_throws_when_title_font_size_is_not_positive(double fontSize)
+    {
+        var arguments = Valid();
+        arguments.TitleFontSize = fontSize;
 
         Should.Throw<ArgumentOutOfRangeException>(() => arguments.Validate());
     }
@@ -229,8 +261,10 @@ public class ArgumentsTests
             BackgroundFillStyle = GradientFillStyleType.DiagonalFromTopLeft,
             WindowWidth = "500",
             Sound = "Asterisk",
-            FontName = "Arial",
-            FontSize = 16,
+            TextFontName = "Arial",
+            TextFontSize = 16,
+            TitleFontName = "Segoe UI",
+            TitleFontSize = 18,
         };
 
         var request = arguments.ToToastRequest();
@@ -249,7 +283,9 @@ public class ArgumentsTests
         request.BackgroundFillStyle.ShouldBe(GradientFillStyleType.DiagonalFromTopLeft);
         request.WindowWidth.ShouldBe("500");
         request.Sound.ShouldBe("Asterisk");
-        request.FontName.ShouldBe("Arial");
-        request.FontSize.ShouldBe(16);
+        request.TextFontName.ShouldBe("Arial");
+        request.TextFontSize.ShouldBe(16);
+        request.TitleFontName.ShouldBe("Segoe UI");
+        request.TitleFontSize.ShouldBe(18);
     }
 }
