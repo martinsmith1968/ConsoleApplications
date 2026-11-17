@@ -2,7 +2,7 @@
   "profiles": {
     "Toaster": {
       "commandName": "Project",
-      "commandLineArgs": "-t \"It is now {now:hh:mm}\" -y Vertical -b Red:White -w Auto -n 1 -a Centre"
+      "commandLineArgs": "-t \"It is now {now:hh:mm}\" -bgf Vertical -bg Red:White -w Auto -hi 1 -ta Centre"
     }
   }
 }

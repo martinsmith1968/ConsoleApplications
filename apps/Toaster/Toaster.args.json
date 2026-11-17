@@ -12,11 +12,11 @@
         },
         {
           "Id": "da19e511-4865-47a3-97f3-daca373a42da",
-          "Command": "-i \"%COMPUTERNAME% Time Of Day\""
+          "Command": "-ti \"%COMPUTERNAME% Time Of Day\""
         },
         {
           "Id": "bfe73a5e-b6aa-49bb-936c-15e4f3174abb",
-          "Command": "-g Centre"
+          "Command": "-tia Centre"
         }
       ]
     },
@@ -30,7 +30,7 @@
         },
         {
           "Id": "d494ac78-4448-49cd-920c-2a314ff538fb",
-          "Command": "-i \"My App\""
+          "Command": "-ti \"My App\""
         },
         {
           "Id": "041ec3f7-f82f-4f05-a62f-6481c0b2616d",
@@ -38,19 +38,19 @@
         },
         {
           "Id": "9fda4321-4cce-4238-be43-0f10a12c6f27",
-          "Command": "-o All"
+          "Command": "-m All"
         },
         {
           "Id": "09a842cd-9e40-4615-8f83-ad06818d18a5",
-          "Command": "-b Green"
+          "Command": "-bg Green"
         },
         {
           "Id": "88e1cdba-1a51-4e4b-9ee4-675849eab172",
-          "Command": "-m 1500"
+          "Command": "-tt 1500"
         },
         {
           "Id": "6bbb3daf-53b6-4756-b996-10c22cab5ffd",
-          "Command": "-n 1"
+          "Command": "-hi 1"
         },
         {
           "Id": "a25bda7e-e86d-404b-ab90-0e4ee82208a4",
@@ -58,7 +58,7 @@
         },
         {
           "Id": "89670e1e-2071-4827-9566-c7900c390433",
-          "Command": "-f Auto"
+          "Command": "-fg Auto"
         }
       ]
     },
@@ -72,19 +72,19 @@
         },
         {
           "Id": "b621488a-94cc-475f-a7b2-325b669015b7",
-          "Command": "-y Vertical"
+          "Command": "-bgf Vertical"
         },
         {
           "Id": "a7d6b79d-7a53-41c7-8205-8c1abcd815de",
-          "Command": "-u Beep"
+          "Command": "-snd Beep"
         },
         {
           "Id": "5c0dd0cf-e144-411c-8b6b-c8fd8897c161",
-          "Command": "-u \"C:\\Windows\\Media\\dm\\Windows Foreground.wav\""
+          "Command": "-snd \"C:\\Windows\\Media\\dm\\Windows Foreground.wav\""
         },
         {
           "Id": "b5a75468-56a5-4d3c-b33a-26e281f28161",
-          "Command": "-b Red:White"
+          "Command": "-bg Red:White"
         },
         {
           "Id": "a9016408-6dc3-4499-9166-508fa5633da0",
@@ -92,11 +92,11 @@
         },
         {
           "Id": "7f18a86a-61e8-4680-b821-f332d7453fe5",
-          "Command": "-n 1"
+          "Command": "-hi 1"
         },
         {
           "Id": "a1b72a78-dd0d-4e8f-aef3-3b51b7909ac5",
-          "Command": "-a Centre"
+          "Command": "-ta Centre"
         }
       ]
     }

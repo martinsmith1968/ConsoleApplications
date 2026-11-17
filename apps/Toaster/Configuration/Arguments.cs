@@ -11,7 +11,7 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = true, IsPositional = true, Position = 1)]
     public string Text { get; set; } = string.Empty;
 
-    [Alias("i")]
+    [Alias("ti")]
     [Description("Optional Title shown above the message")]
     [CommandLineArgument(IsRequired = false)]
     public string? Title { get; set; }
@@ -21,12 +21,12 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = 5)]
     public int TimeoutSeconds { get; set; }
 
-    [Alias("a")]
+    [Alias("ta")]
     [Description("The alignment of the Text")]
     [CommandLineArgument(IsRequired = false, DefaultValue = TextAlignmentType.Left)]
     public TextAlignmentType TextAlignment { get; set; }
 
-    [Alias("g")]
+    [Alias("tia")]
     [Description("The alignment of the Title")]
     [CommandLineArgument(IsRequired = false, DefaultValue = TextAlignmentType.Left)]
     public TextAlignmentType TitleAlignment { get; set; }
@@ -36,32 +36,32 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = ToastLocationType.BottomRight)]
     public ToastLocationType Location { get; set; }
 
-    [Alias("o")]
+    [Alias("m")]
     [Description("Monitor for where the Toast popup show")]
     [CommandLineArgument(IsRequired = false, DefaultValue = ToastMonitorType.Primary)]
     public ToastMonitorType Monitor { get; set; }
 
-    [Alias("b")]
+    [Alias("bg")]
     [Description("Background color for the toast popup")]
     [CommandLineArgument(IsRequired = false)]
     public string BackgroundColour { get; set; } = string.Empty;
 
-    [Alias("y")]
+    [Alias("bgf")]
     [Description("Background Fill style for the toast popup")]
     [CommandLineArgument(IsRequired = false, DefaultValue = GradientFillStyleType.Solid)]
     public GradientFillStyleType BackgroundFillStyle { get; set; }
 
-    [Alias("f")]
+    [Alias("fg")]
     [Description("Foreground color for the Message Text")]
     [CommandLineArgument(IsRequired = false, DefaultValue = Constants.Auto)]
     public string ForegroundColour { get; set; } = string.Empty;
 
-    [Alias("m")]
+    [Alias("tt")]
     [Description("The transition time for the Window animation, in Milliseconds")]
     [CommandLineArgument(IsRequired = false, DefaultValue = 1000)]
     public int TransitionTimeMilliseconds { get; set; }
 
-    [Alias("n")]
+    [Alias("hi")]
     [Description("A Horizontal Indent to use when positioning the popup")]
     [CommandLineArgument(IsRequired = false, DefaultValue = 0)]
     public double HorizontalIndent { get; set; }
@@ -71,7 +71,7 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = ToastWindow.DefaultWidth)]
     public string WindowWidth { get; set; } = string.Empty;
 
-    [Alias("u")]
+    [Alias("snd")]
     [Description("Optional sound to play when the toast appears: a system sound name (Asterisk, Beep, Exclamation, Hand, Question) or a path to a .wav file")]
     [CommandLineArgument(IsRequired = false)]
     public string Sound { get; set; } = string.Empty;

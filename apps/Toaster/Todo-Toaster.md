@@ -5,9 +5,9 @@ title alignment all work and were smoke-tested (stacking across instances, 4 cor
 parsing, invalid-argument errors, host exit after expiry). The solution builds with 0 errors. Nothing here has
 been tested by eye beyond pixel/rect checks.
 
-Arguments (current): `Text` (positional, `-t`), `-Title` (`-i`), `-TimeoutSeconds` (`-s`),
-`-TextAlignment` (`-a`), `-TitleAlignment` (`-g`), `-Location` (`-l`), `-Monitor` (`-o`),
-`-BackgroundColour` (`-b`), `-ForegroundColour` (`-f`, default `Auto`).
+Arguments (current): `Text` (positional, `-t`), `-Title` (`-ti`), `-TimeoutSeconds` (`-s`),
+`-TextAlignment` (`-ta`), `-TitleAlignment` (`-tia`), `-Location` (`-l`), `-Monitor` (`-m`),
+`-BackgroundColour` (`-bg`), `-ForegroundColour` (`-fg`, default `Auto`).
 
 **Uncommitted:** foreground colour, alignment options, `TextAlignmentType.cs` and this
 file are not yet committed (last commit: `f491501`).
@@ -16,10 +16,10 @@ file are not yet committed (last commit: `f491501`).
 
 - [ ] **Visual check of the animations.** Slide-in, slide-out and the "drop down into the gap" reflow were
       only checked via window rectangles, never watched. Confirm the easing/duration (300ms) feels right.
-- [ ] **Text contrast on custom backgrounds (`-f Auto`).** Text switches to dark when the background is "light"
-      (luminance > 160, `ColourParser.IsLight`). The threshold is a guess and ignores alpha. An explicit `-f`
+- [ ] **Text contrast on custom backgrounds (`-fg Auto`).** Text switches to dark when the background is "light"
+      (luminance > 160, `ColourParser.IsLight`). The threshold is a guess and ignores alpha. An explicit `-fg`
       colour is used as-is (for both title and text) with no contrast check.
-- [ ] **Alignment.** `-a` / `-g` (Left / Right / Centre) were run once but the result was not looked at. Check
+- [ ] **Alignment.** `-ta` / `-tia` (Left / Right / Centre) were run once but the result was not looked at. Check
       wrapped multi-line text, and a title aligned differently from the body.
 - [ ] **Mixed-DPI multi-monitor setups.** The app is system-DPI aware (WPF default); monitor work areas are
       divided by the system scale. Tested on 3 monitors, but not with differing scale factors – toasts may be
@@ -65,9 +65,9 @@ file are not yet committed (last commit: `f491501`).
 - [ ] **Colour names.** `KnownColor` also contains *system* colours (e.g. `Control`, `Window`) which resolve to
       the current theme's colour, and `Transparent` gives a fully transparent card. Decide whether to restrict
       to non-system colours.
-- [x] **Stale examples (will fail).** Fixed: `-m` is a valid alias again (now `TransitionTimeMilliseconds`,
-      not the old Text alias), and `launchSettings.json` / `Toaster.args.json` now exercise every flag,
-      including `-s` and `-f` which neither one touched before. Added a `Toaster` entry to the root `README.md`.
+- [x] **Stale examples (will fail).** Fixed: `-m` is a valid alias again (now `Monitor`, not the old Text
+      alias), and `launchSettings.json` / `Toaster.args.json` now exercise every flag, including `-s` and
+      `-fg` which neither one touched before. Added a `Toaster` entry to the root `README.md`.
 
 ## Protocol / design notes
 
