@@ -56,6 +56,37 @@ public class ColourParserTests
         ColourParser.IsAuto(text).ShouldBe(expected);
     }
 
+    [Theory]
+    [InlineData("Red")]
+    [InlineData("#FF0000")]
+    public void TryParsePair_single_colour_succeeds_with_no_second_colour(string text)
+    {
+        ColourParser.TryParsePair(text, out var first, out var second).ShouldBeTrue();
+
+        first.ShouldBe(Colors.Red);
+        second.ShouldBeNull();
+    }
+
+    [Fact]
+    public void TryParsePair_two_colours_succeeds()
+    {
+        ColourParser.TryParsePair("Red:Blue", out var first, out var second).ShouldBeTrue();
+
+        first.ShouldBe(Colors.Red);
+        second.ShouldBe(Colors.Blue);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("Red:Green:Blue")]
+    [InlineData("NotAColour:Blue")]
+    [InlineData("Red:NotAColour")]
+    public void TryParsePair_garbage_fails(string? text)
+    {
+        ColourParser.TryParsePair(text, out _, out _).ShouldBeFalse();
+    }
+
     [Fact]
     public void IsLight_true_for_white()
     {

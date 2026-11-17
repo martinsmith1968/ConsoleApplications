@@ -73,9 +73,7 @@ internal sealed class ToastWindow : Window
         Width = ToastWidth;
         Opacity = 0;
 
-        var background = ColourParser.TryParse(request.BackgroundColour, out var parsed)
-            ? parsed
-            : Color.FromRgb(0x2B, 0x2B, 0x2B);
+        var backgroundBrush = CreateBackgroundBrush(request.BackgroundColour, request.BackgroundFillStyle, out var background);
         var light = ColourParser.IsLight(background);
 
         // Auto: pick for contrast against the background. Otherwise use the requested colour for title and message.
@@ -111,7 +109,7 @@ internal sealed class ToastWindow : Window
 
         var card = new Border
         {
-            Background = new SolidColorBrush(background),
+            Background = backgroundBrush,
             BorderBrush = new SolidColorBrush(Color.FromRgb(0x50, 0x50, 0x50)),
             BorderThickness = new Thickness(1),
             CornerRadius = new CornerRadius(8),
@@ -132,6 +130,45 @@ internal sealed class ToastWindow : Window
         card.MouseLeftButtonUp += (_, _) => Clicked?.Invoke(this);
         SourceInitialized += (_, _) => HideFromAltTab();
     }
+
+    /// <summary>
+    /// A solid brush for a single colour (or when <paramref name="fillStyle"/> is Solid), otherwise a gradient
+    /// from the first colour to the second in the direction <paramref name="fillStyle"/> names.
+    /// <paramref name="representative"/> is the colour to use for auto-contrast decisions: the single colour,
+    /// or the average of the two gradient colours.
+    /// </summary>
+    private static Brush CreateBackgroundBrush(string? backgroundColour, GradientFillStyleType fillStyle, out Color representative)
+    {
+        if (!ColourParser.TryParsePair(backgroundColour, out var first, out var second))
+        {
+            representative = Color.FromRgb(0x2B, 0x2B, 0x2B);
+            return new SolidColorBrush(representative);
+        }
+
+        if (fillStyle == GradientFillStyleType.Solid || second is null)
+        {
+            representative = first;
+            return new SolidColorBrush(first);
+        }
+
+        representative = AverageColour(first, second.Value);
+
+        var (start, end) = fillStyle switch
+        {
+            GradientFillStyleType.Horizontal => (new Point(0, 0.5), new Point(1, 0.5)),
+            GradientFillStyleType.DiagonalFromTopLeft => (new Point(0, 0), new Point(1, 1)),
+            GradientFillStyleType.DiagonalFromTopRight => (new Point(1, 0), new Point(0, 1)),
+            _ => (new Point(0.5, 0), new Point(0.5, 1)), // Vertical
+        };
+
+        return new LinearGradientBrush(first, second.Value, start, end);
+    }
+
+    private static Color AverageColour(Color a, Color b) => Color.FromArgb(
+        (byte)((a.A + b.A) / 2),
+        (byte)((a.R + b.R) / 2),
+        (byte)((a.G + b.G) / 2),
+        (byte)((a.B + b.B) / 2));
 
     private static TextAlignment ToWpf(TextAlignmentType alignment) => alignment switch
     {

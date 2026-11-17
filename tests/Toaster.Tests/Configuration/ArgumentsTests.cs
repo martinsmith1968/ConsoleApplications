@@ -62,6 +62,50 @@ public class ArgumentsTests
         Should.Throw<ArgumentException>(() => arguments.Validate());
     }
 
+    [Theory]
+    [InlineData("Red:Green:Blue")]
+    [InlineData("Red:NotAColour")]
+    public void Validate_throws_when_background_colour_gradient_pair_is_invalid(string backgroundColour)
+    {
+        var arguments = Valid();
+        arguments.BackgroundColour = backgroundColour;
+
+        Should.Throw<ArgumentException>(() => arguments.Validate());
+    }
+
+    [Fact]
+    public void Validate_throws_when_fill_style_is_not_solid_without_a_colour()
+    {
+        var arguments = Valid();
+        arguments.BackgroundFillStyle = GradientFillStyleType.Vertical;
+
+        Should.Throw<ArgumentException>(() => arguments.Validate());
+    }
+
+    [Fact]
+    public void Validate_throws_when_fill_style_is_not_solid_with_only_one_colour()
+    {
+        var arguments = Valid();
+        arguments.BackgroundFillStyle = GradientFillStyleType.Horizontal;
+        arguments.BackgroundColour = "Red";
+
+        Should.Throw<ArgumentException>(() => arguments.Validate());
+    }
+
+    [Theory]
+    [InlineData(GradientFillStyleType.Vertical)]
+    [InlineData(GradientFillStyleType.Horizontal)]
+    [InlineData(GradientFillStyleType.DiagonalFromTopLeft)]
+    [InlineData(GradientFillStyleType.DiagonalFromTopRight)]
+    public void Validate_accepts_fill_style_not_solid_with_two_colours(GradientFillStyleType fillStyle)
+    {
+        var arguments = Valid();
+        arguments.BackgroundFillStyle = fillStyle;
+        arguments.BackgroundColour = "Red:Blue";
+
+        Should.NotThrow(() => arguments.Validate());
+    }
+
     [Fact]
     public void Validate_throws_when_foreground_colour_is_invalid()
     {
@@ -100,6 +144,7 @@ public class ArgumentsTests
             TitleAlignment = TextAlignmentType.Right,
             TransitionTimeMilliseconds = 1234,
             HorizontalIndent = 0.5,
+            BackgroundFillStyle = GradientFillStyleType.DiagonalFromTopLeft,
         };
 
         var request = arguments.ToToastRequest();
@@ -115,5 +160,6 @@ public class ArgumentsTests
         request.TitleAlignment.ShouldBe(TextAlignmentType.Right);
         request.TransitionTimeMilliseconds.ShouldBe(1234);
         request.HorizontalIndent.ShouldBe(0.5);
+        request.BackgroundFillStyle.ShouldBe(GradientFillStyleType.DiagonalFromTopLeft);
     }
 }

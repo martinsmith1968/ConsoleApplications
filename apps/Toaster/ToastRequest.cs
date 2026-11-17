@@ -14,5 +14,6 @@ public record ToastRequest(
     TextAlignmentType TextAlignment = TextAlignmentType.Left,
     TextAlignmentType TitleAlignment = TextAlignmentType.Left,
     int TransitionTimeMilliseconds = 500,
-    double HorizontalIndent = 0
+    double HorizontalIndent = 0,
+    GradientFillStyleType BackgroundFillStyle = GradientFillStyleType.Solid
 );

@@ -46,6 +46,11 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false)]
     public string BackgroundColour { get; set; } = string.Empty;
 
+    [Alias("y")]
+    [Description("Background Fill style for the toast popup")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = GradientFillStyleType.Solid)]
+    public GradientFillStyleType BackgroundFillStyle { get; set; }
+
     [Alias("f")]
     [Description("Foreground color for the Message Text")]
     [CommandLineArgument(IsRequired = false, DefaultValue = Constants.Auto)]
@@ -75,8 +80,11 @@ public class Arguments : IValidatableArguments
         if (HorizontalIndent < 0)
             throw new ArgumentOutOfRangeException(nameof(HorizontalIndent), "Value must be zero or greater");
 
-        if (!string.IsNullOrWhiteSpace(BackgroundColour) && !ColourParser.TryParse(BackgroundColour, out _))
-            throw new ArgumentException($"'{BackgroundColour}' is not a known colour name or a # value (#RGB, #RRGGBB, #AARRGGBB)", nameof(BackgroundColour));
+        if (!string.IsNullOrWhiteSpace(BackgroundColour) && !ColourParser.TryParsePair(BackgroundColour, out _, out _))
+            throw new ArgumentException($"'{BackgroundColour}' is not a known colour name or a # value (#RGB, #RRGGBB, #AARRGGBB), optionally two such values separated by ':' for a gradient fill", nameof(BackgroundColour));
+
+        if (BackgroundFillStyle != GradientFillStyleType.Solid && !(BackgroundColour?.Contains(':') ?? false))
+            throw new ArgumentException($"BackgroundFillStyle '{BackgroundFillStyle}' requires two colours in BackgroundColour separated by ':' (e.g. Red:Blue)", nameof(BackgroundFillStyle));
 
         if (!ColourParser.IsAuto(ForegroundColour) && !ColourParser.TryParse(ForegroundColour, out _))
             throw new ArgumentException($"'{ForegroundColour}' is not Auto, a known colour name or a # value (#RGB, #RRGGBB, #AARRGGBB)", nameof(ForegroundColour));
@@ -95,7 +103,8 @@ public class Arguments : IValidatableArguments
             TextAlignment,
             TitleAlignment,
             TransitionTimeMilliseconds,
-            HorizontalIndent
+            HorizontalIndent,
+            BackgroundFillStyle
         );
     }
 }

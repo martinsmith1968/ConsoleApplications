@@ -57,7 +57,28 @@
     {
       "Id": "bd0d22da-7366-4211-806d-45dc0f867de6",
       "Command": "Gradient Text",
-      "Items": []
+      "Items": [
+        {
+          "Id": "86632521-8c77-497f-9d59-c878ccd9ee44",
+          "Command": "-t \"Is is now {now:hh:mm}\""
+        },
+        {
+          "Id": "b621488a-94cc-475f-a7b2-325b669015b7",
+          "Command": "-y Vertical"
+        },
+        {
+          "Id": "b5a75468-56a5-4d3c-b33a-26e281f28161",
+          "Command": "-b Red:White"
+        },
+        {
+          "Id": "7f18a86a-61e8-4680-b821-f332d7453fe5",
+          "Command": "-n 1"
+        },
+        {
+          "Id": "a1b72a78-dd0d-4e8f-aef3-3b51b7909ac5",
+          "Command": "-a Centre"
+        }
+      ]
     }
   ]
 }

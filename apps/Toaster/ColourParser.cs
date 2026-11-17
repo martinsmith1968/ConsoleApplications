@@ -42,6 +42,32 @@ internal static class ColourParser
         return true;
     }
 
+    /// <summary>
+    /// Parses a background colour spec: either a single colour, or two colours separated by ':' for a gradient
+    /// fill (e.g. "Red:Blue"). <paramref name="second"/> is null unless two colours were given and both parsed.
+    /// </summary>
+    public static bool TryParsePair(string? text, out MediaColor first, out MediaColor? second)
+    {
+        first = default;
+        second = null;
+
+        if (string.IsNullOrWhiteSpace(text))
+            return false;
+
+        var parts = text.Split(':');
+        if (parts.Length is not (1 or 2) || !TryParse(parts[0], out first))
+            return false;
+
+        if (parts.Length == 1)
+            return true;
+
+        if (!TryParse(parts[1], out var secondColour))
+            return false;
+
+        second = secondColour;
+        return true;
+    }
+
     /// <summary>True if no explicit colour was requested (empty or "Auto") and it should be derived from the background.</summary>
     public static bool IsAuto(string? text) =>
         string.IsNullOrWhiteSpace(text) || text.Trim().Equals(Constants.Auto, StringComparison.OrdinalIgnoreCase);
