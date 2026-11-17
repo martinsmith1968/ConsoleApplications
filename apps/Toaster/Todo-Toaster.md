@@ -25,8 +25,10 @@ file are not yet committed (last commit: `f491501`).
       divided by the system scale. Tested on 3 monitors, but not with differing scale factors – toasts may be
       mis-sized or mis-placed on a secondary monitor with a different DPI. Fix is probably a per-monitor-v2
       manifest plus per-monitor DPI conversion in `Monitors.cs`.
-- [ ] **CI.** `ci-build.yml` builds the solution with `-p:Platform=x64` in Release on `windows-latest`. Toaster
-      is in the solution now but has not been built that way (only Debug / default platform locally).
+- [x] **CI.** `ci-build.yml` builds the solution with `-p:Platform=x64` in Release on `windows-latest`. Verified
+      locally with the same `dotnet build`/`dotnet test` flags (`-c Release -p:Platform=x64`); Toaster maps to
+      `Release|Any CPU` for that platform per the `.sln`, same as it would in CI. Not yet confirmed on an
+      actual CI run.
 - [ ] **Concurrency stress.** The host hand-off/shutdown race (client connects while the host is closing) is
       handled by an ack ("OK"/"NO") plus client retry, but was only exercised with a handful of launches.
       Try 20+ rapid launches, and launches timed to land at the end of the idle grace period.
@@ -90,9 +92,10 @@ file are not yet committed (last commit: `f491501`).
 
 - [ ] `TomlFileHandler.Tests` is still on older test packages (`Microsoft.NET.Test.Sdk` 17.12.0, `xunit` 2.9.2,
       `xunit.runner.visualstudio` 2.8.2) than the other test projects.
-- [ ] Apps still reference `Microsoft.Extensions.DependencyInjection` 9.0.0 while `ConsoleApplications.Common`
+- [x] Apps still reference `Microsoft.Extensions.DependencyInjection` 9.0.0 while `ConsoleApplications.Common`
       resolves 10.0.x; Toaster dropped its direct references for this reason (NU1605). The same tidy-up applies to
-      the other apps.
+      the other apps. All in-solution apps now reference `10.0.15`, matching `ConsoleApplications.Common`;
+      only `BannerText` and `VarList` (outside the solution, see below) are still on `9.0.0`.
 - [ ] `BannerText` and `VarList` were backfilled with settings from the deleted `Directory.Build.props`, and
       `BannerText` needed a `TriState` fix for Ookii 5; both were only built standalone, and they are outside
       the solution.
