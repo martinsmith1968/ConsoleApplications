@@ -1,7 +1,6 @@
 using ConsoleApplications.Common.Services.GUIDGeneration;
 using ConsoleApplications.Common.Tests.Helpers;
 using Shouldly;
-using Xunit.Abstractions;
 
 namespace ConsoleApplications.Common.Tests.Services.GUIDGeneration;
 
