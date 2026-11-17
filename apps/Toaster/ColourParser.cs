@@ -7,7 +7,8 @@ internal static class ColourParser
 {
     /// <summary>
     /// Resolves a colour name (System.Drawing.KnownColor, case-insensitive) or a # value
-    /// (#RGB, #ARGB, #RRGGBB, #AARRGGBB).
+    /// (#RGB, #ARGB, #RRGGBB, #AARRGGBB). System colours (e.g. "Control", "Window") are rejected -
+    /// they resolve to whatever the current Windows theme says, not a fixed colour.
     /// </summary>
     public static bool TryParse(string? text, out MediaColor colour)
     {
@@ -21,6 +22,9 @@ internal static class ColourParser
         if (Enum.TryParse<KnownColor>(text, ignoreCase: true, out var known) && Enum.IsDefined(known))
         {
             var c = Color.FromKnownColor(known);
+            if (c.IsSystemColor)
+                return false;
+
             colour = MediaColor.FromArgb(c.A, c.R, c.G, c.B);
             return true;
         }

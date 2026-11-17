@@ -45,6 +45,17 @@ public class ColourParserTests
     }
 
     [Theory]
+    [InlineData("Control")]
+    [InlineData("Window")]
+    [InlineData("Desktop")]
+    [InlineData("Highlight")]
+    [InlineData("control")]
+    public void TryParse_system_colour_is_rejected(string name)
+    {
+        ColourParser.TryParse(name, out _).ShouldBeFalse();
+    }
+
+    [Theory]
     [InlineData(null, true)]
     [InlineData("", true)]
     [InlineData("   ", true)]

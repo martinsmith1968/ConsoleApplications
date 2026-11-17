@@ -46,7 +46,8 @@ file are not yet committed (last commit: `f491501`).
       monitors/taskbar change while the host is alive (it normally lives only seconds), placement goes stale.
       Stacks are also keyed by monitor *index*, which can change if monitors are added/removed.
 - [ ] **Click is the only interaction.** No close button, no hover-to-pause the timeout, no action
-      buttons, icon/image, sound, or screen-reader (UI Automation) support.
+      buttons, icon/image, or screen-reader (UI Automation) support. Sound on appearance is now covered
+      (`-snd`/`Sound`, via `SoundParser` - a system sound name or a `.wav` file path).
 - [ ] **Focus Assist / Do Not Disturb is ignored.** Toasts always appear.
 - [ ] **Multi-placement toasts share one fate.** A toast shown in several corners/monitors expires together and
       clicking any copy dismisses all copies. Probably what you want, but it is a decision.
@@ -57,17 +58,18 @@ file are not yet committed (last commit: `f491501`).
       cmd/PowerShell the process returns immediately (GUI app), so output can interleave with the next prompt,
       and the exit code isn't seen unless the caller waits (`start /wait`, `Start-Process -Wait`). `-?` /
       `--help` output has not been tested.
-- [ ] **`Arguments.cs` tidy-ups.** `Description` typos: "Monitor for
-      where the Toast popup show"; the foreground description says "Message Text" but it also colours the
-      title. Ookii warns OCL0040 (use `[GeneratedParser]`).
+- [x] **`Arguments.cs` tidy-ups.** Both `Description` typos are fixed ("Monitor for where the Toast popup
+      shows"; foreground description now just says "Text" instead of the misleading "Message Text"), and
+      `Arguments` is now `partial` with `[GeneratedParser]`, clearing the OCL0040 warning (0 warnings on build).
 - [x] **`Centre` only.** Fixed: `AlternateSpellingEnumConverter` + `AlternateSpellings` accept `Center` (and any
       case variant) for every enum argument, mapping it to the canonical `Centre` before normal enum parsing;
       a truly invalid value still gets Ookii's usual "must be one of the following values" error. Add more
       entries to `AlternateSpellings.Map` if other spelling variants come up.
 - [x] **Unused `using System.Drawing;`** in `Arguments.cs` (harmless).
-- [ ] **Colour names.** `KnownColor` also contains *system* colours (e.g. `Control`, `Window`) which resolve to
-      the current theme's colour, and `Transparent` gives a fully transparent card. Decide whether to restrict
-      to non-system colours.
+- [x] **Colour names.** Decided: restrict to non-system colours. `ColourParser.TryParse` now rejects any
+      `KnownColor` where `Color.IsSystemColor` is true (e.g. `Control`, `Window`), so they no longer resolve
+      to whatever the current theme says. `Transparent` isn't a system colour by .NET's own classification,
+      so it still resolves and still gives a fully transparent card - untouched, as it wasn't part of this ask.
 - [x] **Stale examples (will fail).** Fixed: `-m` is a valid alias again (now `Monitor`, not the old Text
       alias), and `launchSettings.json` / `Toaster.args.json` now exercise every flag, including `-s` and
       `-fg` which neither one touched before. Added a `Toaster` entry to the root `README.md`.
@@ -84,10 +86,10 @@ file are not yet committed (last commit: `f491501`).
 
 ## Tests
 
-- [x] `Toaster.Tests` covers `ColourParser` (names, `#RGB`, `#ARGB`, `#RRGGBB`, `#AARRGGBB`, garbage, gradient
-      pairs), `Arguments.Validate` / `ToToastRequest` (including dynamic text, gradient fill and window width),
-      `DynamicText` and `Constants.IsAuto` (86 tests). Needed `InternalsVisibleTo` since the types under test
-      are `internal`.
+- [x] `Toaster.Tests` covers `ColourParser`, `Arguments.Validate` / `ToToastRequest` (dynamic text, gradient
+      fill, window width, sound, separate Text/Title fonts, alternate enum spellings), `DynamicText`,
+      `Constants.IsAuto`, `SoundParser`, `FontParser` and `AlternateSpellings` (140 tests). Needed
+      `InternalsVisibleTo` since the types under test are `internal`.
 - [ ] The stack layout maths (`ToastHost.Reflow`) is still untested; it would need pulling out of the WPF
       types (`ToastWindow` is a real `Window`, needs a UI thread) to be unit-testable.
 
