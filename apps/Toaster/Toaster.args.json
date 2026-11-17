@@ -59,6 +59,14 @@
         {
           "Id": "89670e1e-2071-4827-9566-c7900c390433",
           "Command": "-fg Auto"
+        },
+        {
+          "Id": "ca74276c-e824-40ca-aa09-3faba4cf3ea8",
+          "Command": "-fn Consolas"
+        },
+        {
+          "Id": "33817cea-183f-4961-9317-3ea6401d4790",
+          "Command": "-fs 16"
         }
       ]
     },

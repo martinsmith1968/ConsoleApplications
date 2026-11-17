@@ -82,6 +82,16 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false)]
     public string Sound { get; set; } = string.Empty;
 
+    [Alias("fn")]
+    [Description("Font family name for the Title and Text. Must be an installed font")]
+    [CommandLineArgument(IsRequired = false)]
+    public string FontName { get; set; } = string.Empty;
+
+    [Alias("fs")]
+    [Description("Base font size for the Text, in points. The Title is shown 1pt larger")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = 13.0)]
+    public double FontSize { get; set; } = 13;
+
     public void Validate()
     {
         if (string.IsNullOrEmpty(Text))
@@ -110,6 +120,12 @@ public class Arguments : IValidatableArguments
 
         if (!SoundParser.IsValid(Sound))
             throw new ArgumentException($"'{Sound}' is not a known system sound name (Asterisk, Beep, Exclamation, Hand, Question) or an existing .wav file path", nameof(Sound));
+
+        if (!FontParser.IsValid(FontName))
+            throw new ArgumentException($"'{FontName}' is not an installed font", nameof(FontName));
+
+        if (FontSize <= 0)
+            throw new ArgumentOutOfRangeException(nameof(FontSize), "Value must be greater than zero");
     }
 
     public ToastRequest ToToastRequest()
@@ -128,7 +144,9 @@ public class Arguments : IValidatableArguments
             HorizontalIndent,
             BackgroundFillStyle,
             WindowWidth,
-            Sound
+            Sound,
+            FontName,
+            FontSize
         );
     }
 }

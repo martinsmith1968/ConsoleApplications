@@ -179,6 +179,38 @@ public class ArgumentsTests
     }
 
     [Fact]
+    public void Validate_throws_when_font_name_is_invalid()
+    {
+        var arguments = Valid();
+        arguments.FontName = "NotARealFontXYZ";
+
+        Should.Throw<ArgumentException>(() => arguments.Validate());
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("Arial")]
+    [InlineData("Segoe UI")]
+    public void Validate_accepts_valid_font_name(string fontName)
+    {
+        var arguments = Valid();
+        arguments.FontName = fontName;
+
+        Should.NotThrow(() => arguments.Validate());
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void Validate_throws_when_font_size_is_not_positive(double fontSize)
+    {
+        var arguments = Valid();
+        arguments.FontSize = fontSize;
+
+        Should.Throw<ArgumentOutOfRangeException>(() => arguments.Validate());
+    }
+
+    [Fact]
     public void ToToastRequest_maps_every_field()
     {
         var arguments = new Arguments
@@ -197,6 +229,8 @@ public class ArgumentsTests
             BackgroundFillStyle = GradientFillStyleType.DiagonalFromTopLeft,
             WindowWidth = "500",
             Sound = "Asterisk",
+            FontName = "Arial",
+            FontSize = 16,
         };
 
         var request = arguments.ToToastRequest();
@@ -215,5 +249,7 @@ public class ArgumentsTests
         request.BackgroundFillStyle.ShouldBe(GradientFillStyleType.DiagonalFromTopLeft);
         request.WindowWidth.ShouldBe("500");
         request.Sound.ShouldBe("Asterisk");
+        request.FontName.ShouldBe("Arial");
+        request.FontSize.ShouldBe(16);
     }
 }

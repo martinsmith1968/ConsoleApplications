@@ -82,29 +82,38 @@ internal sealed class ToastWindow : Window
             titleBrush = textBrush = new SolidColorBrush(foreground);
 
         var stack = new StackPanel();
+        var fontFamily = string.IsNullOrWhiteSpace(request.FontName) ? null : new FontFamily(request.FontName);
 
         if (!string.IsNullOrWhiteSpace(request.Title))
         {
-            stack.Children.Add(new TextBlock
+            var titleBlock = new TextBlock
             {
                 Text = request.Title,
                 TextAlignment = ToWpf(request.TitleAlignment),
                 FontWeight = FontWeights.SemiBold,
-                FontSize = 14,
+                FontSize = request.FontSize + 1,
                 Foreground = titleBrush,
                 TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(0, 0, 0, 4),
-            });
+            };
+            if (fontFamily is not null)
+                titleBlock.FontFamily = fontFamily;
+
+            stack.Children.Add(titleBlock);
         }
 
-        stack.Children.Add(new TextBlock
+        var textBlock = new TextBlock
         {
             Text = request.Text,
             TextAlignment = ToWpf(request.TextAlignment),
-            FontSize = 13,
+            FontSize = request.FontSize,
             Foreground = textBrush,
             TextWrapping = TextWrapping.Wrap,
-        });
+        };
+        if (fontFamily is not null)
+            textBlock.FontFamily = fontFamily;
+
+        stack.Children.Add(textBlock);
 
         var card = new Border
         {
