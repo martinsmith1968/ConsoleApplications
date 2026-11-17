@@ -1,6 +1,6 @@
 using Toaster.Configuration;
 
-namespace Toaster.Tests;
+namespace Toaster.Tests.Configuration;
 
 public class ArgumentsTests
 {
