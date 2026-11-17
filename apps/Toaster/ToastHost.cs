@@ -69,6 +69,7 @@ internal sealed class ToastHost
             return false;
 
         _idleTimer.Stop();
+        SoundParser.TryPlay(request.Sound);
 
         var group = new Group();
         var touched = new List<Stack>();

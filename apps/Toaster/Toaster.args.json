@@ -75,6 +75,14 @@
           "Command": "-y Vertical"
         },
         {
+          "Id": "a7d6b79d-7a53-41c7-8205-8c1abcd815de",
+          "Command": "-u Beep"
+        },
+        {
+          "Id": "5c0dd0cf-e144-411c-8b6b-c8fd8897c161",
+          "Command": "-u \"C:\\Windows\\Media\\dm\\Windows Foreground.wav\""
+        },
+        {
           "Id": "b5a75468-56a5-4d3c-b33a-26e281f28161",
           "Command": "-b Red:White"
         },

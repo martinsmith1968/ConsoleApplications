@@ -154,6 +154,30 @@ public class ArgumentsTests
         Should.NotThrow(() => arguments.Validate());
     }
 
+    [Theory]
+    [InlineData("NotASound")]
+    [InlineData("C:/not/a/real/path.wav")]
+    [InlineData("C:/not/even/a/wav.mp3")]
+    public void Validate_throws_when_sound_is_invalid(string sound)
+    {
+        var arguments = Valid();
+        arguments.Sound = sound;
+
+        Should.Throw<ArgumentException>(() => arguments.Validate());
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("Asterisk")]
+    [InlineData("beep")]
+    public void Validate_accepts_valid_sound(string sound)
+    {
+        var arguments = Valid();
+        arguments.Sound = sound;
+
+        Should.NotThrow(() => arguments.Validate());
+    }
+
     [Fact]
     public void ToToastRequest_maps_every_field()
     {
@@ -172,6 +196,7 @@ public class ArgumentsTests
             HorizontalIndent = 0.5,
             BackgroundFillStyle = GradientFillStyleType.DiagonalFromTopLeft,
             WindowWidth = "500",
+            Sound = "Asterisk",
         };
 
         var request = arguments.ToToastRequest();
@@ -189,5 +214,6 @@ public class ArgumentsTests
         request.HorizontalIndent.ShouldBe(0.5);
         request.BackgroundFillStyle.ShouldBe(GradientFillStyleType.DiagonalFromTopLeft);
         request.WindowWidth.ShouldBe("500");
+        request.Sound.ShouldBe("Asterisk");
     }
 }

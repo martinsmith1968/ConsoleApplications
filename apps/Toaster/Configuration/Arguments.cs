@@ -71,6 +71,11 @@ public class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = ToastWindow.DefaultWidth)]
     public string WindowWidth { get; set; } = string.Empty;
 
+    [Alias("u")]
+    [Description("Optional sound to play when the toast appears: a system sound name (Asterisk, Beep, Exclamation, Hand, Question) or a path to a .wav file")]
+    [CommandLineArgument(IsRequired = false)]
+    public string Sound { get; set; } = string.Empty;
+
     public void Validate()
     {
         if (string.IsNullOrEmpty(Text))
@@ -96,6 +101,9 @@ public class Arguments : IValidatableArguments
 
         if (!Constants.IsAuto(WindowWidth) && (!double.TryParse(WindowWidth, out var windowWidth) || windowWidth <= 0))
             throw new ArgumentException($"'{WindowWidth}' is not '{Constants.Auto}' or a positive number", nameof(WindowWidth));
+
+        if (!SoundParser.IsValid(Sound))
+            throw new ArgumentException($"'{Sound}' is not a known system sound name (Asterisk, Beep, Exclamation, Hand, Question) or an existing .wav file path", nameof(Sound));
     }
 
     public ToastRequest ToToastRequest()
@@ -113,7 +121,8 @@ public class Arguments : IValidatableArguments
             TransitionTimeMilliseconds,
             HorizontalIndent,
             BackgroundFillStyle,
-            WindowWidth
+            WindowWidth,
+            Sound
         );
     }
 }

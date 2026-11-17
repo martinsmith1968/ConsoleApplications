@@ -16,5 +16,6 @@ public record ToastRequest(
     int TransitionTimeMilliseconds = 500,
     double HorizontalIndent = 0,
     GradientFillStyleType BackgroundFillStyle = GradientFillStyleType.Solid,
-    string WindowWidth = "360"
+    string WindowWidth = "360",
+    string? Sound = null
 );
