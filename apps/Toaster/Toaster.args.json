@@ -8,7 +8,7 @@
       "Items": [
         {
           "Id": "197cf3b5-14d1-417e-8964-ceb72fbe770d",
-          "Command": "-t \"Is is now {now:hh:mm}\""
+          "Command": "-t \"It is now {now:hh:mm}\""
         },
         {
           "Id": "da19e511-4865-47a3-97f3-daca373a42da",
@@ -51,6 +51,14 @@
         {
           "Id": "6bbb3daf-53b6-4756-b996-10c22cab5ffd",
           "Command": "-n 1"
+        },
+        {
+          "Id": "a25bda7e-e86d-404b-ab90-0e4ee82208a4",
+          "Command": "-s 8"
+        },
+        {
+          "Id": "89670e1e-2071-4827-9566-c7900c390433",
+          "Command": "-f Auto"
         }
       ]
     },
@@ -60,7 +68,7 @@
       "Items": [
         {
           "Id": "86632521-8c77-497f-9d59-c878ccd9ee44",
-          "Command": "-t \"Is is now {now:hh:mm}\""
+          "Command": "-t \"It is now {now:hh:mm}\""
         },
         {
           "Id": "b621488a-94cc-475f-a7b2-325b669015b7",
@@ -69,6 +77,10 @@
         {
           "Id": "b5a75468-56a5-4d3c-b33a-26e281f28161",
           "Command": "-b Red:White"
+        },
+        {
+          "Id": "a9016408-6dc3-4499-9166-508fa5633da0",
+          "Command": "-w Auto"
         },
         {
           "Id": "7f18a86a-61e8-4680-b821-f332d7453fe5",

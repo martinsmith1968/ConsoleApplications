@@ -65,10 +65,9 @@ file are not yet committed (last commit: `f491501`).
 - [ ] **Colour names.** `KnownColor` also contains *system* colours (e.g. `Control`, `Window`) which resolve to
       the current theme's colour, and `Transparent` gives a fully transparent card. Decide whether to restrict
       to non-system colours.
-- [ ] **Stale examples (will fail).** `Properties/launchSettings.json` and `Toaster.args.json` still pass `-m`
-      which no longer exists (the alias for Text is now `-t`; `-i` for Title is fine), so launching
-      from the IDE errors out. They also don't exercise `-s`, `-a`, `-g` or `-f`. There is no README entry for
-      Toaster.
+- [x] **Stale examples (will fail).** Fixed: `-m` is a valid alias again (now `TransitionTimeMilliseconds`,
+      not the old Text alias), and `launchSettings.json` / `Toaster.args.json` now exercise every flag,
+      including `-s` and `-f` which neither one touched before. Added a `Toaster` entry to the root `README.md`.
 
 ## Protocol / design notes
 
@@ -82,9 +81,10 @@ file are not yet committed (last commit: `f491501`).
 
 ## Tests
 
-- [x] `Toaster.Tests` covers `ColourParser` (names, `#RGB`, `#ARGB`, `#RRGGBB`, `#AARRGGBB`, garbage) and
-      `Arguments.Validate` / `ToToastRequest` (40 tests). Needed `InternalsVisibleTo` since both types are
-      `internal`.
+- [x] `Toaster.Tests` covers `ColourParser` (names, `#RGB`, `#ARGB`, `#RRGGBB`, `#AARRGGBB`, garbage, gradient
+      pairs), `Arguments.Validate` / `ToToastRequest` (including dynamic text, gradient fill and window width),
+      `DynamicText` and `Constants.IsAuto` (86 tests). Needed `InternalsVisibleTo` since the types under test
+      are `internal`.
 - [ ] The stack layout maths (`ToastHost.Reflow`) is still untested; it would need pulling out of the WPF
       types (`ToastWindow` is a real `Window`, needs a UI thread) to be unit-testable.
 
