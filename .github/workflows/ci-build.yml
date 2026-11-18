@@ -200,6 +200,7 @@ jobs:
         base_path: ${{ env.BUILD_OUTPUTFOLDER }}
         files: |
           **/*.exe
+          **/*.dll
           **/*.config
           *.md
 

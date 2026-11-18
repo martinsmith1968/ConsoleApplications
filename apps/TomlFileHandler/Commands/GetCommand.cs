@@ -53,6 +53,6 @@ internal partial class GetCommand : BaseTOMLValueCommand
             ? value?.ToString()
             : string.Format("{0:" + Format + "}", value);
 
-        return result;
+        return result ?? string.Empty;
     }
 }

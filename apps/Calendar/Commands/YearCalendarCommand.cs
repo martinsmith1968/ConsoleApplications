@@ -11,7 +11,7 @@ public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>
 {
     public const string CommandName = "year";
 
-    public sealed class Settings : CustomCommandSettings
+    public sealed class Settings : CommonCommandSettings
     {
         [Description("The Year to generate a Year calendar for")]
         [CommandOption("-y|--year", isRequired: false)]

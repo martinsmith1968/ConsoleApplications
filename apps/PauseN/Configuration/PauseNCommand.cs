@@ -9,7 +9,7 @@ namespace PauseN.Configuration;
 
 public sealed class PauseNCommand : Command<PauseNCommand.Settings>
 {
-    public sealed class Settings : CustomCommandSettings
+    public sealed class Settings : CommonCommandSettings
     {
         public const string PlaceHolder_TimeoutSeconds = "[#TimeoutSeconds#]";
 
@@ -20,7 +20,7 @@ public sealed class PauseNCommand : Command<PauseNCommand.Settings>
 
         [Description("The text to display")]
         [CommandOption("-t|--text", isRequired: false)]
-        [DefaultValue($"Press any key to continue (or wait {PlaceHolder_TimeoutSeconds} seconds)")]
+        [DefaultValue($"Press any key to continue (or wait {PlaceHolder_TimeoutSeconds} seconds) . . .")]
         public string Text { get; set; } = "";
 
         [Description("How long to wait (in milliseconds) between keypress checks")]
@@ -54,7 +54,7 @@ public sealed class PauseNCommand : Command<PauseNCommand.Settings>
                 break;
             }
 
-            Thread.Sleep(TimeSpan.FromMilliseconds(100));
+            Thread.Sleep(TimeSpan.FromMilliseconds(settings.SleepMilliseconds));
         }
 
         Console.Out.WriteLine();

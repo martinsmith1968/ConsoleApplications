@@ -6,7 +6,7 @@ using Spectre.Console.Rendering;
 
 namespace ConsoleApplications.Common.CommandLine;
 
-public class CustomHelpProvider(ICommandAppSettings settings)
+public class CommonHelpProvider(ICommandAppSettings settings)
     : HelpProvider(settings)
 {
     /// <summary>

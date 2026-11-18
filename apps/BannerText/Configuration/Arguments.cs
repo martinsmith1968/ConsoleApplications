@@ -5,7 +5,8 @@ using Ookii.CommandLine;
 
 namespace BannerText.Configuration;
 
-public class Arguments
+[GeneratedParser]
+public partial class Arguments
 {
     [Description("The text line(s) to display")]
     [CommandLineArgument(IsRequired = true, Position = 1)]

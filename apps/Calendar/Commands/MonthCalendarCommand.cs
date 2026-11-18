@@ -10,7 +10,7 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
 {
     public const string CommandName = "month";
 
-    public sealed class Settings : CustomCommandSettings
+    public sealed class Settings : CommonCommandSettings
     {
         [Description("The Year to generate a Month calendar for")]
         [CommandOption("-y|--year", isRequired: false)]
@@ -66,7 +66,10 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
             table.AddColumn("Day");
             table.AddColumn("Event");
 
-            foreach (var ev in calendar.CalendarEvents.Where(x => x.GetDate() >= calendar.GetStartDate() && x.GetDate() <= calendar.GetEndDate()))
+            var events = calendar.CalendarEvents
+                .Where(x => x.GetDate() >= calendar.GetStartDate() && x.GetDate() <= calendar.GetEndDate());
+
+            foreach (var ev in events)
             {
                 var dt = ev.GetDate();
 

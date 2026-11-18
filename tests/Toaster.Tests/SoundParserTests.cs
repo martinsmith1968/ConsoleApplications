@@ -107,7 +107,15 @@ public class SoundParserTests
         }
         finally
         {
-            File.Delete(path);
+            // SoundPlayer.Play() loads asynchronously, so the file can still be briefly open here;
+            // failing to clean up the scratch file isn't something this test should fail on.
+            try
+            {
+                File.Delete(path);
+            }
+            catch (IOException)
+            {
+            }
         }
     }
 

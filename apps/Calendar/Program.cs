@@ -16,7 +16,7 @@ internal class Program
                 config.AddCommand<MonthCalendarCommand>(MonthCalendarCommand.CommandName);
                 config.AddCommand<YearCalendarCommand>(YearCalendarCommand.CommandName);
 
-                CustomCommandAppConfiguration.Configure(config);
+                CommonCommandAppConfiguration.Configure(config);
 
                 //config.AddExample("");
                 //config.AddExample("-y", "2000");

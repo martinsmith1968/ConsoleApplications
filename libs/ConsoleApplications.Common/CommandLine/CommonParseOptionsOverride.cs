@@ -6,7 +6,7 @@ using Ookii.CommandLine;
 namespace ConsoleApplications.Common.CommandLine;
 
 [GeneratedParser]
-public partial class CustomParseOptionsOverride : ICustomParseOptionsOverride
+public partial class CommonParseOptionsOverride : ICustomParseOptionsOverride
 {
     [CommandLineArgument(ShortName = '@', DefaultValue = true, Category = CommandLineCategoryType.OptionsFiles, Position = int.MaxValue - 1)]
     [Description("Use the Argument File in the application directory, if present")]

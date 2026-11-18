@@ -13,7 +13,7 @@ internal partial class SetCommand : BaseTOMLValueCommand
     [CommandLineArgument(IsRequired = true)]
     [Description("The value to set")]
     [Alias("v")]
-    public string Value { get; set; }
+    public string Value { get; set; } = string.Empty;
 
     public override void Validate()
     {

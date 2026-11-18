@@ -3,7 +3,7 @@ using Spectre.Console.Cli;
 
 namespace ConsoleApplications.Common.CommandLine;
 
-public class CustomCommandAppConfiguration
+public class CommonCommandAppConfiguration
 {
     public static void Configure(IConfigurator config)
     {
@@ -16,6 +16,6 @@ public class CustomCommandAppConfiguration
         config.ValidateExamples();
         config.UseStrictParsing();
         config.CaseSensitivity(CaseSensitivity.All);
-        config.SetHelpProvider(new CustomHelpProvider(config.Settings));
+        config.SetHelpProvider(new CommonHelpProvider(config.Settings));
     }
 }
