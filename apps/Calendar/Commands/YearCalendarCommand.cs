@@ -1,15 +1,16 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ConsoleApplications.Common.CommandLine;
+using ConsoleApplications.Common.Interfaces;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using Spectre.Console.Rendering;
 
 namespace Calendar.Commands;
 
-public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>
+public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>, ICustomCommand
 {
-    public const string CommandName = "year";
+    public static string GetCommandName() => "year";
 
     public sealed class Settings : CommonCommandSettings
     {
@@ -32,6 +33,15 @@ public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>
         [DefaultValue(12)]
         [Range(1, 12)]
         public int TotalMonths { get; set; }
+    }
+
+    public static IList<string[]> GetExamples()
+    {
+        return new List<string[]>()
+        {
+            { [ GetCommandName(), "-y", "2000" ] },
+            { [ GetCommandName(), "-y", "2000", "-f", "7" ] },
+        };
     }
 
     public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)

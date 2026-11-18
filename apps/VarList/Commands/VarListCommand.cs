@@ -1,8 +1,9 @@
-/*
 using System.Collections;
 using System.ComponentModel;
-using CommandLine;
+using ConsoleApplications.Common.CommandLine;
+using ConsoleApplications.Common.Interfaces;
 using Spectre.Console;
+using Spectre.Console.Cli;
 
 namespace VarList.Commands;
 
@@ -19,20 +20,10 @@ public enum OutputFormat
     Table
 }
 
-public class VarListCommand : IAutoConfigure
+public class VarListCommand : Command<VarListCommand.Settings>, ICustomCommand
 {
-    public static Parser AutoConfigure()
-    {
-        return new Parser(a =>
-            {
-                a.CaseSensitive = true;
-                a.CaseInsensitiveEnumValues = true;
-            }
-        );
-    }
+    public static string GetCommandName() => CommonCommandApp.DeriveCommandName<VarListCommand>();
 
-
-    /*
     public sealed class Settings : CommandSettings
     {
         [CommandOption("-s|--search")]
@@ -50,19 +41,6 @@ public class VarListCommand : IAutoConfigure
         [DefaultValue(OutputFormat.Grid)]
         public OutputFormat Format { get; set; }
     }
-
-        [Option('s', "search", Required = false)]
-        public string SearchWildcard { get; set; }
-
-        [Option('o', "order", Required = false, Default = SortOrder.Name)]
-        public SortOrder Order { get; set; }
-
-        [Option('t', "target", Required = false, Default = EnvironmentVariableTarget.User)]
-        public EnvironmentVariableTarget Target { get; set; }
-
-        [Option('f', "format", Required = false, Default = OutputFormat.Grid)]
-        [DefaultValue(OutputFormat.Grid)]
-        public OutputFormat Format { get; set; }
 
     private static IList<KeyValuePair<string, string>> GetVariables(EnvironmentVariableTarget target, SortOrder order)
     {
@@ -85,9 +63,9 @@ public class VarListCommand : IAutoConfigure
         };
     }
 
-    public int Execute()
+    public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
-        var variables = GetVariables(Target, Order);
+        var variables = GetVariables(settings.Target, settings.Order);
 
         var table = new Table();
         table.AddColumn("Name");
@@ -98,16 +76,10 @@ public class VarListCommand : IAutoConfigure
         grid.AddColumn();
         grid.AddRow("Name", "Value");
 
-
-
         PopulateData(variables, table, grid);
-
-
-
 
         AnsiConsole.Write(table);
         AnsiConsole.Write(grid);
-
 
         return 0;
     }
@@ -125,4 +97,3 @@ public class VarListCommand : IAutoConfigure
         }
     }
 }
-*/

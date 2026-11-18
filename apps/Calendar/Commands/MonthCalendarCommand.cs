@@ -1,14 +1,15 @@
 using System.ComponentModel;
 using Calendar.Extensions;
 using ConsoleApplications.Common.CommandLine;
+using ConsoleApplications.Common.Interfaces;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace Calendar.Commands;
 
-public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings>
+public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings>, ICustomCommand
 {
-    public const string CommandName = "month";
+    public static string GetCommandName() => "month";
 
     public sealed class Settings : CommonCommandSettings
     {
@@ -34,6 +35,14 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
         [CommandOption("-e|--events-table", isRequired: false)]
         [DefaultValue(false)]
         public bool ShowEventsTable { get; set; }
+    }
+
+    public static IList<string[]> GetExamples()
+    {
+        return new List<string[]>()
+        {
+            { [ GetCommandName(), "-m", "7" ] },
+        };
     }
 
     public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)

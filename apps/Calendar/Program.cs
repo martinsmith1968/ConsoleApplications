@@ -1,5 +1,6 @@
 using Calendar.Commands;
 using ConsoleApplications.Common.CommandLine;
+using ConsoleApplications.Common.Extensions;
 using Spectre.Console.Cli;
 
 namespace Calendar;
@@ -12,23 +13,19 @@ internal class Program
         {
             var app = new CommandApp();
             app.Configure(config =>
-            {
-                config.AddCommand<MonthCalendarCommand>(MonthCalendarCommand.CommandName);
-                config.AddCommand<YearCalendarCommand>(YearCalendarCommand.CommandName);
+                {
+                    config.AddCustomCommandWithExtensions<MonthCalendarCommand>();
+                    config.AddCustomCommandWithExtensions<YearCalendarCommand>();
 
-                CommonCommandAppConfiguration.Configure(config);
-
-                //config.AddExample("");
-                //config.AddExample("-y", "2000");
-                //config.AddExample("-m", "7");
-                //config.AddExample("-y", "2000", "-m", "7");
-            });
+                    CommonCommandApp.Configure(config);
+                }
+            );
 
             return await app.RunAsync(args);
         }
         catch (Exception e)
         {
-            Console.WriteLine($"ERROR: {e.Message}");
+            CommonCommandApp.DisplayError(e.Message);
             return 1;
         }
     }

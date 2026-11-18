@@ -10,7 +10,12 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>x64</Platforms>
+    <ApplicationIcon>assets\toastx2.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="assets\toastx2.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />

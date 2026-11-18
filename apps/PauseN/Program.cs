@@ -13,7 +13,7 @@ internal class Program
             var app = new CommandApp<PauseNCommand>();
             app.Configure(config =>
             {
-                CommonCommandAppConfiguration.Configure(config);
+                CommonCommandApp.Configure(config);
 
                 config.AddExample("");
                 config.AddExample("5");
