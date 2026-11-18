@@ -21,5 +21,7 @@ public record ToastRequest(
     string? TextFontName = null,
     double TextFontSize = 13,
     string? TitleFontName = null,
-    double TitleFontSize = 14
+    double TitleFontSize = 14,
+    FontStyleType TextFontStyle = FontStyleType.Default,
+    FontStyleType TitleFontStyle = FontStyleType.Default
 );

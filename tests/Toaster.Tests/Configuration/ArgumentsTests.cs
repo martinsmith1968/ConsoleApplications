@@ -265,6 +265,8 @@ public class ArgumentsTests
             TextFontSize = 16,
             TitleFontName = "Segoe UI",
             TitleFontSize = 18,
+            TextFontStyle = FontStyleType.Bold,
+            TitleFontStyle = FontStyleType.Italic,
         };
 
         var request = arguments.ToToastRequest();
@@ -287,5 +289,7 @@ public class ArgumentsTests
         request.TextFontSize.ShouldBe(16);
         request.TitleFontName.ShouldBe("Segoe UI");
         request.TitleFontSize.ShouldBe(18);
+        request.TextFontStyle.ShouldBe(FontStyleType.Bold);
+        request.TitleFontStyle.ShouldBe(FontStyleType.Italic);
     }
 }

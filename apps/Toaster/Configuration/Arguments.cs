@@ -103,6 +103,18 @@ public partial class Arguments : IValidatableArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = 14.0)]
     public double TitleFontSize { get; set; } = 14;
 
+    [Alias("tfst")]
+    [Description("Font style for the Text: Default (this element's own default), Regular, Bold, Italic or BoldItalic")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = FontStyleType.Default)]
+    [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
+    public FontStyleType TextFontStyle { get; set; }
+
+    [Alias("tifst")]
+    [Description("Font style for the Title: Default (this element's own default), Regular, Bold, Italic or BoldItalic")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = FontStyleType.Default)]
+    [ArgumentConverter(typeof(AlternateSpellingEnumConverter))]
+    public FontStyleType TitleFontStyle { get; set; }
+
     public void Validate()
     {
         if (string.IsNullOrEmpty(Text))
@@ -165,7 +177,9 @@ public partial class Arguments : IValidatableArguments
             TextFontName,
             TextFontSize,
             TitleFontName,
-            TitleFontSize
+            TitleFontSize,
+            TextFontStyle,
+            TitleFontStyle
         );
     }
 }

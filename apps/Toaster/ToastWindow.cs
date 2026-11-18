@@ -85,11 +85,13 @@ internal sealed class ToastWindow : Window
 
         if (!string.IsNullOrWhiteSpace(request.Title))
         {
+            var (titleWeight, titleStyle) = ToWpf(request.TitleFontStyle, FontWeights.SemiBold);
             var titleBlock = new TextBlock
             {
                 Text = request.Title,
                 TextAlignment = ToWpf(request.TitleAlignment),
-                FontWeight = FontWeights.SemiBold,
+                FontWeight = titleWeight,
+                FontStyle = titleStyle,
                 FontSize = request.TitleFontSize,
                 Foreground = titleBrush,
                 TextWrapping = TextWrapping.Wrap,
@@ -101,10 +103,13 @@ internal sealed class ToastWindow : Window
             stack.Children.Add(titleBlock);
         }
 
+        var (textWeight, textStyle) = ToWpf(request.TextFontStyle, FontWeights.Normal);
         var textBlock = new TextBlock
         {
             Text = request.Text,
             TextAlignment = ToWpf(request.TextAlignment),
+            FontWeight = textWeight,
+            FontStyle = textStyle,
             FontSize = request.TextFontSize,
             Foreground = textBrush,
             TextWrapping = TextWrapping.Wrap,
@@ -193,6 +198,20 @@ internal sealed class ToastWindow : Window
         TextAlignmentType.Right => TextAlignment.Right,
         TextAlignmentType.Centre => TextAlignment.Center,
         _ => TextAlignment.Left,
+    };
+
+    /// <summary>
+    /// Maps a <see cref="FontStyleType"/> to a WPF (weight, style) pair. <see cref="FontStyleType.Default"/>
+    /// keeps the element's own default weight (<paramref name="defaultWeight"/>) and never italicises; every
+    /// other value fully specifies both weight and style.
+    /// </summary>
+    private static (FontWeight Weight, FontStyle Style) ToWpf(FontStyleType fontStyle, FontWeight defaultWeight) => fontStyle switch
+    {
+        FontStyleType.Regular => (FontWeights.Normal, FontStyles.Normal),
+        FontStyleType.Bold => (FontWeights.Bold, FontStyles.Normal),
+        FontStyleType.Italic => (FontWeights.Normal, FontStyles.Italic),
+        FontStyleType.BoldItalic => (FontWeights.Bold, FontStyles.Italic),
+        _ => (defaultWeight, FontStyles.Normal),
     };
 
     public void FadeIn() =>

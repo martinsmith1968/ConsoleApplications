@@ -30,6 +30,19 @@ public class ArgumentsParsingTests
         arguments!.TitleAlignment.ShouldBe(TextAlignmentType.Centre);
     }
 
+    [Theory]
+    [InlineData("Bold", FontStyleType.Bold)]
+    [InlineData("bolditalic", FontStyleType.BoldItalic)]
+    [InlineData("ITALIC", FontStyleType.Italic)]
+    public void Parse_accepts_font_style_for_text_and_title(string value, FontStyleType expected)
+    {
+        var arguments = CommandLineParser.Parse<Arguments>(["-t", "Hello", "-tfst", value, "-tifst", value]);
+
+        arguments.ShouldNotBeNull();
+        arguments!.TextFontStyle.ShouldBe(expected);
+        arguments.TitleFontStyle.ShouldBe(expected);
+    }
+
     [Fact]
     public void Parse_returns_null_for_an_unrecognised_value()
     {
