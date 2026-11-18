@@ -1,5 +1,4 @@
 using System.Reflection;
-using FluentAssertions;
 using TomlFileHandler.Services;
 using TomlFileHandler.Tests.Data;
 using TomlFileHandler.Tests.Extensions;
@@ -19,21 +18,21 @@ public class TomlynTOMLFileServiceTests
     public void ReadText_can_read_and_parse_valid_toml()
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         // Act
         var table = TomlynTOMLFileService.ReadText(text);
 
         // Assert
-        table.Should().NotBeNull();
-        table.Count.Should().BeGreaterThan(0);
+        table.ShouldNotBeNull();
+        table.Count.ShouldBeGreaterThan(0);
     }
 
     [Fact]
     public void ReadFile_can_read_and_parse_valid_toml()
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var fileName = Path.GetTempFileName();
         File.WriteAllText(fileName, text);
@@ -42,8 +41,8 @@ public class TomlynTOMLFileServiceTests
         var table = TomlynTOMLFileService.ReadFile(fileName);
 
         // Assert
-        table.Should().NotBeNull();
-        table.Count.Should().BeGreaterThan(0);
+        table.ShouldNotBeNull();
+        table.Count.ShouldBeGreaterThan(0);
     }
 
     [Theory]
@@ -51,7 +50,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlNode_can_read_and_return_nodes_as_expected(string sectionName, string keyName, string expectedNodeText)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -60,7 +59,7 @@ public class TomlynTOMLFileServiceTests
             ?.ToString();
 
         // Assert
-        result.Should().Be(expectedNodeText);
+        result.ShouldBe(expectedNodeText);
     }
 
     [Theory]
@@ -68,7 +67,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlNode_can_read_and_return_array_nodes_as_expected(string sectionName, string keyName, int index, string expectedNodeText)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -77,7 +76,7 @@ public class TomlynTOMLFileServiceTests
             ?.ToString();
 
         // Assert
-        result.Should().Be(expectedNodeText);
+        result.ShouldBe(expectedNodeText);
     }
 
     [Theory]
@@ -85,7 +84,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlNode_fails_to_read_invalid_array_nodes(string sectionName, string keyName, int index)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -95,10 +94,10 @@ public class TomlynTOMLFileServiceTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.ParamName.Should().Be(keyName);
-        ex.ActualValue.Should().Be(index);
-        ex.Message.Should().Contain($"'{keyName}'");
+        ex.ShouldNotBeNull();
+        ex.ParamName.ShouldBe(keyName);
+        ex.ActualValue.ShouldBe(index);
+        ex.Message.ShouldContain($"'{keyName}'");
     }
 
     [Theory]
@@ -106,7 +105,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValue_can_read_and_return_values_as_strings(string sectionName, string keyName, string expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -114,7 +113,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValue(table, sectionName: sectionName, keyName: keyName);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -122,7 +121,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValue_can_read_and_return_array_values_as_strings(string sectionName, string keyName, int index, string expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -130,7 +129,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValue(table, sectionName: sectionName, keyName: keyName, valueIndex: index);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -138,7 +137,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsInt_can_read_and_return_values_as_int(string sectionName, string keyName, int expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -146,7 +145,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsInt(table, sectionName: sectionName, keyName: keyName);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -154,7 +153,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsInt_can_read_and_return_array_values_as_int(string sectionName, string keyName, int index, int expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -162,7 +161,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsInt(table, sectionName: sectionName, keyName: keyName, valueIndex: index);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -170,7 +169,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsInt_fails_to_read_incorrect_data_type(string sectionName, string keyName, double expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -180,8 +179,8 @@ public class TomlynTOMLFileServiceTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.Message.Should().Contain($"'{keyName}'");
+        ex.ShouldNotBeNull();
+        ex.Message.ShouldContain($"'{keyName}'");
     }
 
     [Theory]
@@ -189,7 +188,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsLong_can_read_and_return_values_as_long(string sectionName, string keyName, long expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -197,7 +196,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsLong(table, sectionName: sectionName, keyName: keyName);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -205,7 +204,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsLong_fails_to_read_incorrect_data_type(string sectionName, string keyName, double expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -215,8 +214,8 @@ public class TomlynTOMLFileServiceTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.Message.Should().Contain($"'{keyName}'");
+        ex.ShouldNotBeNull();
+        ex.Message.ShouldContain($"'{keyName}'");
     }
 
     [Theory]
@@ -224,7 +223,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsLong_can_read_and_return_array_values_as_long(string sectionName, string keyName, int index, long expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -232,7 +231,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsLong(table, sectionName: sectionName, keyName: keyName, valueIndex: index);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -240,7 +239,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsBool_can_read_and_return_array_values_as_long(string sectionName, string keyName, bool expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -248,7 +247,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsBool(table, sectionName: sectionName, keyName: keyName);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -256,7 +255,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsBool_fails_to_read_incorrect_data_type(string sectionName, string keyName, double expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -266,8 +265,8 @@ public class TomlynTOMLFileServiceTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.Message.Should().Contain($"'{keyName}'");
+        ex.ShouldNotBeNull();
+        ex.Message.ShouldContain($"'{keyName}'");
     }
 
     [Theory]
@@ -275,7 +274,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsFloat_can_read_and_return_array_values_as_long(string sectionName, string keyName, double expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -283,7 +282,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsFloat(table, sectionName: sectionName, keyName: keyName);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -291,7 +290,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsFloat_fails_to_read_incorrect_data_type(string sectionName, string keyName, bool expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -301,8 +300,8 @@ public class TomlynTOMLFileServiceTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.Message.Should().Contain($"'{keyName}'");
+        ex.ShouldNotBeNull();
+        ex.Message.ShouldContain($"'{keyName}'");
     }
 
     [Theory]
@@ -310,7 +309,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsDateTime_can_read_and_return_values_as_long(string sectionName, string keyName, DateTime expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -318,7 +317,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsDateTime(table, sectionName: sectionName, keyName: keyName);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -326,7 +325,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsDateTime_fails_to_read_incorrect_data_type(string sectionName, string keyName, double expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -336,8 +335,8 @@ public class TomlynTOMLFileServiceTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.Message.Should().Contain($"'{keyName}'");
+        ex.ShouldNotBeNull();
+        ex.Message.ShouldContain($"'{keyName}'");
     }
 
     [Theory]
@@ -345,7 +344,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsDateTimeOffset_can_read_and_return_values_as_long(string sectionName, string keyName, DateTimeOffset expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -353,7 +352,7 @@ public class TomlynTOMLFileServiceTests
         var value = TomlynTOMLFileService.GetTomlValueAsDateTimeOffset(table, sectionName: sectionName, keyName: keyName);
 
         // Assert
-        value.Should().Be(expectedValue);
+        value.ShouldBe(expectedValue);
     }
 
     [Theory]
@@ -361,7 +360,7 @@ public class TomlynTOMLFileServiceTests
     public void GetTomlValueAsDateTimeOffset_fails_to_read_incorrect_data_type(string sectionName, string keyName, double expectedValue)
     {
         var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
-        text.Should().NotBeNullOrWhiteSpace();
+        text.ShouldNotBeNullOrWhiteSpace();
 
         var table = TomlynTOMLFileService.ReadText(text);
 
@@ -371,7 +370,85 @@ public class TomlynTOMLFileServiceTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.Message.Should().Contain($"'{keyName}'");
+        ex.ShouldNotBeNull();
+        ex.Message.ShouldContain($"'{keyName}'");
+    }
+
+    [Fact]
+    public void SetTomlValue_can_overwrite_an_existing_value()
+    {
+        var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
+        var table = TomlynTOMLFileService.ReadText(text);
+
+        // Act
+        TomlynTOMLFileService.SetTomlValue(table, sectionName: "database", keyName: "connection_max", valueIndex: null, value: "6000");
+
+        // Assert
+        TomlynTOMLFileService.GetTomlValue(table, sectionName: "database", keyName: "connection_max").ShouldBe("6000");
+    }
+
+    [Fact]
+    public void SetTomlValue_can_set_a_root_value_with_no_section()
+    {
+        var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
+        var table = TomlynTOMLFileService.ReadText(text);
+
+        // Act
+        TomlynTOMLFileService.SetTomlValue(table, sectionName: "", keyName: "newroot", valueIndex: null, value: "rootvalue");
+
+        // Assert
+        TomlynTOMLFileService.GetTomlValue(table, sectionName: "", keyName: "newroot").ShouldBe("rootvalue");
+    }
+
+    [Fact]
+    public void SetTomlValue_creates_a_section_that_does_not_exist_yet()
+    {
+        var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
+        var table = TomlynTOMLFileService.ReadText(text);
+
+        // Act
+        TomlynTOMLFileService.SetTomlValue(table, sectionName: "newsection", keyName: "newkey", valueIndex: null, value: "newvalue");
+
+        // Assert
+        TomlynTOMLFileService.GetTomlValue(table, sectionName: "newsection", keyName: "newkey").ShouldBe("newvalue");
+    }
+
+    [Fact]
+    public void SetTomlValue_can_overwrite_an_existing_array_element_by_index()
+    {
+        var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
+        var table = TomlynTOMLFileService.ReadText(text);
+
+        // Act
+        TomlynTOMLFileService.SetTomlValue(table, sectionName: "database", keyName: "ports", valueIndex: 1, value: "9999");
+
+        // Assert
+        TomlynTOMLFileService.GetTomlValue(table, sectionName: "database", keyName: "ports", valueIndex: 0).ShouldBe("8000");
+        TomlynTOMLFileService.GetTomlValue(table, sectionName: "database", keyName: "ports", valueIndex: 1).ShouldBe("9999");
+        TomlynTOMLFileService.GetTomlValue(table, sectionName: "database", keyName: "ports", valueIndex: 2).ShouldBe("8002");
+    }
+
+    [Fact]
+    public void SetTomlValue_creates_an_array_that_does_not_exist_yet()
+    {
+        var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
+        var table = TomlynTOMLFileService.ReadText(text);
+
+        // Act
+        TomlynTOMLFileService.SetTomlValue(table, sectionName: "database", keyName: "newarray", valueIndex: 2, value: "x");
+
+        // Assert
+        TomlynTOMLFileService.GetTomlValue(table, sectionName: "database", keyName: "newarray", valueIndex: 2).ShouldBe("x");
+    }
+
+    [Fact]
+    public void SetTomlValue_throws_for_a_negative_index()
+    {
+        var text = Assembly.GetExecutingAssembly().GetEmbeddedResourceText(TestData1_ResourceName);
+        var table = TomlynTOMLFileService.ReadText(text);
+
+        Assert.Throws<ArgumentOutOfRangeException>(
+            () => TomlynTOMLFileService.SetTomlValue(table, sectionName: "database", keyName: "ports", valueIndex: -1, value: "x")
+        );
     }
 }

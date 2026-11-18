@@ -17,10 +17,10 @@ public class ReturnCodeExceptionTests
         var result = new ReturnCodeException(returnCode, message);
 
         // Assert
-        result.Should().NotBeNull();
-        result.ReturnCode.Should().Be(returnCode);
-        result.Message.Should().Be(message);
-        result.InnerException.Should().BeNull();
+        result.ShouldNotBeNull();
+        result.ReturnCode.ShouldBe(returnCode);
+        result.Message.ShouldBe(message);
+        result.InnerException.ShouldBeNull();
     }
 
     [Fact]
@@ -36,11 +36,11 @@ public class ReturnCodeExceptionTests
         var result = new ReturnCodeException(returnCode, message, innerException);
 
         // Assert
-        result.Should().NotBeNull();
-        result.ReturnCode.Should().Be(returnCode);
-        result.Message.Should().Be(message);
-        result.InnerException.Should().NotBeNull();
-        result.InnerException.Should().Be(innerException);
-        result.InnerException!.Message.Should().Be(innerMessage);
+        result.ShouldNotBeNull();
+        result.ReturnCode.ShouldBe(returnCode);
+        result.Message.ShouldBe(message);
+        result.InnerException.ShouldNotBeNull();
+        result.InnerException.ShouldBe(innerException);
+        result.InnerException!.Message.ShouldBe(innerMessage);
     }
 }

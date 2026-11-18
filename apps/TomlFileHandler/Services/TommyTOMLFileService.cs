@@ -118,28 +118,31 @@ public class TommyTOMLFileService
 
     public static void SetTomlValue(TomlTable table, string sectionName, string keyName, int? valueIndex, string value)
     {
-        // TODO: Handle Arrays / ValueIndex
-
-        var node = string.IsNullOrWhiteSpace(sectionName)
+        var container = string.IsNullOrWhiteSpace(sectionName)
             ? table
             : table[sectionName];
 
-        if (valueIndex.HasValue)
+        if (!valueIndex.HasValue)
         {
-            node ??= new TomlArray();
-            if (!node.IsArray)
-                throw new ArgumentOutOfRangeException(nameof(keyName), "Specified Key is not an array");
-
-            node = node.AsArray;
-
-            while (node.ChildrenCount <= valueIndex.Value)
-                node.Add(null);
-
-            node[valueIndex.Value] = value;
+            container[keyName] = value;
+            return;
         }
-        else
+
+        if (valueIndex.Value < 0)
+            throw new ArgumentOutOfRangeException(nameof(valueIndex), valueIndex, "Value must be zero or greater");
+
+        var arrayNode = container[keyName];
+        if (arrayNode is null || !arrayNode.IsArray)
         {
-            node[keyName] = value;
+            arrayNode = new TomlArray();
+            container[keyName] = arrayNode;
         }
+
+        var array = arrayNode.AsArray;
+
+        while (array.ChildrenCount <= valueIndex.Value)
+            array.Add(null);
+
+        array[valueIndex.Value] = value;
     }
 }
