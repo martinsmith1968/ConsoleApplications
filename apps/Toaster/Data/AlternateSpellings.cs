@@ -1,4 +1,4 @@
-namespace Toaster;
+namespace Toaster.Data;
 
 /// <summary>
 /// Maps alternate spellings of fixed argument values to their canonical name, e.g. the American

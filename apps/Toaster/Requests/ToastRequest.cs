@@ -1,6 +1,6 @@
 using Toaster.Configuration;
 
-namespace Toaster;
+namespace Toaster.Requests;
 
 /// <summary>A request to show one toast. Serialised as JSON between instances.</summary>
 public record ToastRequest(

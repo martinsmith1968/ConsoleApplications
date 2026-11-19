@@ -1,7 +1,7 @@
 using System.IO;
 using System.Media;
 
-namespace Toaster;
+namespace Toaster.Services.Parsers;
 
 /// <summary>Resolves the optional sound to play when a toast appears: a named system sound, or a .wav file path.</summary>
 internal static class SoundParser

@@ -7,13 +7,16 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using Toaster.Configuration;
+using Toaster.Requests;
+using Toaster.Services.Parsers;
 
-namespace Toaster;
+namespace Toaster.Windows;
 
 /// <summary>A single borderless toast card.</summary>
 internal sealed class ToastWindow : Window
 {
-    internal const double DefaultWidth = 360;
+    internal const int DefaultWidth = 360;
+    internal const string DefaultWidthText = "360";
     private readonly TimeSpan AnimationTime;
 
     private readonly Border _card;

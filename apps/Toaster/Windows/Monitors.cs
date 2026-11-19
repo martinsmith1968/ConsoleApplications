@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 
-namespace Toaster;
+namespace Toaster.Windows;
 
 /// <summary>Enumerates monitor work areas, in the device-independent units WPF windows are positioned in.</summary>
 internal static class Monitors

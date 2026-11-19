@@ -1,8 +1,9 @@
 using System.Globalization;
 using Ookii.CommandLine;
 using Ookii.CommandLine.Conversion;
+using Toaster.Data;
 
-namespace Toaster.Configuration;
+namespace Toaster.Converters;
 
 /// <summary>
 /// Wraps the standard enum conversion so an enum-typed argument also accepts alternate spellings

@@ -3,8 +3,9 @@ using System.Diagnostics;
 using System.IO.Pipes;
 using System.Text;
 using System.Text.Json;
+using Toaster.Requests;
 
-namespace Toaster;
+namespace Toaster.Services;
 
 /// <summary>
 /// Cross-instance coordination. The first instance to take the named mutex is the host and owns

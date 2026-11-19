@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Toaster;
+namespace Toaster.Services;
 
 /// <summary>
 /// Expands dynamic placeholders embedded in toast Text/Title:

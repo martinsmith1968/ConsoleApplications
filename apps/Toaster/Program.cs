@@ -1,5 +1,8 @@
-using Ookii.CommandLine;
-using Toaster.Configuration;
+using ConsoleApplications.Common.CommandLine;
+using ConsoleApplications.Common.Extensions;
+using Spectre.Console;
+using Spectre.Console.Cli;
+using Toaster.Commands;
 
 namespace Toaster;
 
@@ -13,19 +16,28 @@ internal class Program
 
         try
         {
-            var arguments = CommandLineParser.Parse<Arguments>(args);
-            if (arguments is null)
-                return 1;
+            var app = new CommandApp<ToastCommand>();
+            app.Configure(config =>
+            {
+                ToastCommand.GetExamples().ToList().ForEach(e => config.AddExample(e));
 
-            arguments.Validate();
-            var request = arguments.ToToastRequest();
+                CommonCommandApp.Configure(config);
+            });
 
-            return ToastRequestHandler.Handle(request);
+            // Must stay synchronous: an awaited RunAsync would resume on a thread-pool
+            // thread (no SynchronizationContext in a console app), losing STA-ness
+            // before the WPF Window gets created.
+            return app.Run(args);
+        }
+        catch (CommandRuntimeException ex)
+        {
+            AnsiConsole.MarkupLine($"[red]ERROR:[/] {ex.Message}");
+            return 1;
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"ERROR: {ex.Message}");
-            return 1;
+            AnsiConsole.WriteException(ex, ExceptionFormats.ShortenEverything);
+            return 2;
         }
     }
 }

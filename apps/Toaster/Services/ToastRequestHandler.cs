@@ -1,6 +1,8 @@
 using System.Windows;
+using Toaster.Requests;
+using Toaster.Windows;
 
-namespace Toaster;
+namespace Toaster.Services;
 
 /// <summary>Shows a toast for an already-built <see cref="ToastRequest"/>, becoming the host or handing off to it.</summary>
 internal static class ToastRequestHandler

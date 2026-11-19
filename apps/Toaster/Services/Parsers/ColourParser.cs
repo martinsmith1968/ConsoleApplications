@@ -1,7 +1,7 @@
 using System.Drawing;
 using MediaColor = System.Windows.Media.Color;
 
-namespace Toaster;
+namespace Toaster.Services.Parsers;
 
 internal static class ColourParser
 {

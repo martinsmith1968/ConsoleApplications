@@ -1,8 +1,11 @@
 using System.Windows;
 using System.Windows.Threading;
 using Toaster.Configuration;
+using Toaster.Requests;
+using Toaster.Services.Parsers;
+using Toaster.Windows;
 
-namespace Toaster;
+namespace Toaster.Services;
 
 /// <summary>
 /// Owns every visible toast. Toasts are grouped into one stack per (monitor, corner); a single request

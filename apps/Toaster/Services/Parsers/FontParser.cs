@@ -1,6 +1,6 @@
 using System.Windows.Media;
 
-namespace Toaster;
+namespace Toaster.Services.Parsers;
 
 internal static class FontParser
 {
