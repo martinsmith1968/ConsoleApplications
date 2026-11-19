@@ -11,6 +11,14 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>x64</Platforms>
     <ApplicationIcon>assets\toastx2.ico</ApplicationIcon>
+    <Title>A simple app to show a custom Toast popup on the desktop, without using Windows native mechanism</Title>
+    <Copyright>Copyright © 2004-{Now:yyyy} Martin Smith</Copyright>
+    <Authors>MartinSmith1968</Authors>
+    <Company>Martin Smith</Company>
+    <Description>Show a custom Toast popup on the desktop</Description>
+    <AssemblyVersion>0.1.0.*</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>

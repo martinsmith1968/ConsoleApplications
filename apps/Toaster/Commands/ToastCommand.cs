@@ -10,7 +10,7 @@ using Toaster.Services.Parsers;
 
 namespace Toaster.Commands;
 
-[Description("Show a Toast popup")]
+[Description("Show a custom Toast popup on the desktop, without using Windows native mechanism")]
 public class ToastCommand : Command<ToastCommand.Settings>, ICustomCommand
 {
     public static string GetCommandName() => CommonCommandApp.DeriveCommandName<ToastCommand>();
@@ -193,7 +193,7 @@ public class ToastCommand : Command<ToastCommand.Settings>, ICustomCommand
         return new List<string[]>()
         {
             { [ "\"Hello World\"" ] },
-            { [ "\"The time is now: {now:h:mm tt}\"", "--ww", "Auto" ] },
+            { [ "\"The time is now: {now:h:mm tt}\"", "--bg", "SkyBlue" ] },
         };
     }
 

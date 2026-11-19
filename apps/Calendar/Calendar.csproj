@@ -32,7 +32,7 @@
     <PackageReference Include="DNX.Helpers" Version="2.1.0" />
     <PackageReference Include="Ookii.CommandLine" Version="5.0.0" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />
   </ItemGroup>
