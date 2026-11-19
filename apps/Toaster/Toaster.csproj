@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Toaster.Tests" />
+  </ItemGroup>
+
 </Project>
