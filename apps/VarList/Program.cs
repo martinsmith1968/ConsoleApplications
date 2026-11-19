@@ -7,7 +7,7 @@ namespace VarList;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async Task<int> Main(string[] args)
     {
         try
         {
@@ -17,16 +17,17 @@ internal class Program
                 CommonCommandApp.Configure(config);
             });
 
-
-            app.Run(args);
+            return await app.RunAsync(args);
         }
         catch (CommandRuntimeException ex)
         {
             AnsiConsole.MarkupLine($"[red]ERROR:[/] {ex.Message}");
+            return 1;
         }
         catch (Exception ex)
         {
             AnsiConsole.WriteException(ex, ExceptionFormats.ShortenEverything);
+            return 2;
         }
     }
 }
