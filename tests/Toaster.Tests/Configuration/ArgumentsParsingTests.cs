@@ -1,6 +1,7 @@
 using System.IO;
 using Ookii.CommandLine;
 using Toaster.Configuration;
+using Toaster.Converters;
 
 namespace Toaster.Tests.Configuration;
 

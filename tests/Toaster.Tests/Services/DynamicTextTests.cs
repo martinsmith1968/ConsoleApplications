@@ -1,4 +1,6 @@
-namespace Toaster.Tests;
+using Toaster.Services;
+
+namespace Toaster.Tests.Services;
 
 public class DynamicTextTests
 {

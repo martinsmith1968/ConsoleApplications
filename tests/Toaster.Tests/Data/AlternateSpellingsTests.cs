@@ -1,4 +1,6 @@
-namespace Toaster.Tests;
+using Toaster.Data;
+
+namespace Toaster.Tests.Data;
 
 public class AlternateSpellingsTests
 {

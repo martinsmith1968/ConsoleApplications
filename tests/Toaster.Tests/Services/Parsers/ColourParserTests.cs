@@ -1,6 +1,7 @@
 using System.Windows.Media;
+using Toaster.Services.Parsers;
 
-namespace Toaster.Tests;
+namespace Toaster.Tests.Services.Parsers;
 
 public class ColourParserTests
 {

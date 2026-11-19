@@ -1,4 +1,6 @@
-namespace Toaster.Tests;
+using Toaster.Services.Parsers;
+
+namespace Toaster.Tests.Services.Parsers;
 
 public class FontParserTests
 {
