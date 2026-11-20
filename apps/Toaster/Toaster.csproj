@@ -21,6 +21,10 @@
     <Deterministic>false</Deterministic>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Include="assets\toastx2.ico" />
   </ItemGroup>
