@@ -1,0 +1,30 @@
+{
+  "FileVersion": 2,
+  "Id": "2296b699-eec8-4ebb-ba25-293bbdb4fd8b",
+  "Items": [
+    {
+      "Id": "f13db5e2-8d0e-406a-818b-0ad2d9334b6c",
+      "Command": "Default",
+      "Items": [
+        {
+          "Id": "9c95b3d4-79c9-4f3d-97c8-bb29e8a90d41",
+          "Command": "\"Hello World\""
+        },
+        {
+          "Id": "f2b195f1-b28f-4d39-a3d4-7546e38982ef",
+          "Command": "--fn Chunky"
+        }
+      ]
+    },
+    {
+      "Id": "9e53a4f1-d58e-49f1-a687-aac00d4aae18",
+      "Command": "Help",
+      "Items": [
+        {
+          "Id": "481b80fe-fd24-4f58-823f-3120851618d4",
+          "Command": "-?"
+        }
+      ]
+    }
+  ]
+}

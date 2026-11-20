@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FigLetText": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Hello World\" --fn Chunky"
+    }
+  }
+}
