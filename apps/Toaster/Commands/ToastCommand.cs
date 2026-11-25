@@ -4,6 +4,7 @@ using ConsoleApplications.Common.Interfaces;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using Toaster.Configuration;
+using Toaster.Converters;
 using Toaster.Requests;
 using Toaster.Services;
 using Toaster.Services.Parsers;
@@ -33,25 +34,25 @@ public class ToastCommand : Command<ToastCommand.Settings>, ICustomCommand
         [Description("The alignment of the Text")]
         [CommandOption($"--ta|--{nameof(TextAlignment)}", isRequired: false)]
         [DefaultValue(TextAlignmentType.Left)]
-        //[TypeConverter(typeof(AlternateSpellingEnumConverter))]
+        [TypeConverter(typeof(AlternateSpellingEnumConverter<TextAlignmentType>))]
         public TextAlignmentType TextAlignment { get; set; }
 
         [Description("The alignment of the Title")]
         [CommandOption($"--tia|--{nameof(TitleAlignment)}", isRequired: false)]
         [DefaultValue(TextAlignmentType.Left)]
-        //[TypeConverter(typeof(AlternateSpellingEnumConverter))]
+        [TypeConverter(typeof(AlternateSpellingEnumConverter<TextAlignmentType>))]
         public TextAlignmentType TitleAlignment { get; set; }
 
         [Description("Location for where the Toast popup shows")]
         [CommandOption($"-l|--{nameof(Location)}", isRequired: false)]
         [DefaultValue(ToastLocationType.BottomRight)]
-        //[TypeConverter(typeof(AlternateSpellingEnumConverter))]
+        [TypeConverter(typeof(AlternateSpellingEnumConverter<ToastLocationType>))]
         public ToastLocationType Location { get; set; }
 
         [Description("Monitor for where the Toast popup shows")]
         [CommandOption($"-m|--{nameof(Monitor)}", isRequired: false)]
         [DefaultValue(ToastMonitorType.Primary)]
-        //[TypeConverter(typeof(AlternateSpellingEnumConverter))]
+        [TypeConverter(typeof(AlternateSpellingEnumConverter<ToastMonitorType>))]
         public ToastMonitorType Monitor { get; set; }
 
         [Description("Background color for the toast popup")]
@@ -61,7 +62,7 @@ public class ToastCommand : Command<ToastCommand.Settings>, ICustomCommand
         [Description("Background Fill style for the toast popup")]
         [CommandOption($"--bgf|--{nameof(BackgroundFillStyle)}", isRequired: false)]
         [DefaultValue(GradientFillStyleType.Solid)]
-        //[TypeConverter(typeof(AlternateSpellingEnumConverter))]
+        [TypeConverter(typeof(AlternateSpellingEnumConverter<GradientFillStyleType>))]
         public GradientFillStyleType BackgroundFillStyle { get; set; }
 
         [Description("Foreground color for the Text")]
@@ -104,18 +105,18 @@ public class ToastCommand : Command<ToastCommand.Settings>, ICustomCommand
         [Description("Base font size for the Title, in points")]
         [CommandOption($"--tifs|--{nameof(TitleFontSize)}", isRequired: false)]
         [DefaultValue(14.0)]
-        public double TitleFontSize { get; set; }
+        public double TitleFontSize { get; set; } = 14;
 
         [Description("Font style for the Text: Default (this element's own default), Regular, Bold, Italic or BoldItalic")]
         [CommandOption($"--tfst|--{nameof(TextFontStyle)}", isRequired: false)]
         [DefaultValue(FontStyleType.Default)]
-        //[TypeConverter(typeof(AlternateSpellingEnumConverter))]
+        [TypeConverter(typeof(AlternateSpellingEnumConverter<FontStyleType>))]
         public FontStyleType TextFontStyle { get; set; }
 
         [Description("Font style for the Title: Default (this element's own default), Regular, Bold, Italic or BoldItalic")]
         [CommandOption($"--tifst|--{nameof(TitleFontStyle)}", isRequired: false)]
         [DefaultValue(FontStyleType.Default)]
-        //[TypeConverter(typeof(AlternateSpellingEnumConverter))]
+        [TypeConverter(typeof(AlternateSpellingEnumConverter<FontStyleType>))]
         public FontStyleType TitleFontStyle { get; set; }
 
         public void CustomValidate()
