@@ -13,28 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ExpectedOutput\OutputTests\Simple_text_with_single_argument.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="ExpectedOutput\OutputTests\Format_with_multiple_arguments.txt" />
-    <EmbeddedResource Include="ExpectedOutput\OutputTests\Format_with_multiple_arguments_including_a_formatted_datetime.txt" />
-    <EmbeddedResource Include="ExpectedOutput\OutputTests\Format_with_multiple_arguments_including_a_formatted_date.txt" />
-    <EmbeddedResource Include="ExpectedOutput\OutputTests\Format_with_multiple_arguments_including_a_formatted_decimal.txt" />
-    <EmbeddedResource Include="ExpectedOutput\OutputTests\Format_with_multiple_arguments_including_a_formatted_integer.txt" />
-    <EmbeddedResource Include="ExpectedOutput\OutputTests\Simple_text_with_single_argument.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AutoFixture" Version="4.18.1" />
     <PackageReference Include="coverlet.collector" Version="10.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="DNX.Extensions" Version="1.4.25131.2031" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.15" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="Snapshooter.Xunit3" Version="1.3.1" />
     <PackageReference Include="xunit.v3" Version="4.0.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="4.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -44,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\apps\PrintFormat\PrintFormat.csproj" />
+    <ProjectReference Include="..\ConsoleApplications.Tests.Common\ConsoleApplications.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

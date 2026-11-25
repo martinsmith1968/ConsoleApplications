@@ -28,7 +28,7 @@
     },
     {
       "Id": "37d32581-5bc5-4a65-8ddb-1001652f631d",
-      "Command": "-h"
+      "Command": "--HideEmptyLocation"
     },
     {
       "Id": "f6670c1f-455b-466d-b7b0-ac818e070b50",

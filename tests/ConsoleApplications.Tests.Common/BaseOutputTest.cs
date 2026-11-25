@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace BannerText.Tests;
+namespace ConsoleApplications.Tests.Common;
 
 public abstract class BaseOutputTest
 {

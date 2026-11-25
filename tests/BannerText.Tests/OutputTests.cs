@@ -1,3 +1,4 @@
+using ConsoleApplications.Tests.Common;
 using Snapshooter.Xunit3;
 
 namespace BannerText.Tests;

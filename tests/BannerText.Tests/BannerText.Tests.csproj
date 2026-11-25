@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\apps\BannerText\BannerText.csproj" />
+    <ProjectReference Include="..\ConsoleApplications.Tests.Common\ConsoleApplications.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

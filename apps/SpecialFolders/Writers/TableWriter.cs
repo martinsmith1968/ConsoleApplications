@@ -1,4 +1,4 @@
-using SpecialFolders.Configuration;
+using SpecialFolders.Commands;
 using SpecialFolders.Writers.Interfaces;
 using Spectre.Console;
 
@@ -13,15 +13,15 @@ namespace SpecialFolders.Writers;
 /// </remarks>
 internal class TableWriter : IWriter
 {
-    public Task WriteOutputAsync(List<KeyValuePair<Environment.SpecialFolder, string>> items, Arguments arguments)
+    public Task WriteOutputAsync(List<KeyValuePair<Environment.SpecialFolder, string>> items, SpecialFoldersCommand.Settings settings)
     {
         var table = new Table();
 
-        if (arguments.ShowLineNumbers)
+        if (settings.ShowLineNumbers)
         {
             table.AddColumn("#", x => x.Alignment = Justify.Right);
         }
-        if (arguments.ShowFolderId)
+        if (settings.ShowFolderId)
         {
             table.AddColumn("Id");
         }
@@ -32,12 +32,12 @@ internal class TableWriter : IWriter
         {
             var data = new List<string>();
 
-            if (arguments.ShowLineNumbers)
+            if (settings.ShowLineNumbers)
             {
                 data.Add((table.Rows.Count + 1).ToString());
             }
 
-            if (arguments.ShowFolderId)
+            if (settings.ShowFolderId)
             {
                 data.Add(((int)sf.Key).ToString());
             }

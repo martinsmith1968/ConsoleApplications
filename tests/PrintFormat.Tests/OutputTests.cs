@@ -1,4 +1,5 @@
-using Shouldly;
+using ConsoleApplications.Tests.Common;
+using Snapshooter.Xunit3;
 
 namespace PrintFormat.Tests;
 
@@ -18,7 +19,7 @@ public class OutputTests : BaseOutputTest
 
         // Assert
         result.ShouldBe(0, ErrorText.ToString());
-        AssertExpectedOutput();
+        Snapshot.Match(OutputText.ToString());
     }
 
     [Fact]
@@ -36,7 +37,7 @@ public class OutputTests : BaseOutputTest
 
         // Assert
         result.ShouldBe(0, ErrorText.ToString());
-        AssertExpectedOutput();
+        Snapshot.Match(OutputText.ToString());
     }
 
     [Fact]
@@ -54,7 +55,7 @@ public class OutputTests : BaseOutputTest
 
         // Assert
         result.ShouldBe(0, ErrorText.ToString());
-        AssertExpectedOutput();
+        Snapshot.Match(OutputText.ToString());
     }
 
     [Fact]
@@ -72,7 +73,7 @@ public class OutputTests : BaseOutputTest
 
         // Assert
         result.ShouldBe(0, ErrorText.ToString());
-        AssertExpectedOutput();
+        Snapshot.Match(OutputText.ToString());
     }
 
     [Fact]
@@ -90,7 +91,7 @@ public class OutputTests : BaseOutputTest
 
         // Assert
         result.ShouldBe(0, ErrorText.ToString());
-        AssertExpectedOutput();
+        Snapshot.Match(OutputText.ToString());
     }
 
     [Fact]
@@ -108,6 +109,6 @@ public class OutputTests : BaseOutputTest
 
         // Assert
         result.ShouldBe(0, ErrorText.ToString());
-        AssertExpectedOutput();
+        Snapshot.Match(OutputText.ToString());
     }
 }

@@ -1,18 +1,18 @@
 using System.Text;
-using SpecialFolders.Configuration;
+using SpecialFolders.Commands;
 using SpecialFolders.Writers.Interfaces;
 
 namespace SpecialFolders.Writers;
 
 internal class StandardTextWriter : IWriter
 {
-    public async Task WriteOutputAsync(List<KeyValuePair<Environment.SpecialFolder, string>> items, Arguments arguments)
+    public async Task WriteOutputAsync(List<KeyValuePair<Environment.SpecialFolder, string>> items, SpecialFoldersCommand.Settings settings)
     {
         var maxLineNumberWidth = items.Count.ToString().Length;
 
         var maxIdWidth = items.Max(x => (int)x.Key).ToString().Length;
 
-        var maxNameWith = !arguments.CollapseNames
+        var maxNameWith = !settings.CollapseNames
             ? items.Max(sf => sf.Key.ToString().Length)
             : 0;
 
@@ -23,10 +23,10 @@ internal class StandardTextWriter : IWriter
 
             var line = new StringBuilder();
 
-            if (arguments.ShowLineNumbers)
+            if (settings.ShowLineNumbers)
                 line.Append(lineNumber.ToString().PadLeft(maxLineNumberWidth));
 
-            if (arguments.ShowFolderId)
+            if (settings.ShowFolderId)
             {
                 if (line.Length > 0)
                     line.Append(' ');
@@ -37,7 +37,7 @@ internal class StandardTextWriter : IWriter
                 line.Append(' ');
 
             line.Append(
-                arguments.CollapseNames
+                settings.CollapseNames
                     ? sf.Key.ToString()
                     : sf.Key.ToString().PadRight(maxNameWith)
             );

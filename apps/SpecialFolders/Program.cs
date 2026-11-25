@@ -1,7 +1,7 @@
-using Ookii.CommandLine;
-using SpecialFolders.Configuration;
-using SpecialFolders.Configuration.Types;
-using SpecialFolders.Writers;
+using ConsoleApplications.Common.CommandLine;
+using SpecialFolders.Commands;
+using Spectre.Console;
+using Spectre.Console.Cli;
 
 namespace SpecialFolders;
 
@@ -11,47 +11,23 @@ internal class Program
     {
         try
         {
-            var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
-                            ?? throw new Exception("Unable to Parse Command Line");
-            arguments.Validate();
+            var app = new CommandApp<SpecialFoldersCommand>();
+            app.Configure(config =>
+            {
+                CommonCommandApp.Configure(config);
+            });
 
-            await Process(arguments);
+            return await app.RunAsync(args);
         }
-        catch (Exception e)
+        catch (CommandRuntimeException ex)
         {
-            Console.WriteLine($"ERROR: {e.Message}");
+            AnsiConsole.MarkupLine($"[red]ERROR:[/] {ex.Message}");
             return 1;
         }
-
-        return 0;
-    }
-
-    private static async Task Process(Arguments arguments)
-    {
-        var specialFolders = Enum.GetValues<Environment.SpecialFolder>()
-            .Distinct()
-            .ToDictionary(
-                sf => sf,
-                Environment.GetFolderPath
-            );
-
-        var specialFoldersList = specialFolders
-                .Where(sf => string.IsNullOrWhiteSpace(arguments.Name?.ToString())
-                             ||  sf.Key == arguments.Name
-                    )
-                .Where(sf => !arguments.HideEmptyLocation || !string.IsNullOrWhiteSpace(sf.Value))
-                .ToList();
-
-        specialFoldersList = arguments.SortBy switch
+        catch (Exception ex)
         {
-            SortKey.Id => specialFoldersList.OrderBy(sf => (int)sf.Key).ToList(),
-            SortKey.Name => specialFoldersList.OrderBy(sf => sf.Key.ToString()).ToList(),
-            SortKey.Location => specialFoldersList.OrderBy(sf => sf.Value).ToList(),
-            _ => specialFoldersList
-        };
-
-        var writer = WriterFactory.CreateWriter(arguments.Writer);
-
-        await writer.WriteOutputAsync(specialFoldersList, arguments);
+            AnsiConsole.WriteException(ex, ExceptionFormats.ShortenEverything);
+            return 2;
+        }
     }
 }
