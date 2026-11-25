@@ -33,4 +33,8 @@
     <ProjectReference Include="..\..\libs\ConsoleApplications.Common\ConsoleApplications.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="BannerText.Tests" />
+  </ItemGroup>
+
 </Project>
