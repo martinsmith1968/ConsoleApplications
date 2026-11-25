@@ -4,7 +4,15 @@
   "Items": [
     {
       "Id": "a2d5eb1f-549d-4b83-9fae-0c7aea5e5b3b",
-      "Command": "-v"
+      "Command": "\"Hello World\""
+    },
+    {
+      "Id": "f2b195f1-b28f-4d39-a3d4-7546e38982ef",
+      "Command": "\"Hello World\" --ta Right"
+    },
+    {
+      "Id": "9e53a4f1-d58e-49f1-a687-aac00d4aae18",
+      "Command": "-?"
     }
   ]
 }

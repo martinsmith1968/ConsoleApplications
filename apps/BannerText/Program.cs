@@ -1,5 +1,7 @@
-using BannerText.Configuration;
-using Ookii.CommandLine;
+using BannerText.Commands;
+using ConsoleApplications.Common.CommandLine;
+using Spectre.Console;
+using Spectre.Console.Cli;
 
 namespace BannerText;
 
@@ -9,27 +11,25 @@ internal class Program
     {
         try
         {
-            var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
-                            ?? throw new Exception("Unable to Parse Command Line");
-            arguments.Validate();
+            var app = new CommandApp<BannerTextCommand>();
+            app.Configure(config =>
+            {
+                BannerTextCommand.GetExamples().ToList().ForEach(e => config.AddExample(e));
 
-            await ProcessAsync(arguments);
+                CommonCommandApp.Configure(config);
+            });
+
+            return await app.RunAsync(args);
         }
-        catch (Exception e)
+        catch (CommandRuntimeException ex)
         {
-            Console.WriteLine($"ERROR: {e.Message}");
+            AnsiConsole.MarkupLine($"[red]ERROR:[/] {ex.Message}");
             return 1;
         }
-
-        return 0;
-    }
-
-    private static async Task ProcessAsync(Arguments arguments)
-    {
-        // TODO:
-        foreach (var text in arguments.Text)
+        catch (Exception ex)
         {
-            await Console.Out.WriteLineAsync(text);
+            AnsiConsole.WriteException(ex, ExceptionFormats.ShortenEverything);
+            return 2;
         }
     }
 }
