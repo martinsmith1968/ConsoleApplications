@@ -1,5 +1,7 @@
-using Ookii.CommandLine;
-using PrintFormat.Configuration;
+using ConsoleApplications.Common.CommandLine;
+using PrintFormat.Commands;
+using Spectre.Console;
+using Spectre.Console.Cli;
 
 namespace PrintFormat;
 
@@ -9,45 +11,23 @@ public class Program
     {
         try
         {
-            var arguments = CommandLineParser.Parse<Arguments>(args, Arguments.Options)
-                            ?? throw new Exception("Unable to Parse Command Line");
-            arguments.Validate();
+            var app = new CommandApp<PrintFormatCommand>();
+            app.Configure(config =>
+            {
+                CommonCommandApp.Configure(config);
+            });
 
-            await Process(arguments);
+            return await app.RunAsync(args);
         }
-        catch (Exception e)
+        catch (CommandRuntimeException ex)
         {
-            Console.WriteLine($"ERROR: {e.Message}");
+            AnsiConsole.MarkupLine($"[red]ERROR:[/] {ex.Message}");
             return 1;
         }
-
-        return 0;
-    }
-
-    private static async Task Process(Arguments arguments)
-    {
-        var args = arguments.FormatArguments
-            .Select(GetBestType)
-            .ToArray();
-        var text = string.Format(arguments.Format ?? string.Empty, args);
-
-        await Console.Out.WriteLineAsync(text);
-    }
-
-    private static object GetBestType(string value)
-    {
-        if (decimal.TryParse(value, out var decimalResult))
-            return decimalResult;
-
-        if (int.TryParse(value, out var intResult))
-            return intResult;
-
-        if (DateOnly.TryParse(value, out var dateOnlyValue))
-            return dateOnlyValue;
-
-        if (DateTime.TryParse(value, out var dateTimeValue))
-            return dateTimeValue;
-
-        return value;
+        catch (Exception ex)
+        {
+            AnsiConsole.WriteException(ex, ExceptionFormats.ShortenEverything);
+            return 2;
+        }
     }
 }

@@ -9,13 +9,13 @@ Tracks which command-line parsing library each app uses, as part of the effort t
 - FigLetText
 - GUIDGenerator
 - PauseN
+- PrintFormat
 - Toaster
 - VarList
 
 ## Ookii.CommandLine (to be converted)
 
 - IniFileHandler
-- PrintFormat
 - SpecialFolders
 - TomlFileHandler
 
