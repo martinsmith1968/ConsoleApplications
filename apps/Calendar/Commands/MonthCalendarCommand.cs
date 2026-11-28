@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Calendar.Extensions;
+using Calendar.Services;
 using ConsoleApplications.Common.CommandLine;
 using ConsoleApplications.Common.Interfaces;
 using Spectre.Console;
@@ -7,6 +8,7 @@ using Spectre.Console.Cli;
 
 namespace Calendar.Commands;
 
+[Description("Show a calendar for a single month")]
 public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings>, ICustomCommand
 {
     public static string GetCommandName() => "month";
@@ -22,7 +24,7 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
         public int? Month { get; set; }
 
         [Description("Hide the header showing the Year and Month details")]
-        [CommandOption("-h|--hide-header", isRequired: false)]
+        [CommandOption("--hide-header", isRequired: false)]
         [DefaultValue(false)]
         public bool HideHeader { get; set; }
 
@@ -35,6 +37,19 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
         [CommandOption("-e|--events-table", isRequired: false)]
         [DefaultValue(false)]
         public bool ShowEventsTable { get; set; }
+
+        [Description("A CSV file of events to show (Date,Description,Category - Category is a Spectre.Console style, e.g. \"yellow bold\")")]
+        [CommandOption("--ef|--events-file", isRequired: false)]
+        public FileInfo? EventsFile { get; set; }
+
+        public void CustomValidate()
+        {
+            if (Month is < 1 or > 12)
+                throw new ArgumentOutOfRangeException(nameof(Month), "Value must be between 1 and 12");
+
+            if (EventsFile is { Exists: false })
+                throw new FileNotFoundException($"Events file not found: {EventsFile.FullName}", EventsFile.FullName);
+        }
     }
 
     public static IList<string[]> GetExamples()
@@ -45,11 +60,22 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
         };
     }
 
+    public override ValidationResult Validate(CommandContext context, Settings settings)
+    {
+        try
+        {
+            settings.CustomValidate();
+
+            return base.Validate(context, settings);
+        }
+        catch (Exception ex)
+        {
+            return ValidationResult.Error(ex.Message);
+        }
+    }
+
     public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
-        var utcNow = DateTime.UtcNow.Date;
-        var now = DateTime.Now.Date;
-
         var year = settings.Year ?? DateTime.UtcNow.Year;
         var month = settings.Month ?? DateTime.UtcNow.Month;
 
@@ -58,13 +84,10 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
         if (settings.HideHeader)
             calendar.HideHeader();
 
-        if (!settings.NoHighlightToday)
-        {
-            calendar.AddCalendarEvent("Now", now, Style.Parse("yellow bold"));
-            calendar.AddCalendarEvent("UTC Now", utcNow, Style.Parse("yellow bold"));
-        }
+        calendar.AddDefaultEvents(!settings.NoHighlightToday);
 
-        calendar.AddCalendarEvent("My Birthday", 1968, 8, 11, Style.Parse("blue bold"));
+        if (settings.EventsFile is not null)
+            calendar.AddEvents(EventsFileReader.Read(settings.EventsFile));
 
         AnsiConsole.Write(calendar);
 
@@ -85,9 +108,6 @@ public sealed class MonthCalendarCommand : Command<MonthCalendarCommand.Settings
                 table.AddRow(dt.ToString("yyyy-MM-dd"), dt.DayOfWeek.ToString(), ev.Description);
             }
 
-            //table.AddRow(utcNow.ToString("yyyy-MM-dd"), utcNow.ToString("dddd"), "UTC Now");
-            //if (now != utcNow)
-            //    table.AddRow(now.ToString("yyyy-MM-dd"), now.ToString("dddd"), "Local Now");
             AnsiConsole.WriteLine();
             AnsiConsole.Write(table);
         }

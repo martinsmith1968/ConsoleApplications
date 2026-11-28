@@ -1,5 +1,6 @@
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using Calendar.Extensions;
+using Calendar.Services;
 using ConsoleApplications.Common.CommandLine;
 using ConsoleApplications.Common.Interfaces;
 using Spectre.Console;
@@ -8,6 +9,7 @@ using Spectre.Console.Rendering;
 
 namespace Calendar.Commands;
 
+[Description("Show a grid of calendars covering a range of months in a year")]
 public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>, ICustomCommand
 {
     public static string GetCommandName() => "year";
@@ -18,21 +20,44 @@ public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>,
         [CommandOption("-y|--year", isRequired: false)]
         public int? Year { get; set; }
 
-        [Description("How many months width to draw")]
+        [Description("The maximum number of months to place side by side per row (fewer are shown if the terminal is too narrow)")]
         [CommandOption("-w|--width", isRequired: false)]
         [DefaultValue(3)]
-        public int Width { get; set; }
+        public int Width { get; set; } = 3;
 
         [Description("The first month to show")]
         [CommandOption("-f|--first-month", isRequired: false)]
         [DefaultValue(1)]
-        public int FirstMonth { get; set; }
+        public int FirstMonth { get; set; } = 1;
 
         [Description("The total number of months to show")]
         [CommandOption("-t|--total-months", isRequired: false)]
         [DefaultValue(12)]
-        [Range(1, 12)]
-        public int TotalMonths { get; set; }
+        public int TotalMonths { get; set; } = 12;
+
+        [Description("Don't show a highlight for today (if in the shown calendars)")]
+        [CommandOption("-n|--no-highlight-today", isRequired: false)]
+        [DefaultValue(false)]
+        public bool NoHighlightToday { get; set; }
+
+        [Description("A CSV file of events to show (Date,Description,Category - Category is a Spectre.Console style, e.g. \"yellow bold\")")]
+        [CommandOption("--ef|--events-file", isRequired: false)]
+        public FileInfo? EventsFile { get; set; }
+
+        public void CustomValidate()
+        {
+            if (Width < 1)
+                throw new ArgumentOutOfRangeException(nameof(Width), "Value must be greater than zero");
+
+            if (FirstMonth is < 1 or > 12)
+                throw new ArgumentOutOfRangeException(nameof(FirstMonth), "Value must be between 1 and 12");
+
+            if (TotalMonths < 1)
+                throw new ArgumentOutOfRangeException(nameof(TotalMonths), "Value must be greater than zero");
+
+            if (EventsFile is { Exists: false })
+                throw new FileNotFoundException($"Events file not found: {EventsFile.FullName}", EventsFile.FullName);
+        }
     }
 
     public static IList<string[]> GetExamples()
@@ -44,55 +69,49 @@ public sealed class YearCalendarCommand : Command<YearCalendarCommand.Settings>,
         };
     }
 
+    public override ValidationResult Validate(CommandContext context, Settings settings)
+    {
+        try
+        {
+            settings.CustomValidate();
+
+            return base.Validate(context, settings);
+        }
+        catch (Exception ex)
+        {
+            return ValidationResult.Error(ex.Message);
+        }
+    }
+
     public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
-        var utcNow = DateTime.UtcNow.Date;
-        var now = DateTime.Now.Date;
-
         var year = settings.Year ?? DateTime.UtcNow.Year;
 
+        var csvEvents = settings.EventsFile is not null
+            ? EventsFileReader.Read(settings.EventsFile)
+            : [];
 
+        var calendars = new List<IRenderable>();
 
-        var table = new Table()
+        var month = settings.FirstMonth;
+        var monthsShown = 0;
+
+        while (monthsShown < settings.TotalMonths && month <= 12)
         {
-            //Expand = true
+            var calendar = new Spectre.Console.Calendar(year, month);
+            calendar.AddDefaultEvents(!settings.NoHighlightToday);
+            calendar.AddEvents(csvEvents);
 
-        };
+            calendars.Add(calendar);
 
-        for (var x = 0; x < settings.Width; x++)
-        {
-            table.AddColumn(new TableColumn("").Centered());
+            month++;
+            monthsShown++;
         }
 
-
-        for (var month = settings.FirstMonth; month <= settings.TotalMonths; month += settings.Width)
+        foreach (var row in calendars.Chunk(settings.Width))
         {
-            var row = new List<IRenderable>();
-            for (var x = 0; x < settings.Width; x++)
-            {
-                if (month + x <= 12)
-                {
-                    var calendar = new Spectre.Console.Calendar(year, month + x);
-                    //calendar.HideHeader();
-                    calendar.AddCalendarEvent("My Birthday", 1968, 8, 11, Style.Parse("blue bold"));
-                    calendar.AddCalendarEvent("Now", now, Style.Parse("yellow bold"));
-                    calendar.AddCalendarEvent("UTC Now", utcNow, Style.Parse("yellow bold"));
-                    row.Add(calendar);
-                }
-                else
-                {
-                    row.Add(new Markup(""));
-                }
-            }
-            table.AddRow(row);
+            AnsiConsole.Write(new Columns(row));
         }
-
-
-
-
-
-        AnsiConsole.Write(table);
-
 
         return 0;
     }

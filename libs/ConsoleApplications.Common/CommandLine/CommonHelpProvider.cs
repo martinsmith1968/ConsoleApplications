@@ -69,6 +69,156 @@ public class CommonHelpProvider : HelpProvider
     }
 
     /// <summary>
+    /// Gets the options section of the help information.
+    /// </summary>
+    /// <param name="model">The command model to write help for.</param>
+    /// <param name="command">The command for which to write help information (optional).</param>
+    /// <returns>
+    /// An enumerable collection of <see cref="T:Spectre.Console.Rendering.IRenderable" /> objects.
+    /// </returns>
+    /// <remarks>
+    /// Cloned from Spectre.Console's own <see cref="HelpProvider"/>, because its version only ever shows the
+    /// first short name and first long name of an option (<c>ShortNames.FirstOrDefault()</c> /
+    /// <c>LongNames.FirstOrDefault()</c>) - any further aliases (e.g. "--ef|--events-file") are silently
+    /// dropped from the rendered help, even though they still work as real arguments. This override lists
+    /// every alias instead.
+    /// </remarks>
+    public override IEnumerable<IRenderable> GetOptions(ICommandModel model, ICommandInfo? command)
+    {
+        var rows = GetOptionRows(model, command);
+        if (rows.Count == 0)
+            return [];
+
+        var showDefaults = ShowOptionDefaultValues && rows.Any(r => r.DefaultValue is not null);
+
+        var grid = new Grid();
+        grid.AddColumn(new GridColumn { Padding = new Padding(4, 4), NoWrap = true });
+        if (showDefaults)
+            grid.AddColumn(new GridColumn { Padding = new Padding(0, 0, 4, 0) });
+        grid.AddColumn(new GridColumn { Padding = new Padding(0, 0) });
+
+        if (showDefaults)
+        {
+            var defaultValueHeaderStyle = _helpProviderStyles?.Options?.DefaultValueHeader ?? Style.Plain;
+
+            grid.AddRow(new Markup(" "), new Markup("DEFAULT", defaultValueHeaderStyle), new Markup(" "));
+        }
+
+        foreach (var row in rows)
+        {
+            var cells = new List<IRenderable> { new Markup(BuildOptionNamesMarkup(row)) };
+
+            if (showDefaults)
+                cells.Add(BuildDefaultValueMarkup(row.DefaultValue));
+
+            var description = row.Description;
+            if (row.IsRequired)
+            {
+                description = string.IsNullOrWhiteSpace(description)
+                    ? "[i]Required[/]"
+                    : description.TrimEnd('.') + ". [i]Required[/]";
+            }
+
+            cells.Add(new Markup(NormalizeDescription(description)));
+
+            grid.AddRow(cells.ToArray());
+        }
+
+        return
+        [
+            Text.NewLine,
+            new Markup("OPTIONS:", _helpProviderStyles?.Options?.Header ?? Style.Plain),
+            Text.NewLine,
+            grid,
+        ];
+    }
+
+    /// <summary>A single row in the options help table - every alias, not just the first of each kind.</summary>
+    private sealed record OptionRow(
+        IReadOnlyList<string> ShortNames,
+        IReadOnlyList<string> LongNames,
+        string? ValueName,
+        bool ValueIsOptional,
+        bool IsRequired,
+        string? Description,
+        object? DefaultValue);
+
+    private static IReadOnlyList<OptionRow> GetOptionRows(ICommandModel model, ICommandInfo? command)
+    {
+        var rows = new List<OptionRow>
+        {
+            new(["h"], ["help"], null, false, false, "Prints help information", null),
+        };
+
+        if (command?.Parent is null && (command is null || !command.IsBranch) && (command is null || command.IsDefaultCommand))
+        {
+            var hasVersionOption = command?.Parameters.OfType<ICommandOption>()
+                .Any(o => o.ShortNames.Any(v => v.Equals("v", StringComparison.OrdinalIgnoreCase))
+                          || o.LongNames.Any(v => v.Equals("version", StringComparison.OrdinalIgnoreCase))) ?? false;
+
+            if (!hasVersionOption && model.ApplicationVersion is not null)
+                rows.Add(new OptionRow(["v"], ["version"], null, false, false, "Prints version information", null));
+        }
+
+        if (command is not null)
+        {
+            foreach (var option in command.Parameters.OfType<ICommandOption>().Where(o => !o.IsHidden))
+            {
+                var defaultValue = option.IsFlag && option.DefaultValue?.Value is false
+                    ? null
+                    : option.DefaultValue?.Value;
+
+                rows.Add(new OptionRow(option.ShortNames, option.LongNames, option.ValueName, option.ValueIsOptional, option.IsRequired, option.Description, defaultValue));
+            }
+        }
+
+        return rows;
+    }
+
+    private string BuildOptionNamesMarkup(OptionRow row)
+    {
+        var names = string.Join(", ", row.ShortNames.Select(s => $"-{s}").Concat(row.LongNames.Select(l => $"--{l}")));
+
+        if (row.ValueName is null)
+            return names;
+
+        var valueStyle = row.ValueIsOptional
+            ? _helpProviderStyles?.Options?.OptionalOptionValue ?? Style.Plain
+            : _helpProviderStyles?.Options?.RequiredOptionValue ?? Style.Plain;
+
+        var valueText = row.ValueIsOptional ? $"[{row.ValueName}]" : $"<{row.ValueName}>";
+
+        return $"{names} [{valueStyle.ToMarkup()}]{valueText.EscapeMarkup()}[/]";
+    }
+
+    private Markup BuildDefaultValueMarkup(object? defaultValue)
+    {
+        var style = _helpProviderStyles?.Options?.DefaultValue ?? Style.Plain;
+
+        switch (defaultValue)
+        {
+            case null:
+            case string { Length: 0 }:
+                return new Markup(" ");
+            case Array { Length: 0 }:
+                return new Markup(" ");
+            case Array array:
+                var joined = string.Join(", ", array.Cast<object>().Select(o => (o.ToString() ?? string.Empty).EscapeMarkup()));
+                return new Markup(joined, style);
+            default:
+                return new Markup((defaultValue.ToString() ?? string.Empty).EscapeMarkup(), style);
+        }
+    }
+
+    private string NormalizeDescription(string? description)
+    {
+        if (description is null)
+            return " ";
+
+        return TrimTrailingPeriod ? description.TrimEnd('.') : description;
+    }
+
+    /// <summary>
     /// Gets the footer for the help information, including any notes contributed by an <see cref="ICustomCommand"/>.
     /// </summary>
     /// <param name="model">The command model to write help for.</param>
